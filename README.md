@@ -11,11 +11,7 @@ User Input Mappings
 ```
 <mapping name="LeftY_Axis" type="Axis" >
   ...
-  <button id="IK_W" val="1.0" overridableUI="forward"/>
-  <button id="IK_CapsLock" val="0" overridableUI="forward"/>
-  
-  <button id="IK_S" val="-1.0" overridableUI="back"/>
-  <button id="IK_CapsLock" val="0" overridableUI="back"/>
+  <button id="IK_CapsLock" val="0" overridableUI="slowWalk"/>
   ...
 </mapping>
 ```
@@ -24,14 +20,11 @@ User Input Mappings
 ```
 <mapping name="LeftX_Axis" type="Axis" >
   ...
-  <button id="IK_A" val="-1.0" overridableUI="left"/>
-  <button id="IK_CapsLock" val="0" overridableUI="left"/>
-
-  <button id="IK_D" val="1.0" overridableUI="right"/>
-  <button id="IK_CapsLock" val="0" overridableUI="right"/>
+  <button id="IK_CapsLock" val="0" overridableUI="slowWalk"/>
   ...
 </mapping>
 ```
+
 ### Enable additional keymaps
 Use case: view & edit keymap for quickly opening the consumables inventory. 
 ```
