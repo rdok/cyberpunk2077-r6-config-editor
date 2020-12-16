@@ -3,10 +3,10 @@
 User Input Mappings
 
 ```
-"${CYBERPUNK_2077}\r6\config\inputUserMappings.xml"
+"${CYBERPUNK_2077_INSTALLATION_PATH}\r6\config\inputUserMappings.xml"
 ```
 
-### Hold capslock to walk:
+### Hold capslock to move
 ##### Forward / Back
 ```
 <mapping name="LeftY_Axis" type="Axis" >
