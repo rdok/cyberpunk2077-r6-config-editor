@@ -36,3 +36,6 @@ Use case: view & edit keymap for quickly opening the consumables inventory.
   ...
 </context>
 ```
+
+### Performance tweaks
+Setup https://github.com/yamashi/PerformanceOverhaulCyberpunk/wiki
