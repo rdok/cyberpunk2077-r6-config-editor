@@ -24,3 +24,16 @@ User Input Mappings
   ...
 </mapping>
 ```
+
+### Development
+`make`
+
+##### Windows
+```
+vagrant up 
+vagrant ssh
+```
+
+```
+
+```
