@@ -24,18 +24,3 @@ User Input Mappings
   ...
 </mapping>
 ```
-
-### Enable additional keymaps
-Use case: view & edit keymap for quickly opening the consumables inventory. 
-```
-<context name="SettingsUI">
-  ...
-  <include name="UIExploration" />
-  <include name="UIShared" />
-  <include name="UIMenu" />
-  ...
-</context>
-```
-
-### Performance tweaks
-Setup https://github.com/yamashi/PerformanceOverhaulCyberpunk/wiki
