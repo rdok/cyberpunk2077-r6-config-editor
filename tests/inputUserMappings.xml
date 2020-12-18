@@ -1,0 +1,7 @@
+<bindings>
+    <mapping name="LeftY_Axis" type="Axis">
+        <button id="IK_Pad_LeftAxisY" />
+        <button id="IK_W" val="1.0" overridableUI="forward" />
+        <button id="IK_S" val="-1.0" overridableUI="back" />
+    <button id="IK_CapsLock" val="0" overridableUI="forward" /><button id="IK_CapsLock" val="0" overridableUI="forward" /></mapping>
+</bindings>
