@@ -23,7 +23,7 @@ jobs:
           python-version: 3.8
       - name: Lint
         run: .\scripts\lint.ps1
-  build-exe:
+  executable:
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v2
