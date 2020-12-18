@@ -6,7 +6,7 @@ on:
     branches-ignore:
       - '!main'
 jobs:
-  release:
+  test-lint:
     runs-on: windows-2019
     steps:
     - uses: actions/checkout@v2
@@ -17,25 +17,34 @@ jobs:
       run: .\scripts\test.ps1
     - name: Lint
       run: .\scripts\lint.ps1
-    - name: build
-      run: |
-        .\scripts\create-exe.ps1
-        tar -c -f dist.zip dist readme.md
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-    - name: Upload Release Asset
-      id: upload-release-asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./dist.zip
-        asset_name: dist.zip
-        asset_content_type: application/zip
+
+  build-release:
+    needs: test-lint
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: build
+        run: |
+          .\scripts\build.ps1
+          tar -c -f dist.zip dist specs.md
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+      - name: Upload Release Asset
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./dist.zip
+          asset_name: dist.zip
+          asset_content_type: application/zip

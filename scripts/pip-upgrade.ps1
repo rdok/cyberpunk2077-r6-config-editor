@@ -1,5 +1,5 @@
 $ScriptDir = Split-Path $script:MyInvocation.MyCommand.Path
-. ${ScriptDir}\setup-venv.ps1
+. ${ScriptDir}\setup-venv.ps1 -env dev
 
 $RootDir = "${ScriptDir}\.."
 
