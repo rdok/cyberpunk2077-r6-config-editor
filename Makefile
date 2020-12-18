@@ -4,9 +4,6 @@ start: venv
 test: venv
 	pytest
 
-test-watch: venv
-	ptw --poll
-
 lint: venv
 	flake8 src
 
