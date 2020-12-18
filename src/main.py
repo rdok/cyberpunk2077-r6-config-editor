@@ -14,7 +14,8 @@ def main(args):
     filename = os.path.join(DIR_NAME, args.input_user_mappings_path)
     tree = ElementTree.parse(filename)
 
-    y_axis_movement_el = tree.find('.//mapping[@name="LeftY_Axis"][@type="Axis"]')
+    xpath = './/mapping[@name="LeftY_Axis"][@type="Axis"]'
+    y_axis_movement_el = tree.find(xpath)
 
     SubElement(
         y_axis_movement_el,
