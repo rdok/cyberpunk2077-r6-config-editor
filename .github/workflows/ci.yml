@@ -14,3 +14,5 @@ jobs:
         python-version: 3.8
     - name: Test
       run: .\scripts\test.ps1
+    - name: Lint
+      run: .\scripts\lint.ps1

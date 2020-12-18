@@ -1,8 +1,10 @@
-import sys, getopt
 import os
+import sys
 from xml.etree import ElementTree
 
-dirname = os.path.dirname(__file__)
+import getopt
+
+DIR_NAME = os.path.dirname(__file__)
 
 
 def capitilize_message(value):
@@ -14,7 +16,7 @@ def main(argv):
 
     opts, args = getopt.getopt(argv, "hi:o:", ["ifile=", "ofile="])
 
-    filename = os.path.join(dirname, INPUT_USER_MAPPINGS_REL_PATH)
+    filename = os.path.join(DIR_NAME, INPUT_USER_MAPPINGS_REL_PATH)
     tree = ElementTree.parse(filename)
     root = tree.getroot()
 
