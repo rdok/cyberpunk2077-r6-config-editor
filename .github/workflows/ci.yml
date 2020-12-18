@@ -33,7 +33,7 @@ jobs:
       - name: Executable
         run: .\scripts\create-exe.ps1
       - name: Save dist
-      - uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v2
         with:
           name: dist
           path: dist
