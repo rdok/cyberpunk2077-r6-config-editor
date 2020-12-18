@@ -3,5 +3,6 @@
 
 
 ### Development
+> Requires latest 3.* Python version.
 
 See `scripts` for developer commands. Such as `.\scripts\test-watch.ps1`

@@ -30,5 +30,10 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - name: Lint
+      - name: Executable
         run: .\scripts\create-exe.ps1
+      - name: Save dist
+      - uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: dist
