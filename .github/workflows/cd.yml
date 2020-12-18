@@ -2,7 +2,9 @@ name: CD
 on:
   push:
     tags:
-      - 'v*'
+      - 'v1.*'
+    branches:
+      - debugging
 jobs:
   release:
     runs-on: windows-2019
@@ -18,7 +20,7 @@ jobs:
     - name: build
       run: |
         .\scripts\create-exe.ps1
-        zip --junk-paths dist readme.md
+        tar -c -f dist.zip dist readme.md
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
