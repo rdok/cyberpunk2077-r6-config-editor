@@ -1,9 +1,9 @@
 $ScriptDir = Split-Path $script:MyInvocation.MyCommand.Path
-$RootDir = "${ScriptDir}/.."
+$RootDir = "${ScriptDir}\.."
 Set-Location ${RootDir}
 
-python -m venv .venv
+python3 -m venv .venv
+
+. ${RootDir}\.venv\Scripts\Activate.ps1
 
 pip install -r requirements.lock
-
-. ${RootDir}\.venv\Scripts\Activate.ps1;
