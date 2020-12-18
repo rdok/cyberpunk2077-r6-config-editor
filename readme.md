@@ -1,5 +1,6 @@
 # cyberpunk2077
 ![CI](https://github.com/rdok/cyberpunk2077-accessibility/workflows/CI/badge.svg)
+![CD](https://github.com/rdok/cyberpunk2077-accessibility/workflows/CD/badge.svg)
 
 
 ### Development
