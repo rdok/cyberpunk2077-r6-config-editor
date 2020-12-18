@@ -12,6 +12,7 @@ lint: venv
 
 venv: ~/.venv
 	. ~/.venv/bin/activate
+	make pip3-install
 
 ~/.venv:
 	python3 -m venv ~/.venv
