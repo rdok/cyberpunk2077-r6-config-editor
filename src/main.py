@@ -14,8 +14,17 @@ def main(args):
     filename = os.path.join(DIR_NAME, args.input_user_mappings_path)
     tree = ElementTree.parse(filename)
 
-    xpath = './/mapping[@name="LeftY_Axis"][@type="Axis"]'
-    y_axis_movement_el = tree.find(xpath)
+    y_axis_mappings_xpath = './/mapping[@name="LeftY_Axis"][@type="Axis"]'
+    y_axis_movement_el = tree.find(y_axis_mappings_xpath)
+
+    slow_walk_xpath = '{0}{1}'.format(
+        y_axis_mappings_xpath,
+        '//button[@id="IK_CapsLock"][@val="0"][@overridableUI="forward"]'
+    )
+    slow_walk_el = tree.find(slow_walk_xpath)
+
+    if slow_walk_el is not None:
+        return
 
     SubElement(
         y_axis_movement_el,

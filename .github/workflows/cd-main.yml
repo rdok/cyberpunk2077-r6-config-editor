@@ -1,7 +1,7 @@
 name: CD-main
 on:
   push:
-    branches: [main-debugging]
+    branches: [main]
 jobs:
   test:
     runs-on: windows-2019
