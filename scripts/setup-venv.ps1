@@ -19,5 +19,5 @@ If ($env -eq 'prod')
 {
     pip install -r requirements.prod.lock
 } else {
-    pip install -r requirements.prod.lock -r requirements.dev.lock
+    pip -q install -r requirements.prod.lock -r requirements.dev.lock
 }

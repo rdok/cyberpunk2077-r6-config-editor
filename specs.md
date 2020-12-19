@@ -1,4 +1,12 @@
-User Input Mappings
+## Installation
+- Download `dist.zip`
+- Extract `dist/cyberpunk2077-accessibility.exe` to the cyberpunk 2077 installation directory. 
+- Execute said exe file.
+
+## Features
+Modifies Cyberpunk 2077 input user mapping to add accessibility features. Such as button to walk.
+
+#### User Input Mappings
 
 ```
 "${CYBERPUNK_2077_INSTALLATION_PATH}\r6\config\inputUserMappings.xml"
