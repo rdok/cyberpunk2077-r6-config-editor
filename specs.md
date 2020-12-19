@@ -1,5 +1,5 @@
 ## Installation
-- Download `dist.zip`
+- Download `cyberpunk2077-usability.zip`
 - Extract `dist/cyberpunk2077-usability.exe` to the cyberpunk 2077 installation directory. 
 - Execute said exe file.
 

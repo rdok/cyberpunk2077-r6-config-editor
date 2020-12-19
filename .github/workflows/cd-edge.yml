@@ -27,7 +27,7 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
-      - name: build
+      - name: Build
         run: |
           .\scripts\build.ps1
           tar -c -f cyberpunk2077-usability.zip dist specs.md
