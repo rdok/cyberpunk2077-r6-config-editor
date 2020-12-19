@@ -1,11 +1,9 @@
-# cyberpunk2077 accessibility
-![CI](https://github.com/rdok/cyberpunk2077-accessibility/workflows/CI/badge.svg)
-![CD](https://github.com/rdok/cyberpunk2077-accessibility/workflows/CD/badge.svg)
+# cyberpunk2077 usability
+![CD](https://github.com/rdok/cyberpunk2077-usability/workflows/CD-stable/badge.svg)
 
-Modifies Cyberpunk 2077 input user mapping to add accessibility features. 
+Modifies Cyberpunk 2077 input user mappings to increase usability.
 
 Such as button to walk.
-
 
 ### Development
 > Requires latest 3.* Python version.
