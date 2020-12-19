@@ -1,5 +1,5 @@
 ## Installation
-- Download `dist.zip`
+- Download `cyberpunk2077-accessibility.zip`
 - Extract `dist/cyberpunk2077-accessibility.exe` to the cyberpunk 2077 installation directory. 
 - Execute said exe file.
 
