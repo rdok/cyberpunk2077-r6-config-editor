@@ -3,4 +3,4 @@ $ScriptDir = Split-Path $script:MyInvocation.MyCommand.Path
 
 Set-Location ${ScriptDir}\..
 
-pyinstaller --onefile src\main.py
+pyinstaller --onefile src\main.py --name cyberpunk2077-accessibility
