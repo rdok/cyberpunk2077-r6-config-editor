@@ -1,23 +1,26 @@
-name: CD
+name: CD-tags
 on:
   push:
     tags: ['v[0-9]+.[0-9]+.[0-9]+']
-    branches: [main]
 jobs:
-  test-lint:
+  test:
     runs-on: windows-2019
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
       with:
         python-version: 3.8
-    - name: Test
-      run: .\scripts\test.ps1
-    - name: Lint
-      run: .\scripts\lint.ps1
-
+    - run: .\scripts\test.ps1
+  lint:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - run: .\scripts\lint.ps1
   build-release:
-    needs: test-lint
+    needs: [test, lint]
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v2
