@@ -1,17 +1,22 @@
 from xml.etree.ElementTree import SubElement
 
+from src.transformers.key_transformer import KeyTransformer
 
-class SlowWalkElement:
+
+class Button:
+    def __init__(self, key_transformer: KeyTransformer):
+        self.key_transformer = key_transformer
+
     def append_to(self, mappings_xpath, element_tree, mapping_entry):
         walk_overridable_ui = 'slowWalk'
-        id = 'IK_' + self.mapKeysToCyberpunk2077(mapping_entry)
+        id = 'IK_' + self.key_transformer.transform(mapping_entry)
 
         btn_el_xpath = \
             '{0}//button[@id="{1}"][@val="0"][@overridableUI="{2}"]'.format(
-            id,
-            mapping_entry,
-            walk_overridable_ui
-        )
+                id,
+                mapping_entry,
+                walk_overridable_ui
+            )
         slow_walk_button_element = element_tree.find(
             btn_el_xpath
         )
@@ -29,13 +34,3 @@ class SlowWalkElement:
         element.tail = '\n'
 
         return True
-
-    def mapKeysToCyberpunk2077(self, mapping_entry):
-        if mapping_entry == 'Caps_Lock':
-            return 'CapsLock'
-
-        if mapping_entry.startswith('Alt_'):
-            return 'Alt'
-
-        if mapping_entry.startswith('Control_'):
-            return 'Ctrl'

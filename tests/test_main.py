@@ -1,18 +1,12 @@
 from argparse import ArgumentParser
-from tkinter import Tk
 from unittest.mock import MagicMock, patch
 
 from src import main
-from src.services.slow_walk_element import SlowWalkElement
+from src.ioc import IOC
 
+ioc = IOC()
 argument_parser = MagicMock(spec=ArgumentParser)
-tkinter = MagicMock(spec=Tk)
-
-ioc = {
-    SlowWalkElement.__name__: MagicMock(spec=SlowWalkElement),
-    ArgumentParser.__name__: argument_parser,
-    Tk.__name__: tkinter,
-}
+ioc.set(ArgumentParser, argument_parser)
 
 
 @patch('src.main.GUI')
@@ -27,6 +21,8 @@ def test_it_creates_the_gui(gui):
     )
 
     gui.assert_called_once_with(
-        tkinter, argument_parser.parse_args.return_value, ioc
+        ioc=ioc, args=argument_parser.parse_args.return_value
     )
+
+    gui.return_value.create_slow_walk_mapper.assert_called_once()
     gui.return_value.mainloop.assert_called_once()

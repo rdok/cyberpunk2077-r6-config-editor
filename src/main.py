@@ -1,14 +1,12 @@
 from argparse import ArgumentParser
-from tkinter import Tk
 
+from src.config import Config
 from src.gui import GUI
-from src.services.slow_walk_element import SlowWalkElement
+from src.ioc import IOC
 
 
-def main(ioc: dict):
-    argument_parser = ioc.get(ArgumentParser.__name__)
-    tk = ioc.get(Tk.__name__)
-
+def main(ioc: IOC):
+    argument_parser = ioc.get(ArgumentParser)
     argument_parser.add_argument(
         "-i",
         "--input_user_mappings_path",
@@ -17,15 +15,14 @@ def main(ioc: dict):
     )
     args = argument_parser.parse_args()
 
-    gui = GUI(tk, args, ioc)
+    # config = ioc.get(Config)
+    # config.set_input_user_mappings_path(args.input_user_mappings_path)
+    # ioc.set(Config, config)
+
+    gui = GUI(ioc=ioc, args=args)
+    gui.create_slow_walk_mapper()
     gui.mainloop()
 
 
 if __name__ == "__main__":
-    dependencies = {
-        SlowWalkElement.__name__: SlowWalkElement(),
-        ArgumentParser.__name__: ArgumentParser(),
-        Tk.__name__: Tk(),
-    }
-
-    main(dependencies)
+    main(IOC())

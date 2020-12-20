@@ -1,31 +1,21 @@
-import os
 import tkinter as tk
+from tkinter import Tk
 
-from src.services.slow_walk_element import SlowWalkElement
-from src.options.slow_walk_option import SlowWalkOption
+from src.framers.slow_walk_creator import SlowWalkCreator
+from src.ioc import IOC
 
 
 class GUI(tk.Frame):
-    def __init__(self, window, args, ioc):
+    args: object
+    ioc: IOC
+
+    def __init__(self, ioc, args):
+        window = ioc.get(Tk)
         super().__init__(window)
 
-        master = tk.Frame(master=window)
-        master.grid(row=0, column=0, padx=20, pady=20)
+        self.args = args
+        self.ioc = ioc
 
-        dir_name = os.path.dirname(__file__)
-        input_user_mappings_path = os.path \
-            .join(dir_name, args.input_user_mappings_path)
-
-        slow_walk_option = SlowWalkOption(
-            slow_walk_element=ioc.get(SlowWalkElement.__name__),
-            filename=input_user_mappings_path
-        )
-
-        slow_walk_option.create(master=master)
-        # filename, ioc, master = master, padx = 20, pady = 20,
-
-# def create_apply_action(self, actions_frame):
-#     frame = tk.Frame(master=actions_frame)
-#     frame.grid(row=0, column=0)
-#     apply_walk_button = tk.Button(master=frame, text="Apply")
-#     apply_walk_button.pack()
+    def create_slow_walk_mapper(self):
+        slow_walk_creator = self.ioc.get(SlowWalkCreator)
+        slow_walk_creator.create()

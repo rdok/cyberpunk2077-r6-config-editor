@@ -2,7 +2,7 @@ import unittest
 from unittest.mock import patch, MagicMock, call
 
 import pytest
-from src.services.slow_walk_element import SlowWalkElement
+from src.services.element_appender import ElementAppender
 
 
 @pytest.mark.skip()
@@ -14,7 +14,7 @@ class TestSlowWalkSubElementTest(unittest.TestCase):
         mapping_element = MagicMock()
         tree.find.side_effect = [existing_slow_walk_button_el, mapping_element]
 
-        slow_walk_element = SlowWalkElement()
+        slow_walk_element = ElementAppender()
         slow_walk_element_created = slow_walk_element.append_to(
             'mapping_xpath', tree
         )
@@ -44,7 +44,7 @@ class TestSlowWalkSubElementTest(unittest.TestCase):
         existing_slow_walk_button_el = MagicMock()
         tree.find.side_effect = [existing_slow_walk_button_el]
 
-        slow_walk_element = SlowWalkElement()
+        slow_walk_element = ElementAppender()
         slow_walk_btn_el_created = slow_walk_element.append_to(
             'mapping_xpath', tree
         )
