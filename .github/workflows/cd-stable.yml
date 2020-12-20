@@ -19,7 +19,7 @@ jobs:
         with:
           python-version: 3.8
       - run: .\scripts\lint.ps1
-  build-release:
+  build-and-release:
     needs: [test, lint]
     runs-on: windows-2019
     steps:
