@@ -1,8 +1,9 @@
 import os
-from argparse import ArgumentParser
+import tkinter as tk
 from xml.etree import ElementTree
 
-from src.slow_walk_element import SlowWalkElement
+# from src.slow_walk_element import SlowWalkElement
+from src.gui import GUI
 
 DIR_NAME = os.path.dirname(__file__)
 
@@ -27,15 +28,19 @@ def main(args, ioc):
 
 
 if __name__ == "__main__":
-    parser = ArgumentParser()
-    parser.add_argument(
-        "-i",
-        "--input_user_mappings_path",
-        dest="input_user_mappings_path",
-        default='r6/config/inputUserMappings.xml'
-    )
-    args = parser.parse_args()
+    root = tk.Tk()
+    gui = GUI(master=root)
+    gui.mainloop()
 
-    dependencies = {SlowWalkElement.__name__: SlowWalkElement()}
-
-    main(args, dependencies)
+    # parser = ArgumentParser()
+    # parser.add_argument(
+    #     "-i",
+    #     "--input_user_mappings_path",
+    #     dest="input_user_mappings_path",
+    #     default='r6/config/inputUserMappings.xml'
+    # )
+    # args = parser.parse_args()
+    #
+    # dependencies = {SlowWalkElement.__name__: SlowWalkElement()}
+    #
+    # main(args, dependencies)
