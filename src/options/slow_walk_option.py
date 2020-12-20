@@ -1,7 +1,7 @@
 import tkinter as tk
 from xml.etree import ElementTree
 
-from src.slow_walk_element import SlowWalkElement
+from src.services.slow_walk_element import SlowWalkElement
 
 
 class SlowWalkOption():

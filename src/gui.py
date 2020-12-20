@@ -1,8 +1,8 @@
 import os
 import tkinter as tk
 
-from src.slow_walk_element import SlowWalkElement
-from src.slow_walk_option import SlowWalkOption
+from src.services.slow_walk_element import SlowWalkElement
+from src.options.slow_walk_option import SlowWalkOption
 
 
 class GUI(tk.Frame):

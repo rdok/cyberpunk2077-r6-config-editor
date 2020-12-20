@@ -1,25 +1,31 @@
-import os
-import tkinter as tk
 from argparse import ArgumentParser
+from tkinter import Tk
 
-# from src.slow_walk_element import SlowWalkElement
 from src.gui import GUI
-from src.slow_walk_element import SlowWalkElement
+from src.services.slow_walk_element import SlowWalkElement
 
-DIR_NAME = os.path.dirname(__file__)
 
-if __name__ == "__main__":
-    parser = ArgumentParser()
-    parser.add_argument(
+def main(ioc: dict):
+    argument_parser = ioc.get(ArgumentParser.__name__)
+    tk = ioc.get(Tk.__name__)
+
+    argument_parser.add_argument(
         "-i",
         "--input_user_mappings_path",
         dest="input_user_mappings_path",
         default='r6/config/inputUserMappings.xml'
     )
-    args = parser.parse_args()
+    args = argument_parser.parse_args()
 
-    dependencies = {SlowWalkElement.__name__: SlowWalkElement()}
-
-    root = tk.Tk()
-    gui = GUI(root, args, dependencies)
+    gui = GUI(tk, args, ioc)
     gui.mainloop()
+
+
+if __name__ == "__main__":
+    dependencies = {
+        SlowWalkElement.__name__: SlowWalkElement(),
+        ArgumentParser.__name__: ArgumentParser(),
+        Tk.__name__: Tk(),
+    }
+
+    main(dependencies)
