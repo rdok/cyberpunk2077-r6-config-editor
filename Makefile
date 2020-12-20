@@ -1,5 +1,6 @@
 test: .venv
 	pytest
+
 test-watch: .venv
 	pytest-watch
 

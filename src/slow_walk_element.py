@@ -2,23 +2,25 @@ from xml.etree.ElementTree import SubElement
 
 
 class SlowWalkElement:
-    def append_to(self, mappings_xpath, element_tree):
+    def append_to(self, mappings_xpath, element_tree, mapping_entry):
         walk_overridable_ui = 'slowWalk'
-        slow_walk_button_element_xpath = '{0}{1}{2}{3}'.format(
-            mappings_xpath,
-            '//button[@id="IK_CapsLock"][@val="0"][@overridableUI="',
-            walk_overridable_ui,
-            '"]'
+        id = 'IK_' + mapping_entry
+
+        btn_el_xpath = \
+            '{0}//button[@id="{1}"][@val="0"][@overridableUI="{2}"]'.format(
+            id,
+            mapping_entry,
+            walk_overridable_ui
         )
         slow_walk_button_element = element_tree.find(
-            slow_walk_button_element_xpath
+            btn_el_xpath
         )
 
         if slow_walk_button_element is not None:
             return False
 
         attributes = {
-            'id': 'IK_CapsLock',
+            'id': id,
             'val': '0',
             'overridableUI': walk_overridable_ui
         }

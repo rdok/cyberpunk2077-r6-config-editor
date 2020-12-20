@@ -1,36 +1,31 @@
+import os
 import tkinter as tk
+
+from src.slow_walk_element import SlowWalkElement
+from src.slow_walk_option import SlowWalkOption
 
 
 class GUI(tk.Frame):
-    def __init__(self, master=None):
-        super().__init__(master)
-        self.slow_walk_btn_value = None
+    def __init__(self, window, args, ioc):
+        super().__init__(window)
 
-        self.master = master
+        master = tk.Frame(master=window)
+        master.grid(row=0, column=0, padx=20, pady=20)
 
-        options_frame = tk.Frame(master=self.master, padx=20, pady=20)
-        options_frame.grid(row=0, column=0)
-        self.create_slow_walk_option(options_frame)
+        dir_name = os.path.dirname(__file__)
+        input_user_mappings_path = os.path \
+            .join(dir_name, args.input_user_mappings_path)
 
-        actions_frame = tk.Frame(master=self.master, padx=20, pady=20)
-        actions_frame.grid(row=1, column=0)
-        self.create_apply_action(actions_frame)
+        slow_walk_option = SlowWalkOption(
+            slow_walk_element=ioc.get(SlowWalkElement.__name__),
+            filename=input_user_mappings_path
+        )
 
-    def create_slow_walk_option(self, options_frame):
-        frame = tk.Frame(master=options_frame)
-        frame.grid(row=0, column=0)
-        slow_walk_label = tk.Label(master=frame, text="Slow walk")
-        slow_walk_label.pack()
+        slow_walk_option.create(master=master)
+        # filename, ioc, master = master, padx = 20, pady = 20,
 
-        frame = tk.Frame(master=options_frame)
-        frame.grid(row=0, column=1)
-        slow_walk_entry = tk.Entry(master=frame,
-                                   textvariable=self.slow_walk_btn_value)
-        slow_walk_entry.insert(0, 'Find shortcut')
-        slow_walk_entry.pack()
-
-    def create_apply_action(self, actions_frame):
-        frame = tk.Frame(master=actions_frame)
-        frame.grid(row=0, column=0)
-        apply_walk_button = tk.Button(master=frame, text="Apply")
-        apply_walk_button.pack()
+# def create_apply_action(self, actions_frame):
+#     frame = tk.Frame(master=actions_frame)
+#     frame.grid(row=0, column=0)
+#     apply_walk_button = tk.Button(master=frame, text="Apply")
+#     apply_walk_button.pack()
