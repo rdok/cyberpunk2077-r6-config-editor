@@ -1,21 +1,20 @@
 import unittest
-from types import SimpleNamespace
+from tkinter import Tk
 from unittest.mock import MagicMock
 
-from src.framers.slow_walk_creator import SlowWalkCreator
+from src.frames.slow_walk_frame import RemapWalkFrame
 from src.gui import GUI
 from src.ioc import IOC
 
-slow_walk_creator = MagicMock(spec=SlowWalkCreator)
-
 ioc = IOC()
-ioc.set(SlowWalkCreator, slow_walk_creator)
+
+remap_walk_frame = MagicMock(spec=RemapWalkFrame)
+ioc.set(RemapWalkFrame, remap_walk_frame)
 
 
 class TestGUI(unittest.TestCase):
-    def test_it_creates_slow_walk_framer(self):
-        args = SimpleNamespace(input_user_mappings_path='mocked_path')
-        gui = GUI(ioc, args)
-        gui.create_slow_walk_mapper()
-        slow_walk_creator.create.assert_called_once()
+    def test_it_creates_remap_walk_frame(self):
+        gui = GUI(master=Tk(), remap_walk_frame=remap_walk_frame)
+        gui.create_remap_walk_frame()
 
+        remap_walk_frame.create.assert_called_once()

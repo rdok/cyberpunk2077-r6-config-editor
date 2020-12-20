@@ -4,12 +4,11 @@ from xml.etree import ElementTree
 from src.services.element_appender import ElementAppender
 
 
-class SlowWalkFramer:
-    def __init__(self, slow_walk_element: ElementAppender, filename):
-        self.filename = filename
-        self.slow_walk_element = slow_walk_element
+class RemapWalkFrame:
+    def __init__(self, element_appender: ElementAppender):
+        self.element_appender = element_appender
 
-    def create(self, master: tk.Frame):
+    def create(self, master: tk):
         self.mapping_key = None
         self.speed = None
 
@@ -40,10 +39,10 @@ class SlowWalkFramer:
         tree = ElementTree.parse(self.filename)
 
         y_axis_xpath = './/mapping[@name="LeftY_Axis"][@type="Axis"]'
-        self.slow_walk_element.append_to(y_axis_xpath, tree, mapping_entry)
+        self.element_appender.append_to(y_axis_xpath, tree, mapping_entry)
 
         x_axis_xpath = './/mapping[@name="LeftX_Axis"][@type="Axis"]'
-        self.slow_walk_element.append_to(x_axis_xpath, tree, mapping_entry)
+        self.element_appender.append_to(x_axis_xpath, tree, mapping_entry)
 
         tree.write(self.filename)
 

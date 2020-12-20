@@ -14,13 +14,12 @@ def main(ioc: IOC):
         default='r6/config/inputUserMappings.xml'
     )
     args = argument_parser.parse_args()
+    config = ioc.get(Config)
+    config.set_input_user_mappings_path(args.input_user_mappings_path)
+    ioc.set(Config, config)
 
-    # config = ioc.get(Config)
-    # config.set_input_user_mappings_path(args.input_user_mappings_path)
-    # ioc.set(Config, config)
-
-    gui = GUI(ioc=ioc, args=args)
-    gui.create_slow_walk_mapper()
+    gui = ioc.get(GUI)
+    gui.create_remap_walk_frame()
     gui.mainloop()
 
 

@@ -1,21 +1,17 @@
 import tkinter as tk
 from tkinter import Tk
 
-from src.framers.slow_walk_creator import SlowWalkCreator
-from src.ioc import IOC
+from src.frames.slow_walk_frame import RemapWalkFrame
 
 
 class GUI(tk.Frame):
-    args: object
-    ioc: IOC
+    remap_walk_frame: RemapWalkFrame
+    master: Tk
 
-    def __init__(self, ioc, args):
-        window = ioc.get(Tk)
-        super().__init__(window)
+    def __init__(self, master: Tk, remap_walk_frame: RemapWalkFrame):
+        super().__init__(master)
+        self.grid(row=0, column=0, padx=20, pady=20)
+        self.remap_walk_frame = remap_walk_frame
 
-        self.args = args
-        self.ioc = ioc
-
-    def create_slow_walk_mapper(self):
-        slow_walk_creator = self.ioc.get(SlowWalkCreator)
-        slow_walk_creator.create()
+    def create_remap_walk_frame(self):
+        self.remap_walk_frame.create(master=self.master)
