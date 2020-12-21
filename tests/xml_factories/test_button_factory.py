@@ -10,7 +10,7 @@ mappings_element = MagicMock()
 config: Config = MagicMock(spec=Config)
 mappings_xpath = MagicMock()
 btn_xpath = '{0}//button[@modID="{1}"]'.format(
-    mappings_xpath, config.get_walk_id()
+    mappings_xpath, config.walk_id()
 )
 
 
@@ -30,7 +30,7 @@ class TestButtonFactory(unittest.TestCase):
         root.find.assert_called_once_with(mappings_xpath)
         sub_element.assert_called_once_with(mappings_element, 'button', {
             'id': 'IK_transformedkey', 'val': '0.2',
-            'modID': config.get_walk_id.return_value
+            'modID': config.walk_id.return_value
         })
 
         root.remove.assert_not_called()
@@ -53,6 +53,6 @@ class TestButtonFactory(unittest.TestCase):
 
         root.find.assert_called_once_with(mappings_xpath)
         existing_btn_el_xpath = '{0}//button[@modID="{1}"]'.format(
-            mappings_xpath, config.get_walk_id())
+            mappings_xpath, config.walk_id())
         root.findall.assert_called_once_with(existing_btn_el_xpath)
         mappings_element.remove.assert_called_once_with(existing_walk_button)

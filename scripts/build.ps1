@@ -14,7 +14,8 @@ Set-Location ${ScriptDir}\..
 
 If ($env -eq 'prod')
 {
-    pyinstaller --onefile src\main.py --name cyberpunk2077-usability --windowed
+    pyinstaller --onefile src\main.py --name cyberpunk2077-usability --windowed --icon=logo.ico
 } else {
-    pyinstaller --onefile src\main.py --name cyberpunk2077-usability --debug
+    pyinstaller --onefile src\main.py --name cyberpunk2077-usability --icon=logo.ico --console
 }
+
