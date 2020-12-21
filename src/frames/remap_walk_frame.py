@@ -17,8 +17,6 @@ class RemapWalkFrame:
         self.button_factory = button_factory
 
     def render(self, master: tk):
-        self.speed = None
-
         label_frame = tk.Frame(master=master)
         label_frame.grid(row=0, column=0)
         label = tk.Label(master=label_frame, text="Walk")

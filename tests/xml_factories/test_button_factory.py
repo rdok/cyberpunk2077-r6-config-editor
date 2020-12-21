@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import patch, MagicMock, call
+from unittest.mock import patch, MagicMock
 
 from src.config import Config
 from src.transformers.key_transformer import KeyTransformer

@@ -22,4 +22,4 @@ class TestConfig(unittest.TestCase):
 
     def test_it_gets_the_walk_id(self):
         id = 'rdok/cyberpunk2077-usability/walk'
-        self.assertEqual(id , config.get_walk_id())
+        self.assertEqual(id, config.get_walk_id())

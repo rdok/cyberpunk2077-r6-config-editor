@@ -34,7 +34,7 @@ class TestRemapWalkFrame(unittest.TestCase):
         self.mapping_entry.delete.assert_called_once_with(0, 'end')
 
     def test_it_handles_entry_changed_event(self):
-        deviceevent = MagicMock()
-        self.remap_walk_frame.handle_entry_changed(deviceevent)
+        event = MagicMock()
+        self.remap_walk_frame.handle_entry_changed(event)
         self.mapping_entry.delete.assert_called_once_with(0, 'end')
-        self.mapping_entry.insert.assert_called_once_with(0, deviceevent.keysym)
+        self.mapping_entry.insert.assert_called_once_with(0, event.keysym)

@@ -1,8 +1,14 @@
+start: test lint
+
 test: .venv
 	pytest
 
 test-watch: .venv
 	pytest-watch
+
+lint: .venv
+	flake8 src
+	flake8 tests
 
 .venv:
 	python -m venv .venv
