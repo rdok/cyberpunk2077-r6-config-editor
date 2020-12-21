@@ -1,8 +1,6 @@
 import tkinter as tk
 from tkinter import Entry
 
-from pyatspi import deviceevent
-
 from src.config import Config
 from src.xml_factories.button_factory import ButtonFactory
 
@@ -37,16 +35,16 @@ class RemapWalkFrame:
         apply_button.bind('<Button-1>', self.handle_apply_event)
         apply_button.pack()
 
-    def handle_apply_event(self, event: deviceevent):
+    def handle_apply_event(self, event):
         y_axis_xpath = './/mapping[@name="LeftY_Axis"][@type="Axis"]'
         self.button_factory.add(y_axis_xpath, self.mapping_entry.get())
 
         x_axis_xpath = './/mapping[@name="LeftX_Axis"][@type="Axis"]'
         self.button_factory.add(x_axis_xpath, self.mapping_entry.get())
 
-    def handle_entry_clicked(self, event: deviceevent):
+    def handle_entry_clicked(self, event):
         self.mapping_entry.delete(0, tk.END)
 
-    def handle_entry_changed(self, event: deviceevent):
+    def handle_entry_changed(self, event):
         self.mapping_entry.delete(0, tk.END)
         self.mapping_entry.insert(0, event.keysym)
