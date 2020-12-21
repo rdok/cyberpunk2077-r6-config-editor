@@ -29,7 +29,7 @@ class TestButtonFactory(unittest.TestCase):
 
         root.find.assert_called_once_with(mappings_xpath)
         sub_element.assert_called_once_with(mappings_element, 'button', {
-            'id': 'IK_transformedkey', 'val': '0.2',
+            'id': 'IK_transformedkey', 'val': '0',
             'modID': config.walk_id.return_value
         })
 

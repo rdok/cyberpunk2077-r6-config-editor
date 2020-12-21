@@ -27,7 +27,7 @@ class ButtonFactory:
 
         id = 'IK_' + self.key_transformer.transform(mapping_keymap)
         attributes = {
-            'id': id, 'val': '0.2', 'modID': self.config.walk_id()}
+            'id': id, 'val': '0', 'modID': self.config.walk_id()}
         element = SubElement(mappings_element, 'button', attributes)
         element.tail = '\n'
 
