@@ -18,3 +18,6 @@ class Config:
 
     def get_walk_id(self):
         return 'rdok/cyberpunk2077-usability/walk'
+
+    def get_app_name(self):
+        return 'Cyberpunk2077 Usability'

@@ -14,7 +14,8 @@ ioc.set(RemapWalkFrame, remap_walk_frame)
 
 class TestGUI(unittest.TestCase):
     def test_it_creates_remap_walk_frame(self):
-        gui = GUI(master=Tk(), remap_walk_frame=remap_walk_frame)
+        gui = GUI(
+            master=Tk(), remap_walk_frame=remap_walk_frame, config=MagicMock())
         gui.create_remap_walk_frame()
 
         remap_walk_frame.render.assert_called_once()

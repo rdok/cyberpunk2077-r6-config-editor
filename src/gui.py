@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import Tk
 
+from src.config import Config
 from src.frames.remap_walk_frame import RemapWalkFrame
 
 
@@ -8,8 +9,10 @@ class GUI(tk.Frame):
     remap_walk_frame: RemapWalkFrame
     master: Tk
 
-    def __init__(self, master: Tk, remap_walk_frame: RemapWalkFrame):
+    def __init__(
+            self, master: Tk, remap_walk_frame: RemapWalkFrame, config: Config):
         super().__init__(master)
+        self.winfo_toplevel().title(config.get_app_name())
         self.grid(row=0, column=0, padx=20, pady=20)
         self.remap_walk_frame = remap_walk_frame
 

@@ -28,7 +28,8 @@ class IOC:
         ))
 
         self.set(GUI, GUI(
-            master=self.get(Tk), remap_walk_frame=self.get(RemapWalkFrame)
+            master=self.get(Tk), remap_walk_frame=self.get(RemapWalkFrame),
+            config=self.get(Config)
         ))
 
     def has(self, class_reference):
