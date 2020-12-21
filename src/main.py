@@ -1,41 +1,26 @@
-import os
 from argparse import ArgumentParser
-from xml.etree import ElementTree
 
-from src.slow_walk_element import SlowWalkElement
-
-DIR_NAME = os.path.dirname(__file__)
-
-
-def capitilize_message(value):
-    return value.upper()
+from src.config import Config
+from src.gui import GUI
+from src.ioc import IOC
 
 
-def main(args, ioc):
-    filename = os.path.join(DIR_NAME, args.input_user_mappings_path)
-    tree = ElementTree.parse(filename)
-
-    slow_walk_element = ioc.get(SlowWalkElement.__name__)
-
-    y_axis_xpath = './/mapping[@name="LeftY_Axis"][@type="Axis"]'
-    slow_walk_element.append_to(y_axis_xpath, tree)
-
-    x_axis_xpath = './/mapping[@name="LeftX_Axis"][@type="Axis"]'
-    slow_walk_element.append_to(x_axis_xpath, tree)
-
-    tree.write(filename)
-
-
-if __name__ == "__main__":
-    parser = ArgumentParser()
-    parser.add_argument(
+def main(ioc: IOC):
+    argument_parser = ioc.get(ArgumentParser)
+    argument_parser.add_argument(
         "-i",
         "--input_user_mappings_path",
         dest="input_user_mappings_path",
         default='r6/config/inputUserMappings.xml'
     )
-    args = parser.parse_args()
+    args = argument_parser.parse_args()
+    config = ioc.get(Config)
+    config.set_input_user_mappings_path(args.input_user_mappings_path)
 
-    dependencies = {SlowWalkElement.__name__: SlowWalkElement()}
+    gui = ioc.get(GUI)
+    gui.create_remap_walk_frame()
+    gui.mainloop()
 
-    main(args, dependencies)
+
+if __name__ == "__main__":
+    main(IOC())

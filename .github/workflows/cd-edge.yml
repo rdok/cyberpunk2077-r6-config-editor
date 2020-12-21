@@ -29,7 +29,7 @@ jobs:
           python-version: 3.8
       - name: Build
         run: |
-          .\scripts\build.ps1
+          .\scripts\build.ps1 -env prod
           tar -c -f cyberpunk2077-usability.zip dist specs.md
       - name: Upload Release Asset
         uses: svenstaro/upload-release-action@v2

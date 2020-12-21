@@ -1,31 +1,34 @@
-import os
-from types import SimpleNamespace
-from unittest.mock import patch, MagicMock, call
-from xml.etree import ElementTree
+from argparse import ArgumentParser
+from unittest.mock import MagicMock
 
-import src
-from src.main import main
-from src.slow_walk_element import SlowWalkElement
+from src import main
+from src.config import Config
+from src.gui import GUI
+from src.ioc import IOC
+
+ioc = IOC()
+
+argument_parser = MagicMock(spec=ArgumentParser)
+ioc.set(ArgumentParser, argument_parser)
+
+gui = MagicMock(spec=GUI)
+ioc.set(GUI, gui)
+
+config = MagicMock(spec=Config)
+ioc.set(Config, config)
 
 
-@patch.object(ElementTree, 'parse')
-def test_it_maps_slow_walk_buttons(element_tree_parse):
-    tree = element_tree_parse.return_value
-    slow_walk_element = MagicMock(spec=SlowWalkElement)
-    slow_walk_element.write = MagicMock()
+def test_it_creates_the_gui():
+    main.main(ioc)
 
-    args = SimpleNamespace(input_user_mappings_path='input_user_mappings_path')
-    dependencies = {SlowWalkElement.__name__: slow_walk_element}
-    src.main.main(args, dependencies)
+    argument_parser.add_argument.assert_called_once_with(
+        "-i",
+        "--input_user_mappings_path",
+        dest="input_user_mappings_path",
+        default='r6/config/inputUserMappings.xml'
+    )
 
-    src_name = os.path.dirname(__file__).rstrip('tests') + 'src'
-    filename = os.path.join(src_name, 'input_user_mappings_path')
-
-    element_tree_parse.assert_called_once_with(filename)
-
-    slow_walk_element.append_to.assert_has_calls([
-        call('.//mapping[@name="LeftY_Axis"][@type="Axis"]', tree),
-        call('.//mapping[@name="LeftX_Axis"][@type="Axis"]', tree)
-    ])
-
-    tree.write.assert_called_once_with(filename)
+    gui.create_remap_walk_frame.assert_called_once()
+    config.set_input_user_mappings_path.assert_called_with(
+        argument_parser.parse_args.return_value.input_user_mappings_path)
+    gui.mainloop.assert_called_once()
