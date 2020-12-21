@@ -27,9 +27,17 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: 3.8
+      - name: Build pyinstaller
+        run: |
+         python -m pip install --upgrade pip
+         git clone --depth 1 --branch v4.1 https://github.com/pyinstaller/pyinstaller
+         cd .\pyinstaller\bootloader\
+         python ./waf all
+         cd ..
+         python setup.py install
       - name: Build
         run: |
-          .\scripts\build.ps1 -env prod
+          pyinstaller --onefile src\main.py --name cyberpunk2077-usability --windowed --icon=logo.ico
           tar -c -f cyberpunk2077-usability.zip dist specs.md
       - name: Upload Release Asset
         uses: svenstaro/upload-release-action@v2

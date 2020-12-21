@@ -9,10 +9,13 @@ class GUI(tk.Frame):
     remap_walk_frame: RemapWalkFrame
     master: Tk
 
-    def __init__(self, master: Tk, remap_walk_frame: RemapWalkFrame,
-                 config: Config):
+    def __init__(
+        self, master: Tk, remap_walk_frame: RemapWalkFrame, config: Config
+    ):
         super().__init__(master)
-        self.winfo_toplevel().title(config.get_app_name())
+
+        self.winfo_toplevel().title(config.app_name())
+
         self.grid(row=0, column=0, padx=20, pady=20)
         self.lift()
         self.remap_walk_frame = remap_walk_frame

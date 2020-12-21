@@ -16,8 +16,8 @@ class Config:
         path = os.path.abspath(value)
         self.input_user_mappings_path = path
 
-    def get_walk_id(self):
+    def walk_id(self):
         return 'rdok/cyberpunk2077-usability/walk'
 
-    def get_app_name(self):
+    def app_name(self):
         return 'Cyberpunk2077 Usability'

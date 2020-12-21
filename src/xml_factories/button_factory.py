@@ -18,7 +18,7 @@ class ButtonFactory:
         root = ElementTree.parse(filename)
 
         existing_btn_el_xpath = '{0}//button[@modID="{1}"]'.format(
-            mappings_element_xpath, self.config.get_walk_id())
+            mappings_element_xpath, self.config.walk_id())
         mappings_element = root.find(mappings_element_xpath)
         walk_btn_elements = root.findall(existing_btn_el_xpath)
 
@@ -27,7 +27,7 @@ class ButtonFactory:
 
         id = 'IK_' + self.key_transformer.transform(mapping_keymap)
         attributes = {
-            'id': id, 'val': '0.2', 'modID': self.config.get_walk_id()}
+            'id': id, 'val': '0.2', 'modID': self.config.walk_id()}
         element = SubElement(mappings_element, 'button', attributes)
         element.tail = '\n'
 
