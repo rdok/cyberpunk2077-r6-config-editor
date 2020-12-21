@@ -21,7 +21,7 @@ jobs:
           python-version: 3.8
       - name: Lint
         run: .\scripts\lint.ps1
-  build:
+  build-dev:
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v2
@@ -33,5 +33,23 @@ jobs:
       - name: Upload dist artifact
         uses: actions/upload-artifact@v2
         with:
-          name: dist
+          name: development
+          path: dist
+  build-edge:
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller
+      - name: Build
+        run: pyinstaller --onefile src\main.py --name cyberpunk2077-usability --windowed
+      - name: Upload edge artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: edge
           path: dist
