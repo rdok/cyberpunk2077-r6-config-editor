@@ -1,5 +1,5 @@
-from xml.etree.ElementTree import SubElement
 from xml.etree import ElementTree
+from xml.etree.ElementTree import SubElement
 
 from src.config import Config
 from src.transformers.key_transformer import KeyTransformer
@@ -26,7 +26,8 @@ class ButtonFactory:
             mappings_element.remove(walk_btn_el)
 
         id = 'IK_' + self.key_transformer.transform(mapping_keymap)
-        attributes = {'id': id, 'val': '0', 'modID': self.config.get_walk_id()}
+        attributes = {
+            'id': id, 'val': '0.2', 'modID': self.config.get_walk_id()}
         element = SubElement(mappings_element, 'button', attributes)
         element.tail = '\n'
 
