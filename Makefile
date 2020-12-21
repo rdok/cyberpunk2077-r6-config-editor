@@ -1,4 +1,4 @@
-start: test lint
+check: test lint
 
 test: .venv
 	pytest
