@@ -13,4 +13,8 @@ class Config:
         return self.input_user_mappings_path
 
     def set_input_user_mappings_path(self, value):
-        self.input_user_mappings_path = value
+        path = os.path.abspath(value)
+        self.input_user_mappings_path = path
+
+    def get_walk_id(self):
+        return 'rdok/cyberpunk2077-usability/walk'

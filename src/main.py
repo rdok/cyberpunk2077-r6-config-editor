@@ -16,7 +16,7 @@ def main(ioc: IOC):
     args = argument_parser.parse_args()
     config = ioc.get(Config)
     config.set_input_user_mappings_path(args.input_user_mappings_path)
-    ioc.set(Config, config)
+    # ioc.set(Config, config)
 
     gui = ioc.get(GUI)
     gui.create_remap_walk_frame()

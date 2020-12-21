@@ -6,11 +6,11 @@ import pytest
 # from src.configuration import Configuration
 from src.config import Config
 from src.ioc import IOC
-from src.services.element_appender import ElementAppender
+from src.xml_factories.button_factory import ButtonFactory
 
 
 def expected_dependencies():
-    return [ElementAppender, ArgumentParser, Tk, Config]
+    return [ButtonFactory, ArgumentParser, Tk, Config]
 
 
 ioc = IOC()

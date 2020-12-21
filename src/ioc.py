@@ -2,27 +2,34 @@ from argparse import ArgumentParser
 from tkinter import Tk
 
 from src.config import Config
-from src.frames.slow_walk_frame import RemapWalkFrame
+from src.frames.remap_walk_frame import RemapWalkFrame
 from src.gui import GUI
-from src.services.element_appender import ElementAppender
+from src.transformers.key_transformer import KeyTransformer
+from src.xml_factories.button_factory import ButtonFactory
 
 
 class IOC:
     dependencies: dict = {}
 
     def __init__(self):
-        remap_walk_frame = RemapWalkFrame(element_appender=ElementAppender())
-        self.set(RemapWalkFrame, remap_walk_frame)
-
-        window = Tk()
-        self.set(Tk, window)
-
-        gui = GUI(master=window, remap_walk_frame=remap_walk_frame)
-        self.set(GUI, gui)
-
+        self.set(Tk, Tk())
         self.set(Config, Config())
         self.set(ArgumentParser, ArgumentParser())
-        self.set(ElementAppender, ElementAppender())
+        self.set(KeyTransformer, KeyTransformer())
+
+        self.set(ButtonFactory, ButtonFactory(
+            key_transformer=self.get(KeyTransformer),
+            config=self.get(Config)
+        ))
+
+        self.set(RemapWalkFrame, RemapWalkFrame(
+            button_factory=self.get(ButtonFactory),
+            config=self.get(Config)
+        ))
+
+        self.set(GUI, GUI(
+            master=self.get(Tk), remap_walk_frame=self.get(RemapWalkFrame)
+        ))
 
     def has(self, class_reference):
         return class_reference in self.dependencies

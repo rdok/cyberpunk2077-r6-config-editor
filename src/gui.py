@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import Tk
 
-from src.frames.slow_walk_frame import RemapWalkFrame
+from src.frames.remap_walk_frame import RemapWalkFrame
 
 
 class GUI(tk.Frame):
@@ -14,4 +14,4 @@ class GUI(tk.Frame):
         self.remap_walk_frame = remap_walk_frame
 
     def create_remap_walk_frame(self):
-        self.remap_walk_frame.create(master=self.master)
+        self.remap_walk_frame.render(master=self.master)
