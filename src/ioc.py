@@ -2,6 +2,7 @@ from argparse import ArgumentParser
 from tkinter import Tk
 
 from src.config import Config
+from src.frames.crafting_speed_frame import CraftingSpeedFrame
 from src.frames.remap_walk_frame import RemapWalkFrame
 from src.gui import GUI
 from src.transformers.key_transformer import KeyTransformer
@@ -16,6 +17,7 @@ class IOC:
         self.set(Config, Config())
         self.set(ArgumentParser, ArgumentParser())
         self.set(KeyTransformer, KeyTransformer())
+        self.set(CraftingSpeedFrame, CraftingSpeedFrame())
 
         self.set(ButtonFactory, ButtonFactory(
             key_transformer=self.get(KeyTransformer),
@@ -28,8 +30,10 @@ class IOC:
         ))
 
         self.set(GUI, GUI(
-            master=self.get(Tk), remap_walk_frame=self.get(RemapWalkFrame),
-            config=self.get(Config)
+            master=self.get(Tk),
+            config=self.get(Config),
+            remap_walk_frame=self.get(RemapWalkFrame),
+            crafting_speed_frame=self.get(CraftingSpeedFrame)
         ))
 
     def has(self, class_reference):

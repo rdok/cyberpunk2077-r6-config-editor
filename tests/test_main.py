@@ -28,7 +28,14 @@ def test_it_creates_the_gui():
         default='r6/config/inputUserMappings.xml'
     )
 
-    gui.create_remap_walk_frame.assert_called_once()
     config.set_input_user_mappings_path.assert_called_with(
         argument_parser.parse_args.return_value.input_user_mappings_path)
     gui.mainloop.assert_called_once()
+
+
+def test_it_creates_remap_walk_frame():
+    gui.create_remap_walk_frame.assert_called_once()
+
+
+def test_it_creates_crafting_speed_frame():
+    gui.create_crafting_speed_frame.assert_called_once()

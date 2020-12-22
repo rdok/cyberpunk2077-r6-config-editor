@@ -17,8 +17,11 @@ def main(ioc: IOC):
     config = ioc.get(Config)
     config.set_input_user_mappings_path(args.input_user_mappings_path)
 
-    gui = ioc.get(GUI)
+    gui: GUI = ioc.get(GUI)
+
     gui.create_remap_walk_frame()
+    gui.create_crafting_speed_frame()
+
     gui.mainloop()
 
 
