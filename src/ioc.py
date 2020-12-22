@@ -18,7 +18,8 @@ class IOC:
         self.set(Config, Config())
         self.set(ArgumentParser, ArgumentParser())
         self.set(KeyTransformer, KeyTransformer())
-        self.set(CraftingSpeedElement, CraftingSpeedElement())
+
+        self.set(CraftingSpeedElement, CraftingSpeedElement(self.get(Config)))
 
         self.set(ButtonFactory, ButtonFactory(
             key_transformer=self.get(KeyTransformer),

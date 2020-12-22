@@ -6,11 +6,14 @@ import pytest
 # from src.configuration import Configuration
 from src.config import Config
 from src.ioc import IOC
+from src.transformers.key_transformer import KeyTransformer
 from src.xml_factories.button_factory import ButtonFactory
+from src.xml_factories.crafting_speed_element import CraftingSpeedElement
 
 
 def expected_dependencies():
-    return [ButtonFactory, ArgumentParser, Tk, Config]
+    return [Tk, Config, ArgumentParser, KeyTransformer, ButtonFactory,
+            CraftingSpeedElement]
 
 
 ioc = IOC()

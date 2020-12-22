@@ -21,3 +21,6 @@ class Config:
 
     def app_name(self):
         return 'Cyberpunk2077 Usability'
+
+    def set_input_contexts_path(self, input_user_mappings_path):
+        pass
