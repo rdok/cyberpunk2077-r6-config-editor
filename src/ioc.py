@@ -17,7 +17,6 @@ class IOC:
         self.set(Config, Config())
         self.set(ArgumentParser, ArgumentParser())
         self.set(KeyTransformer, KeyTransformer())
-        self.set(CraftingSpeedFrame, CraftingSpeedFrame())
 
         self.set(ButtonFactory, ButtonFactory(
             key_transformer=self.get(KeyTransformer),
@@ -26,7 +25,9 @@ class IOC:
 
         self.set(RemapWalkFrame, RemapWalkFrame(
             button_factory=self.get(ButtonFactory),
-            config=self.get(Config)
+        ))
+        self.set(CraftingSpeedFrame, CraftingSpeedFrame(
+            button_factory=self.get(ButtonFactory),
         ))
 
         self.set(GUI, GUI(
