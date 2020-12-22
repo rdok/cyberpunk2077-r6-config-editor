@@ -1,17 +1,16 @@
 import tkinter as tk
-from tkinter import Entry, Scale
+from tkinter import Scale
 
-from src.xml_factories.button_factory import ButtonFactory
+from src.xml_factories.crafting_speed_element import CraftingSpeedElement
 
 
 class CraftingSpeedFrame:
     crafting_speed_scale: Scale
     row = 1
-    mapping_entry: Entry
-    button_factory: ButtonFactory
+    initial_scale_value = None
 
-    def __init__(self, button_factory: ButtonFactory):
-        self.button_factory = button_factory
+    def __init__(self, crafting_speed_element: CraftingSpeedElement):
+        self.crafting_speed_element = crafting_speed_element
 
     def render(self, master: tk):
         label_frame = tk.Frame(master=master, pady=20, padx=20)
@@ -25,6 +24,8 @@ class CraftingSpeedFrame:
             master=crafting_speed_frame, from_=0.0, to_=1.0,
             orient=tk.HORIZONTAL, resolution=0.1
         )
+        initial_scale_value = self.crafting_speed_element.get()
+        crafting_speed_scale.set(initial_scale_value)
         crafting_speed_scale.pack()
         self.crafting_speed_scale = crafting_speed_scale
 
@@ -35,5 +36,6 @@ class CraftingSpeedFrame:
         apply_button.pack()
 
     def handle_apply_event(self, event):
-        print('handle_apply_event')
-        print(self.crafting_speed_scale.get())
+        scale_value = self.crafting_speed_scale.get()
+        self.crafting_speed_element.modify(scale_value)
+        # print(self.crafting_speed_scale.get())

@@ -7,6 +7,7 @@ from src.frames.remap_walk_frame import RemapWalkFrame
 from src.gui import GUI
 from src.transformers.key_transformer import KeyTransformer
 from src.xml_factories.button_factory import ButtonFactory
+from src.xml_factories.crafting_speed_element import CraftingSpeedElement
 
 
 class IOC:
@@ -17,6 +18,7 @@ class IOC:
         self.set(Config, Config())
         self.set(ArgumentParser, ArgumentParser())
         self.set(KeyTransformer, KeyTransformer())
+        self.set(CraftingSpeedElement, CraftingSpeedElement())
 
         self.set(ButtonFactory, ButtonFactory(
             key_transformer=self.get(KeyTransformer),
@@ -27,7 +29,7 @@ class IOC:
             button_factory=self.get(ButtonFactory),
         ))
         self.set(CraftingSpeedFrame, CraftingSpeedFrame(
-            button_factory=self.get(ButtonFactory),
+            crafting_speed_element=self.get(CraftingSpeedElement),
         ))
 
         self.set(GUI, GUI(
