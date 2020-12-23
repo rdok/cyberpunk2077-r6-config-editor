@@ -18,8 +18,10 @@ class TestRemapWalkFrame(unittest.TestCase):
         timeout = self.scale.get.return_value
         self.element.set_timeout.assert_called_once_with(timeout)
 
-    @patch('src.frames.crafting_speed_frame.tk')
-    def test_it_loads_current_crafting_speed_timeout(self, tk):
+    @patch('src.frames.crafting_speed_frame.Scale')
+    @patch('src.frames.crafting_speed_frame.Frame')
+    def test_it_loads_current_crafting_speed_timeout(self,  frame, scale):
+        master = MagicMock(spec=Tk)
         initial_scale_value = self.element.get_timeout.return_value
-        self.frame.render(master=self.master)
-        tk.Scale.return_value.set.assert_called_once_with(initial_scale_value)
+        self.frame.render(master=master)
+        scale.return_value.set.assert_called_once_with(initial_scale_value)

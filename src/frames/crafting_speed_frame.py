@@ -1,6 +1,9 @@
 import tkinter as tk
-from tkinter import Scale
 
+from src.widgets.button import Button
+from src.widgets.frame import Frame
+from src.widgets.label import Label
+from src.widgets.scale import Scale
 from src.xml_factories.crafting_speed_element import CraftingSpeedElement
 
 
@@ -13,25 +16,24 @@ class CraftingSpeedFrame:
         self.element = element
 
     def render(self, master: tk):
-        label_frame = tk.Frame(master=master, pady=20, padx=20)
+        label_frame = Frame(master=master)
         label_frame.grid(row=self.row, column=0)
-        label = tk.Label(master=label_frame, text="Crafting Speed")
+        label = Label(master=label_frame, text="Crafting Speed")
         label.pack()
 
-        crafting_speed_frame = tk.Frame(master=master, padx=20)
+        crafting_speed_frame = Frame(master=master)
         crafting_speed_frame.grid(row=self.row, column=1)
-        crafting_speed_scale = tk.Scale(
-            master=crafting_speed_frame, from_=0.1, to_=1.0,
-            orient=tk.HORIZONTAL, resolution=0.1
+        crafting_speed_scale = Scale(
+            master=crafting_speed_frame, from_=0.1, to_=1.0, resolution=0.1
         )
         initial_scale_value = self.element.get_timeout()
         crafting_speed_scale.set(initial_scale_value)
         crafting_speed_scale.pack()
         self.crafting_speed_scale = crafting_speed_scale
 
-        apply_button_frame = tk.Frame(master=master, padx=20)
+        apply_button_frame = Frame(master=master)
         apply_button_frame.grid(row=self.row, column=3)
-        apply_button = tk.Button(master=apply_button_frame, text="Apply")
+        apply_button = Button(master=apply_button_frame, text="Apply")
         apply_button.bind('<Button-1>', self.handle_apply_event)
         apply_button.pack()
 
