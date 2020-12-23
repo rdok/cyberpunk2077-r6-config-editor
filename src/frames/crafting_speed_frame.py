@@ -21,7 +21,7 @@ class CraftingSpeedFrame:
         crafting_speed_frame = tk.Frame(master=master, padx=20)
         crafting_speed_frame.grid(row=self.row, column=1)
         crafting_speed_scale = tk.Scale(
-            master=crafting_speed_frame, from_=0.0, to_=1.0,
+            master=crafting_speed_frame, from_=0.1, to_=1.0,
             orient=tk.HORIZONTAL, resolution=0.1
         )
         initial_scale_value = self.element.get_timeout()
