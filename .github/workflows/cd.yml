@@ -20,41 +20,48 @@ jobs:
 #        with:
 #          python-version: 3.8
 #      - run: .\scripts\lint.ps1
-#  build:
+  build:
 #    needs: [test, lint]
-#    runs-on: windows-2019
-#    steps:
-#      - uses: actions/checkout@v2
-#      - uses: actions/setup-python@v2
-#        with:
-#          python-version: 3.8
-#      - name: Build pyinstaller
-#        run: |
-#         python -m pip install --upgrade pip
-#         git clone --depth 1 --branch v4.1 https://github.com/pyinstaller/pyinstaller
-#         cd .\pyinstaller\bootloader\
-#         python ./waf all
-#         cd ..
-#         python setup.py install
-#      - name: Build
-#        run: |
-#          pyinstaller --onefile src\main.py --name ${{ steps.env.outputs.NAME }} --windowed --icon=logo.ico
-#          mv changelog.md dist
-#          mv installation.md dist
-#          cd dist
-#          tar -c -f cyberpunk2077-r6-config-editor.${{ steps.env.outputs.version }}.zip dist specs.md
-  release:
-    #    needs: [test, lint]
-    runs-on: ubuntu-20.04
+    runs-on: windows-2019
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      - name: Build pyinstaller
+        run: |
+         python -m pip install --upgrade pip
+         git clone --depth 1 --branch v4.1 https://github.com/pyinstaller/pyinstaller
+         cd .\pyinstaller\bootloader\
+         python ./waf all
+         cd ..
+         python setup.py install
+      - name: Build
+        run: |
+          pyinstaller --onefile src\main.py --name ${{ github.event.repository.name }} --windowed --icon=logo.ico
+          mv changelog.md dist
+          mv installation.md dist
+          tar -c -f ${{ github.event.repository.name }} -C dist *
+      - name: Upload  build artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ github.event.repository.name }}-${{ github.sha }}
+          path: ${{ github.event.repository.name }}
+  release:
+    needs: [build]
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: ${{ github.event.repository.name }}-${{ github.sha }}
       - name: Prepare outputs
         id: env
         run: |
+          ls -lat
           name=${{ github.event.repository.name }}
           version=$(echo $GITHUB_REF | awk -F / '{print $3}')
           versioned_name="${name}.${version}.zip"
-          touch $versioned_name
+          mv ${{ github.event.repository.name }} $versioned_name
           echo ::set-output name=ASSET::$versioned_name
       - name: Create release for stable versions
         if: ${{ github.ref != 'ref/head/main' }}
