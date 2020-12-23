@@ -12,5 +12,6 @@ class Scale(tk.Scale):
             activebackground=Styles.foreground(),
             troughcolor=Styles.trough(),
             borderwidth=Styles.border_width(),
-            highlightbackground=Styles.foreground()
+            highlightbackground=Styles.foreground(),
+            orient=tk.HORIZONTAL
         )

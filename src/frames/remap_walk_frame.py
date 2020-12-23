@@ -1,5 +1,4 @@
 import tkinter as tk
-from tkinter import Entry
 
 from src.widgets.button import Button
 from src.widgets.entry import Entry
