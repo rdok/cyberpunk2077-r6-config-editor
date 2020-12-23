@@ -19,7 +19,7 @@ class TestRemapWalkFrame(unittest.TestCase):
         self.element.set_timeout.assert_called_once_with(timeout)
 
     @patch('src.frames.crafting_speed_frame.tk')
-    def test_it_loads_current_crafting_speed_on_render(self, tk):
+    def test_it_loads_current_crafting_speed_timeout(self, tk):
         initial_scale_value = self.element.get_timeout.return_value
         self.frame.render(master=self.master)
         tk.Scale.return_value.set.assert_called_once_with(initial_scale_value)
