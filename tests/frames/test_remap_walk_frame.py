@@ -1,7 +1,6 @@
 import unittest
 from unittest.mock import MagicMock, call
 
-from src.config import Config
 from src.frames.remap_walk_frame import RemapWalkFrame
 from src.xml_factories.button_factory import ButtonFactory
 
@@ -15,7 +14,7 @@ class TestRemapWalkFrame(unittest.TestCase):
         self.button_factory = MagicMock(ButtonFactory)
         self.mapping_entry = MagicMock()
         self.remap_walk_frame = RemapWalkFrame(
-            button_factory=self.button_factory, config=MagicMock(Config))
+            button_factory=self.button_factory)
         self.remap_walk_frame.mapping_entry = self.mapping_entry
 
     def test_it_handles_apply_event(self):

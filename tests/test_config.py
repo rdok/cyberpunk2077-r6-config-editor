@@ -20,8 +20,14 @@ class TestConfig(unittest.TestCase):
         self.assertEqual(path, config.get_input_user_mappings_path())
 
     def test_it_gets_the_walk_id(self):
-        id = 'rdok/cyberpunk2077-usability/walk'
+        id = 'rdok/cyberpunk2077-r6-config-editor/walk'
         self.assertEqual(id, config.walk_id())
 
     def test_it_gets_the_app_name(self):
-        self.assertEqual('Cyberpunk2077 Usability', config.app_name())
+        self.assertEqual('Cyberpunk2077 r6-config-editor', config.app_name())
+
+    def test_it_sets_the_input_contexts_path(self):
+        self.assertEqual(None, config.get_input_contexts_path())
+        config.set_input_contexts_path('r6/config/inputContexts.xml')
+        path = os.path.abspath('r6/config/inputContexts.xml')
+        self.assertEqual(path, config.get_input_contexts_path())

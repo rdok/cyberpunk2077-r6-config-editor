@@ -37,7 +37,7 @@ jobs:
           cd ..
           python setup.py install
       - name: Build
-        run: pyinstaller --onefile src\main.py --name cyberpunk2077-usability --windowed --icon=logo.ico
+        run: pyinstaller --onefile src\main.py --name cyberpunk2077-r6-config-editor --windowed --icon=logo.ico
       - name: Upload edge artifact
         uses: actions/upload-artifact@v2
         with:

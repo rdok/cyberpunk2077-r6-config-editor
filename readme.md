@@ -1,5 +1,8 @@
-# cyberpunk2077 usability
-[![CD](https://github.com/rdok/cyberpunk2077-usability/workflows/CD-stable/badge.svg)](https://github.com/rdok/cyberpunk2077-usability/actions?query=workflow%3ACD-stable)
+# cyberpunk2077 r6-config-editor
+[![CD](https://github.com/rdok/cyberpunk2077-r6-config-editor/workflows/CD
+-stable/badge.
+svg)](https://github.com/rdok/cyberpunk2077-r6-config-editor/actions?
+query=workflow%3ACD-stable)
 [![nexus-mods](https://img.shields.io/badge/Nexus%20-Mods-orange?style=flat-square&logo=spinrilla)](https://www.nexusmods.com/cyberpunk2077/mods/341)
 
 
