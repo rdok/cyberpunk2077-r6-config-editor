@@ -25,3 +25,9 @@ class TestConfig(unittest.TestCase):
 
     def test_it_gets_the_app_name(self):
         self.assertEqual('Cyberpunk2077 Usability', config.app_name())
+
+    def test_it_sets_the_input_contexts_path(self):
+        self.assertEqual(None, config.get_input_contexts_path())
+        config.set_input_contexts_path('r6/config/inputContexts.xml')
+        path = os.path.abspath('r6/config/inputContexts.xml')
+        self.assertEqual(path, config.get_input_contexts_path())

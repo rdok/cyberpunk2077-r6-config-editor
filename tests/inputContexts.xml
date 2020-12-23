@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<bindings>
+    <hold action="craft_item" timeout="0.7"/>
+</bindings>

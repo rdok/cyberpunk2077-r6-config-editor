@@ -23,6 +23,7 @@ class TestRemapWalkFrame(unittest.TestCase):
 
     @patch('src.frames.crafting_speed_frame.tk')
     def test_it_loads_current_crafting_speed_on_render(self, tk):
-        initial_scale_value = self.crafting_speed_element.get.return_value
+        initial_scale_value = \
+            self.crafting_speed_element.get_timeout.return_value
         self.crafting_speed_frame.render(master=self.master)
         tk.Scale.return_value.set.assert_called_once_with(initial_scale_value)

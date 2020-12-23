@@ -24,7 +24,7 @@ class CraftingSpeedFrame:
             master=crafting_speed_frame, from_=0.0, to_=1.0,
             orient=tk.HORIZONTAL, resolution=0.1
         )
-        initial_scale_value = self.crafting_speed_element.get()
+        initial_scale_value = self.crafting_speed_element.get_timeout()
         crafting_speed_scale.set(initial_scale_value)
         crafting_speed_scale.pack()
         self.crafting_speed_scale = crafting_speed_scale

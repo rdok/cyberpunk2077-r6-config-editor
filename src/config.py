@@ -1,9 +1,11 @@
 import os
+from typing import Any, Union
 
 import src
 
 
 class Config:
+    input_contexts_path = None
     input_user_mappings_path = None
 
     def root_dir(self):
@@ -22,5 +24,9 @@ class Config:
     def app_name(self):
         return 'Cyberpunk2077 Usability'
 
-    def set_input_contexts_path(self, input_user_mappings_path):
-        pass
+    def set_input_contexts_path(self, value):
+        path = os.path.abspath(value)
+        self.input_contexts_path = path
+
+    def get_input_contexts_path(self):
+        return self.input_contexts_path
