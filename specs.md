@@ -1,6 +1,6 @@
 ## Installation
-- Download `cyberpunk2077-usability.zip`
-- Extract `dist/cyberpunk2077-usability.exe` to the cyberpunk 2077 installation directory. 
+- Download `cyberpunk2077-r6-config-editor.zip`
+- Extract `dist/cyberpunk2077-r6-config-editor.exe` to the cyberpunk 2077 installation directory. 
 - Execute said exe file.
 
 ## Features

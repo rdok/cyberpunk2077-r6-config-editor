@@ -37,8 +37,8 @@ jobs:
           python setup.py install
       - name: Build
         run: |
-          pyinstaller --onefile src\main.py --name cyberpunk2077-usability --windowed --icon=logo.ico
-          tar -c -f cyberpunk2077-usability.zip dist specs.md
+          pyinstaller --onefile src\main.py --name cyberpunk2077-r6-config-editor --windowed --icon=logo.ico
+          tar -c -f cyberpunk2077-r6-config-editor.zip dist specs.md
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -54,6 +54,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./cyberpunk2077-usability.zip
-          asset_name: cyberpunk2077-usability.zip
+          asset_path: ./cyberpunk2077-r6-config-editor.zip
+          asset_name: cyberpunk2077-r6-config-editor.zip
           asset_content_type: application/zip

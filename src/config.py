@@ -1,5 +1,4 @@
 import os
-from typing import Any, Union
 
 import src
 
@@ -19,10 +18,10 @@ class Config:
         self.input_user_mappings_path = path
 
     def walk_id(self):
-        return 'rdok/cyberpunk2077-usability/walk'
+        return 'rdok/cyberpunk2077-r6-config-editor/walk'
 
     def app_name(self):
-        return 'Cyberpunk2077 Usability'
+        return 'Cyberpunk2077 r6-config-editor'
 
     def set_input_contexts_path(self, value):
         path = os.path.abspath(value)

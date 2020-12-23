@@ -37,13 +37,13 @@ jobs:
          python setup.py install
       - name: Build
         run: |
-          pyinstaller --onefile src\main.py --name cyberpunk2077-usability --windowed --icon=logo.ico
-          tar -c -f cyberpunk2077-usability.zip dist specs.md
+          pyinstaller --onefile src\main.py --name cyberpunk2077-r6-config-editor --windowed --icon=logo.ico
+          tar -c -f cyberpunk2077-r6-config-editor.zip dist specs.md
       - name: Upload Release Asset
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: cyberpunk2077-usability.zip
-          asset_name: cyberpunk2077-usability.zip
+          file: cyberpunk2077-r6-config-editor.zip
+          asset_name: cyberpunk2077-r6-config-editor.zip
           tag: refs/heads/main
           overwrite: true

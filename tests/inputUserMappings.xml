@@ -3,12 +3,12 @@
         <button id="IK_Pad_LeftAxisY" />
         <button id="IK_W" overridableUI="forward" val="1.0" />
         <button id="IK_S" overridableUI="back" val="-1.0" />
-<button id="IK_Tab" modID="rdok/cyberpunk2077-usability/walk" val="0" />
+<button id="IK_Tab" modID="rdok/cyberpunk2077-r6-config-editor/walk" val="0" />
 </mapping>
     <mapping name="LeftX_Axis" type="Axis">
         <button id="IK_Pad_LeftAxisX" />
         <button id="IK_A" overridableUI="left" val="-1.0" />
         <button id="IK_D" overridableUI="right" val="1.0" />
-<button id="IK_Tab" modID="rdok/cyberpunk2077-usability/walk" val="0" />
+<button id="IK_Tab" modID="rdok/cyberpunk2077-r6-config-editor/walk" val="0" />
 </mapping>
 </bindings>
