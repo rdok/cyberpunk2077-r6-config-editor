@@ -3,24 +3,24 @@ on:
   push:
     branches: [main, move-exe-to-root-dir]
 jobs:
-  test:
-    runs-on: windows-2019
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-      - run: .\scripts\test.ps1
-  lint:
-    runs-on: windows-2019
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-      - run: .\scripts\lint.ps1
+#  test:
+#    runs-on: windows-2019
+#    steps:
+#      - uses: actions/checkout@v2
+#      - uses: actions/setup-python@v2
+#        with:
+#          python-version: 3.8
+#      - run: .\scripts\test.ps1
+#  lint:
+#    runs-on: windows-2019
+#    steps:
+#      - uses: actions/checkout@v2
+#      - uses: actions/setup-python@v2
+#        with:
+#          python-version: 3.8
+#      - run: .\scripts\lint.ps1
   build-and-release:
-    needs: [test, lint]
+#    needs: [test, lint]
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v2

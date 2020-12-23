@@ -1,0 +1,87 @@
+name: CD
+on:
+  push:
+    branches: [main, move-exe-to-root-dir]
+    tags: ['v[0-9]+.[0-9]+.[0-9]+']
+jobs:
+#  test:
+#    runs-on: windows-2019
+#    steps:
+#      - uses: actions/checkout@v2
+#      - uses: actions/setup-python@v2
+#        with:
+#          python-version: 3.8
+#      - run: .\scripts\test.ps1
+#  lint:
+#    runs-on: windows-2019
+#    steps:
+#      - uses: actions/checkout@v2
+#      - uses: actions/setup-python@v2
+#        with:
+#          python-version: 3.8
+#      - run: .\scripts\lint.ps1
+#  build:
+#    needs: [test, lint]
+#    runs-on: windows-2019
+#    steps:
+#      - uses: actions/checkout@v2
+#      - uses: actions/setup-python@v2
+#        with:
+#          python-version: 3.8
+#      - name: Build pyinstaller
+#        run: |
+#         python -m pip install --upgrade pip
+#         git clone --depth 1 --branch v4.1 https://github.com/pyinstaller/pyinstaller
+#         cd .\pyinstaller\bootloader\
+#         python ./waf all
+#         cd ..
+#         python setup.py install
+#      - name: Build
+#        run: |
+#          pyinstaller --onefile src\main.py --name ${{ steps.env.outputs.NAME }} --windowed --icon=logo.ico
+#          mv changelog.md dist
+#          mv installation.md dist
+#          cd dist
+#          tar -c -f cyberpunk2077-r6-config-editor.${{ steps.env.outputs.version }}.zip dist specs.md
+  release:
+    #    needs: [test, lint]
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Prepare outputs
+        id: env
+        run: |
+          name=${{ github.event.repository.name }}
+          version=$(echo $GITHUB_REF | awk -F / '{print $3}')
+          versioned_name="${name}.${version}.zip"
+          touch $versioned_name
+          echo ::set-output name=ASSET::$versioned_name
+      - name: Create release for stable versions
+        if: ${{ github.ref != 'ref/head/main' }}
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+      - name: Upload assets for stable release
+        id: upload-release-asset
+        if: ${{ github.ref != 'ref/head/main' }}
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ steps.env.outputs.ASSET }}
+          asset_name: ${{ steps.env.outputs.ASSET }}
+          asset_content_type: application/zip
+      - name: Upload assets for edge release
+        if: ${{ github.ref == 'ref/head/main' }}
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ${{ steps.env.outputs.ASSET }}.zip
+          asset_name: ${{ steps.env.outputs.VERSIONED_NAME }}
+          tag: refs/heads/main
+          overwrite: true

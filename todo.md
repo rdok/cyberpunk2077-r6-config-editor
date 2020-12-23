@@ -1,0 +1,1 @@
+Should throw useful error when app is not in correct path. That is, the expected XML are not found.
