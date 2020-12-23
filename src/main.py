@@ -6,6 +6,13 @@ from src.ioc import IOC
 
 
 def main(ioc: IOC):
+    gui: GUI = ioc.get(GUI)
+    gui.create_remap_walk_frame()
+    gui.create_crafting_speed_frame()
+    gui.mainloop()
+
+
+def configure_app(ioc: IOC):
     argument_parser = ioc.get(ArgumentParser)
     argument_parser.add_argument(
         "-i",
@@ -20,15 +27,16 @@ def main(ioc: IOC):
         default='r6/config/inputContexts.xml'
     )
     args = argument_parser.parse_args()
-    config: Config = ioc.get(Config)
+    config = ioc.get(Config)
     config.set_input_user_mappings_path(args.input_user_mappings_path)
     config.set_input_contexts_path(args.input_contexts_path)
+    ioc.set(Config, config)
+    ioc.instatiate_dependencies()
 
-    gui: GUI = ioc.get(GUI)
-    gui.create_remap_walk_frame()
-    gui.create_crafting_speed_frame()
-    gui.mainloop()
+    return ioc
 
 
 if __name__ == "__main__":
-    main(IOC())
+    ioc = IOC()
+    ioc = configure_app(ioc=ioc)
+    main(ioc)

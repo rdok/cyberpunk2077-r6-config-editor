@@ -14,9 +14,11 @@ class IOC:
     dependencies: dict = {}
 
     def __init__(self):
-        self.set(Tk, Tk())
-        self.set(Config, Config())
         self.set(ArgumentParser, ArgumentParser())
+        self.set(Config, Config())
+
+    def instatiate_dependencies(self):
+        self.set(Tk, Tk())
         self.set(KeyTransformer, KeyTransformer())
 
         self.set(CraftingSpeedElement, CraftingSpeedElement(self.get(Config)))
@@ -30,7 +32,7 @@ class IOC:
             button_factory=self.get(ButtonFactory),
         ))
         self.set(CraftingSpeedFrame, CraftingSpeedFrame(
-            crafting_speed_element=self.get(CraftingSpeedElement),
+            element=self.get(CraftingSpeedElement),
         ))
 
         self.set(GUI, GUI(

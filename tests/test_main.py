@@ -11,20 +11,24 @@ ioc = IOC()
 argument_parser = MagicMock(spec=ArgumentParser)
 ioc.set(ArgumentParser, argument_parser)
 
-gui = MagicMock(spec=GUI)
-ioc.set(GUI, gui)
-
 config = MagicMock(spec=Config)
 ioc.set(Config, config)
 
-main.main(ioc)
+ioc.instatiate_dependencies()
+
+gui = MagicMock(spec=GUI)
+ioc.set(GUI, gui)
 
 
 def test_it_creates_the_gui():
+    main.main(ioc)
+
     gui.mainloop.assert_called_once()
 
 
 def test_it_loads_xml_files_path():
+    main.configure_app(ioc)
+
     input_user_mappings_args_call = call(
         "-i",
         "--input_user_mappings_path",
