@@ -1,25 +1,27 @@
-import tkinter as tk
 from tkinter import Tk
 
 from src.config import Config
 from src.frames.crafting_speed_frame import CraftingSpeedFrame
 from src.frames.remap_walk_frame import RemapWalkFrame
+from src.styles import Styles
+from src.widgets.frame import Frame
 
 
-class GUI(tk.Frame):
+class GUI(Frame):
     remap_walk_frame: RemapWalkFrame
     master: Tk
 
     def __init__(
-            self,
-            master: Tk,
-            config: Config,
-            remap_walk_frame: RemapWalkFrame,
-            crafting_speed_frame: CraftingSpeedFrame
+        self,
+        master: Tk,
+        config: Config,
+        remap_walk_frame: RemapWalkFrame,
+        crafting_speed_frame: CraftingSpeedFrame
     ):
         super().__init__(master)
+        self.winfo_toplevel().configure(background=Styles.background())
         self.winfo_toplevel().title(config.app_name())
-        self.grid(row=0, column=0, padx=20, pady=20)
+        self.grid(row=0, column=0)
         self.lift()
 
         self.remap_walk_frame = remap_walk_frame
