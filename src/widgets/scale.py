@@ -7,11 +7,11 @@ class Scale(tk.Scale):
     def __init__(self, **kw):
         super().__init__(
             **kw,
-            bg=Styles.background(),
-            foreground=Styles.foreground(),
+            background=Styles.secondary_color(),
+            foreground=Styles.font_color(),
             activebackground=Styles.foreground(),
             troughcolor=Styles.trough(),
-            borderwidth=Styles.border_width(),
-            highlightbackground=Styles.foreground(),
-            orient=tk.HORIZONTAL
+            highlightbackground=Styles.secondary_color(),
+            orient=tk.HORIZONTAL,
+            relief=tk.SOLID
         )
