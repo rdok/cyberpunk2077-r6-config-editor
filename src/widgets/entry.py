@@ -7,6 +7,8 @@ class Entry(tk.Entry):
     def __init__(self, **kw):
         super().__init__(
             **kw,
-            background=Styles.background(),
-            foreground=Styles.foreground()
+            background=Styles.secondary_color(),
+            foreground=Styles.font_color(),
+            insertbackground=Styles.primary_color(),
+            relief=tk.SOLID
         )

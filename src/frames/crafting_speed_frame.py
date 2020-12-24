@@ -1,6 +1,7 @@
 import tkinter as tk
 
 from src.widgets.button import Button
+from src.widgets.button_frame import ButtonFrame
 from src.widgets.frame import Frame
 from src.widgets.label import Label
 from src.widgets.scale import Scale
@@ -18,7 +19,7 @@ class CraftingSpeedFrame:
     def render(self, master: tk):
         label_frame = Frame(master=master)
         label_frame.grid(row=self.row, column=0)
-        label = Label(master=label_frame, text="Crafting Speed")
+        label = Label(master=label_frame, text="CRAFTING SPEED")
         label.pack()
 
         crafting_speed_frame = Frame(master=master)
@@ -31,9 +32,9 @@ class CraftingSpeedFrame:
         crafting_speed_scale.pack()
         self.crafting_speed_scale = crafting_speed_scale
 
-        apply_button_frame = Frame(master=master)
+        apply_button_frame = ButtonFrame(master=master)
         apply_button_frame.grid(row=self.row, column=3)
-        apply_button = Button(master=apply_button_frame, text="Apply")
+        apply_button = Button(master=apply_button_frame, text="APPLY")
         apply_button.bind('<Button-1>', self.handle_apply_event)
         apply_button.pack()
 
