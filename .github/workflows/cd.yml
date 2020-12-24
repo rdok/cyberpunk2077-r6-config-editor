@@ -36,7 +36,7 @@ jobs:
          python ./waf all
          cd ..
          python setup.py install
-      - name: Build
+      - name: Build app
         run: |
           pyinstaller --onefile src\main.py --name ${{ github.event.repository.name }} --windowed --icon=logo.ico
           mv changelog.md dist
@@ -63,7 +63,7 @@ jobs:
           mv ${{ github.event.repository.name }} $versioned_name
           echo ::set-output name=ASSET::$versioned_name
       - name: Create release for stable versions
-        if: ${{ github.ref != 'ref/head/main' }}
+        if: ${{ github.ref != 'refs/head/main' }}
         id: create_release
         uses: actions/create-release@v1
         env:
@@ -73,7 +73,7 @@ jobs:
           release_name: Release ${{ github.ref }}
       - name: Upload assets for stable release
         id: upload-release-asset
-        if: ${{ github.ref != 'main' }}
+        if: ${{ github.ref != 'refs/head/main' }}
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -83,7 +83,7 @@ jobs:
           asset_name: ${{ steps.env.outputs.ASSET }}
           asset_content_type: application/zip
       - name: Upload assets for edge release
-        if: ${{ github.ref == 'main' }}
+        if: ${{ github.ref == 'refs/head/main' }}
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}

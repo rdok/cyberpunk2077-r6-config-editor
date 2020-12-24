@@ -1,2 +1,3 @@
 - Should throw useful error when app is not in correct path. That is, the expected XML are not found.
 - Option to rebind the cancel action to a keyboard or mouse button would make it more flexible. 
+- Should not remove comments.

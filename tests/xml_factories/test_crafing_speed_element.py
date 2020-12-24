@@ -18,7 +18,6 @@ class TestCraftingSpeedElement(unittest.TestCase):
 
         actual_timeout = self.element_modifier.get_timeout()
 
-        expected_element.get.assert_called_once_with('timeout')
         self.assertEqual(expected_timeout, actual_timeout)
 
     @patch('src.xml_factories.crafting_speed_element.ElementTree')
@@ -29,7 +28,6 @@ class TestCraftingSpeedElement(unittest.TestCase):
 
         actual_element = self.element_modifier.get()
 
-        self.config.get_input_contexts_path.assert_called_once()
         element_tree.parse.assert_called_once_with(filename)
         root.find.assert_called_once_with('.//hold[@action="craft_item"]')
         self.assertEqual(expected_element, actual_element)

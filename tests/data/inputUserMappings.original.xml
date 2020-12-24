@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<bindings>
+    <!-- MAPPINGS -->
+    <mapping name="LeftX_Axis" type="Axis">
+        <button id="IK_Pad_LeftAxisX"/>
+        <button id="IK_A" val="-1.0" overridableUI="left"/>
+        <button id="IK_D" val="1.0" overridableUI="right"/>
+    </mapping>
+</bindings>
