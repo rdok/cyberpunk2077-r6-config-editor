@@ -44,20 +44,24 @@ class WalkElement:
         pass
 
     def update_or_create_x_straight(self, horizontal_mapping: ElementTree):
-        should_create = horizontal_mapping.find('.//button[@id="IK_W"]') is None
-        if should_create:
+        forward = horizontal_mapping.find('.//button[@id="IK_W"]')
+        if forward is None:
             forward_btn = SubElement(horizontal_mapping, 'button', {
                 'id': 'IK_W',
                 'val': '0',
                 'overridableUI': 'forward',
             })
             forward_btn.tail = '\n'
+        else:
+            forward.set('val', '0')
 
-        should_create = horizontal_mapping.find('.//button[@id="IK_S"]') is None
-        if should_create:
+        back = horizontal_mapping.find('.//button[@id="IK_S"]')
+        if back is None:
             back_btn = SubElement(horizontal_mapping, 'button', {
                 'id': 'IK_S',
                 'val': '0',
                 'overridableUI': 'back',
             })
             back_btn.tail = '\n'
+        else:
+            back.set('val', '0')

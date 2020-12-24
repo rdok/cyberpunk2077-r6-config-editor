@@ -92,4 +92,10 @@ class TestWalkElement(unittest.TestCase):
         mapping.find.return_value.side_effect = [True, True]
         self.element.update_or_create_x_straight(horizontal_mapping=mapping)
 
-        sub_element.assert_not_called()
+        calls = [
+            call('.//button[@id="IK_W"]'),
+            call().set('val', '0'),
+            call('.//button[@id="IK_S"]'),
+            call().set('val', '0'),
+        ]
+        mapping.find.assert_has_calls(calls)
