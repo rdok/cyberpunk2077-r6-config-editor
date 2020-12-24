@@ -89,5 +89,5 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ${{ steps.env.outputs.ASSET }}
           asset_name: ${{ steps.env.outputs.ASSET }}
-          tag: refs/heads/main
+          tag: edge
           overwrite: true
