@@ -1,5 +1,6 @@
 # Edge v0.6.2
 - Improve styling to fit closer to Cyberpunk 2077.
+- Graciously handle errors: show the actual error message to user.
  
 
 # v0.6.1

@@ -1,4 +1,6 @@
+import tkinter
 from argparse import ArgumentParser
+from tkinter import messagebox
 
 from src.config import Config
 from src.gui import GUI
@@ -39,4 +41,17 @@ def configure_app(ioc: IOC):
 if __name__ == "__main__":
     ioc = IOC()
     ioc = configure_app(ioc=ioc)
-    main(ioc)
+    try:
+        main(ioc)
+    except FileNotFoundError as err:
+        root = tkinter.Tk()
+        root.withdraw()
+        config: Config = ioc.get(Config)
+        message = '\n\nApp should be run from the installation directory.'
+        error = '{0} {1}'.format(err, message)
+        messagebox.showerror(config.app_name(), error)
+    except Exception as err:
+        root = tkinter.Tk()
+        root.withdraw()
+        config: Config = ioc.get(Config)
+        messagebox.showerror(config.app_name(), err)

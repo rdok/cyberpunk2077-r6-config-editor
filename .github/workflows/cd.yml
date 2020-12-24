@@ -87,7 +87,7 @@ jobs:
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: ${{ steps.env.outputs.ASSET }}.zip
-          asset_name: ${{ steps.env.outputs.VERSIONED_NAME }}
-          tag: refs/heads/main
+          file: ${{ steps.env.outputs.ASSET }}
+          asset_name: ${{ steps.env.outputs.ASSET }}
+          tag: edge
           overwrite: true
