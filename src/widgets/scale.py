@@ -9,8 +9,8 @@ class Scale(tk.Scale):
             **kw,
             background=Styles.secondary_color(),
             foreground=Styles.font_color(),
-            activebackground=Styles.foreground(),
-            troughcolor=Styles.trough(),
+            activebackground=Styles.foreground_color(),
+            troughcolor=Styles.trough_color(),
             highlightbackground=Styles.secondary_color(),
             orient=tk.HORIZONTAL,
             relief=tk.SOLID

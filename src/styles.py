@@ -4,11 +4,15 @@ class Styles:
         return '#332a57'
 
     @staticmethod
+    def primary_color():
+        return '#47ffff'
+
+    @staticmethod
     def btn_bg_color():
         return '#001d26'
 
     @staticmethod
-    def foreground():
+    def foreground_color():
         return '#42a5f5'
 
     @staticmethod
@@ -16,7 +20,7 @@ class Styles:
         return '#ea614a'
 
     @staticmethod
-    def trough():
+    def trough_color():
         return '#c0278a'
 
     @staticmethod
@@ -31,14 +35,10 @@ class Styles:
     def pady():
         return 20
 
-    @classmethod
-    def primary_color(cls):
-        return "#47ffff"
-
-    @classmethod
-    def button_width(cls):
+    @staticmethod
+    def button_width():
         return 10
 
-    @classmethod
-    def btn_highlightthickness(cls):
+    @staticmethod
+    def btn_highlightthickness():
         return 10

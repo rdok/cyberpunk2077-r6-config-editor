@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
-          python-version: 3.8
+          python-version: 3.9
       - run: .\scripts\test.ps1
   lint:
     runs-on: windows-2019
@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
-          python-version: 3.8
+          python-version: 3.9
       - run: .\scripts\lint.ps1
   build:
     needs: [test, lint]
@@ -27,7 +27,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
-          python-version: 3.8
+          python-version: 3.9
       - name: Build pyinstaller
         run: |
          python -m pip install --upgrade pip
@@ -73,7 +73,7 @@ jobs:
           release_name: Release ${{ github.ref }}
       - name: Upload assets for stable release
         id: upload-release-asset
-        if: ${{ github.ref != 'ref/head/main' }}
+        if: ${{ github.ref != 'main' }}
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -83,7 +83,7 @@ jobs:
           asset_name: ${{ steps.env.outputs.ASSET }}
           asset_content_type: application/zip
       - name: Upload assets for edge release
-        if: ${{ github.ref == 'ref/head/main' }}
+        if: ${{ github.ref == 'main' }}
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
