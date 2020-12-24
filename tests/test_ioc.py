@@ -3,7 +3,6 @@ from tkinter import Tk
 
 import pytest
 
-# from src.configuration import Configuration
 from src.config import Config
 from src.ioc import IOC
 from src.transformers.key_transformer import KeyTransformer
@@ -12,8 +11,10 @@ from src.xml_factories.crafting_speed_element import CraftingSpeedElement
 
 
 def expected_dependencies():
-    return [Tk, Config, ArgumentParser, KeyTransformer, ButtonFactory,
-            CraftingSpeedElement]
+    return [
+        Tk, Config, ArgumentParser, KeyTransformer, ButtonFactory,
+        CraftingSpeedElement
+    ]
 
 
 ioc = IOC()
