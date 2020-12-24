@@ -7,7 +7,7 @@ styles = Styles()
 
 class TestStyles(unittest.TestCase):
     def test_it_maintains_the_background(self):
-        self.assertEqual('#332a57', styles.background())
+        self.assertEqual('#332a57', styles.secondary_color())
 
     def test_it_maintains_the_foreground(self):
         self.assertEqual('#42a5f5', styles.foreground())

@@ -18,8 +18,8 @@ class GUI(Frame):
         remap_walk_frame: RemapWalkFrame,
         crafting_speed_frame: CraftingSpeedFrame
     ):
-        super().__init__(master)
-        self.winfo_toplevel().configure(background=Styles.background())
+        super().__init__(master=master)
+        self.winfo_toplevel().configure(background=Styles.secondary_color())
         self.winfo_toplevel().title(config.app_name())
         self.grid(row=0, column=0)
         self.lift()
