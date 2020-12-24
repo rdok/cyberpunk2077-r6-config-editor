@@ -4,16 +4,17 @@ from tkinter import Tk
 import pytest
 
 from src.config import Config
+from src.frames.remap_walk_frame import RemapWalkFrame
 from src.ioc import IOC
 from src.transformers.key_transformer import KeyTransformer
-from src.xml_factories.button_factory import ButtonFactory
 from src.xml_factories.crafting_speed_element import CraftingSpeedElement
+from src.xml_factories.walk_element import WalkElement
 
 
 def expected_dependencies():
     return [
-        Tk, Config, ArgumentParser, KeyTransformer, ButtonFactory,
-        CraftingSpeedElement
+        Tk, Config, ArgumentParser, KeyTransformer, WalkElement,
+        CraftingSpeedElement, RemapWalkFrame
     ]
 
 

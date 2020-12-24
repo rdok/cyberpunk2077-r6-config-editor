@@ -29,8 +29,8 @@ class WalkElement:
         root.write(filename)
 
     def update_x_side(self, horizontal_mapping: ElementTree):
-        left_move = horizontal_mapping.find('//button[@id="IK_A"]')
-        right_move = horizontal_mapping.find('//button[@id="IK_D"]')
+        left_move = horizontal_mapping.find('.//button[@id="IK_A"]')
+        right_move = horizontal_mapping.find('.//button[@id="IK_D"]')
         left_move.set('val', '-1.4')
         right_move.set('val', '1.4')
 
@@ -44,17 +44,20 @@ class WalkElement:
         pass
 
     def update_or_create_x_straight(self, horizontal_mapping: ElementTree):
-        forward_btn = SubElement(horizontal_mapping, 'button', {
-            'id': 'IK_W',
-            'val': '0',
-            'overridableUI': 'forward',
-            'modID': self.config.walk_id()
-        })
-        forward_btn.tail = '\n'
-        back_btn = SubElement(horizontal_mapping, 'button', {
-            'id': 'IK_S',
-            'val': '0',
-            'overridableUI': 'back',
-            'modID': self.config.walk_id()
-        })
-        back_btn.tail = '\n'
+        should_create = horizontal_mapping.find('.//button[@id="IK_W"]') is None
+        if should_create:
+            forward_btn = SubElement(horizontal_mapping, 'button', {
+                'id': 'IK_W',
+                'val': '0',
+                'overridableUI': 'forward',
+            })
+            forward_btn.tail = '\n'
+
+        should_create = horizontal_mapping.find('.//button[@id="IK_S"]') is None
+        if should_create:
+            back_btn = SubElement(horizontal_mapping, 'button', {
+                'id': 'IK_S',
+                'val': '0',
+                'overridableUI': 'back',
+            })
+            back_btn.tail = '\n'

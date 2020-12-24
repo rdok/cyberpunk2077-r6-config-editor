@@ -54,7 +54,7 @@ class TestWalkElement(unittest.TestCase):
         horizontal_mapping = MagicMock()
         self.element.update_x_side(horizontal_mapping)
 
-        calls = [call('//button[@id="IK_A"]'), call('//button[@id="IK_D"]')]
+        calls = [call('.//button[@id="IK_A"]'), call('.//button[@id="IK_D"]')]
         horizontal_mapping.find.assert_has_calls(calls)
 
         calls = [call('val', '-1.4'), call('val', '1.4'), ]
@@ -62,27 +62,34 @@ class TestWalkElement(unittest.TestCase):
 
     @patch('src.xml_factories.walk_element.SubElement')
     def test_it_should_create_horizontal_straight_movement(self, sub_element):
-        horizontal_mapping = MagicMock()
+        mapping = MagicMock()
+        mapping.find.side_effect = [None, None]
         forward_btn = MagicMock()
         back_btn = MagicMock()
         sub_element.side_effect = [forward_btn, back_btn]
-        self.element \
-            .update_or_create_x_straight(horizontal_mapping=horizontal_mapping)
 
-        forward_btn_call = call(horizontal_mapping, 'button', {
+        self.element.update_or_create_x_straight(horizontal_mapping=mapping)
+
+        forward_btn_call = call(mapping, 'button', {
             'id': 'IK_W',
             'val': '0',
             'overridableUI': 'forward',
-            'modID': self.config.walk_id.return_value
         })
 
-        back_btn_call = call(horizontal_mapping, 'button', {
+        back_btn_call = call(mapping, 'button', {
             'id': 'IK_S',
             'val': '0',
             'overridableUI': 'back',
-            'modID': self.config.walk_id.return_value
         })
 
         sub_element.assert_has_calls([forward_btn_call, back_btn_call])
         self.assertEqual(forward_btn.tail, '\n')
         self.assertEqual(back_btn.tail, '\n')
+
+    @patch('src.xml_factories.walk_element.SubElement')
+    def test_it_should_update_horizontal_straight_movement(self, sub_element):
+        mapping = MagicMock()
+        mapping.find.return_value.side_effect = [True, True]
+        self.element.update_or_create_x_straight(horizontal_mapping=mapping)
+
+        sub_element.assert_not_called()

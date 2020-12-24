@@ -1,32 +1,27 @@
 import unittest
-from unittest.mock import MagicMock, call
+from unittest.mock import MagicMock
 
 from src.frames.remap_walk_frame import RemapWalkFrame
-from src.xml_factories.button_factory import ButtonFactory
+from src.xml_factories.walk_element import WalkElement
 
 
 class TestRemapWalkFrame(unittest.TestCase):
-    button_factory: MagicMock
+    walk_element: MagicMock
     mapping_entry: MagicMock
     remap_walk_frame: RemapWalkFrame
 
     def setUp(self) -> None:
-        self.button_factory = MagicMock(ButtonFactory)
+        self.walk_element = MagicMock(WalkElement)
         self.mapping_entry = MagicMock()
         self.remap_walk_frame = RemapWalkFrame(
-            button_factory=self.button_factory)
+            walk_element=self.walk_element)
         self.remap_walk_frame.mapping_entry = self.mapping_entry
 
     def test_it_handles_apply_event(self):
         self.remap_walk_frame.handle_apply_event(None)
 
-        y_axis_xpath = './/mapping[@name="LeftY_Axis"][@type="Axis"]'
-        x_axis_xpath = './/mapping[@name="LeftX_Axis"][@type="Axis"]'
-
-        self.button_factory.add.assert_has_calls([
-            call(y_axis_xpath, self.mapping_entry.get.return_value),
-            call(x_axis_xpath, self.mapping_entry.get.return_value),
-        ])
+        self.walk_element.write \
+            .assert_called_once_with(self.mapping_entry.get.return_value)
 
     def test_it_handles_entry_clicked_event(self):
         self.remap_walk_frame.handle_entry_clicked(None)
