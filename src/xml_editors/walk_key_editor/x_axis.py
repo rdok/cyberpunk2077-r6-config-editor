@@ -26,7 +26,8 @@ class XAxis:
         if forward is None:
             id = self.id_locators.forward(root)
             attributes = {'id': id, 'val': '0', 'overridableUI': 'forward'}
-            SubElement(x_axis, 'button', attributes)
+            sub_element = SubElement(x_axis, 'button', attributes)
+            sub_element.tail = '\n'
         else:
             forward.set('val', '0')
 
@@ -37,6 +38,7 @@ class XAxis:
         if back is None:
             id = self.id_locators.back(root)
             attributes = {'id': id, 'val': '0', 'overridableUI': 'back'}
-            SubElement(x_axis, 'button', attributes)
+            sub_element = SubElement(x_axis, 'button', attributes)
+            sub_element.tail = '\n'
         else:
             back.set('val', '0')

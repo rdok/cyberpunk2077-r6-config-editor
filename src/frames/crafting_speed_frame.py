@@ -5,7 +5,7 @@ from src.widgets.button_frame import ButtonFrame
 from src.widgets.frame import Frame
 from src.widgets.label import Label
 from src.widgets.scale import Scale
-from src.xml_factories.crafting_speed_element import CraftingSpeedElement
+from src.xml_editors.crafting_speed_element import CraftingSpeedEditor
 
 
 class CraftingSpeedFrame:
@@ -13,7 +13,7 @@ class CraftingSpeedFrame:
     row = 1
     initial_scale_value = None
 
-    def __init__(self, element: CraftingSpeedElement):
+    def __init__(self, element: CraftingSpeedEditor):
         self.element = element
 
     def render(self, master: tk):

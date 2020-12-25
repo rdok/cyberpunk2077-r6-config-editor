@@ -2,15 +2,15 @@ import unittest
 from unittest.mock import MagicMock, patch
 
 from src.config import Config
-from src.xml_factories.crafting_speed_element import CraftingSpeedElement
+from src.xml_editors.crafting_speed_element import CraftingSpeedEditor
 
 
 class TestCraftingSpeedElement(unittest.TestCase):
     def setUp(self) -> None:
         self.config = MagicMock(spec=Config)
-        self.element_modifier = CraftingSpeedElement(config=self.config)
+        self.element_modifier = CraftingSpeedEditor(config=self.config)
 
-    @patch('src.xml_factories.crafting_speed_element.ElementTree')
+    @patch('src.xml_editors.crafting_speed_element.ElementTree')
     def test_it_should_fetch_the_current_speed_value(self, element_tree):
         self.element_modifier.get = MagicMock()
         expected_element = self.element_modifier.get.return_value
@@ -20,7 +20,7 @@ class TestCraftingSpeedElement(unittest.TestCase):
 
         self.assertEqual(expected_timeout, actual_timeout)
 
-    @patch('src.xml_factories.crafting_speed_element.ElementTree')
+    @patch('src.xml_editors.crafting_speed_element.ElementTree')
     def test_it_should_locate_itself(self, element_tree):
         filename = self.config.get_input_contexts_path.return_value
         root = element_tree.parse.return_value
@@ -32,7 +32,7 @@ class TestCraftingSpeedElement(unittest.TestCase):
         root.find.assert_called_once_with('.//hold[@action="craft_item"]')
         self.assertEqual(expected_element, actual_element)
 
-    @patch('src.xml_factories.crafting_speed_element.ElementTree')
+    @patch('src.xml_editors.crafting_speed_element.ElementTree')
     def test_it_should_save_the_new_speed_value(self, element_tree):
         self.element_modifier.get = MagicMock()
         root = element_tree.parse.return_value

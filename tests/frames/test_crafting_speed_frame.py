@@ -3,12 +3,12 @@ from tkinter import Scale, Tk
 from unittest.mock import MagicMock, patch
 
 from src.frames.crafting_speed_frame import CraftingSpeedFrame
-from src.xml_factories.crafting_speed_element import CraftingSpeedElement
+from src.xml_editors.crafting_speed_element import CraftingSpeedEditor
 
 
 class TestRemapWalkFrame(unittest.TestCase):
     master = MagicMock(spec=Tk)
-    element = MagicMock(spec=CraftingSpeedElement)
+    element = MagicMock(spec=CraftingSpeedEditor)
     frame = CraftingSpeedFrame(element=element)
     scale = MagicMock(spec=Scale)
     frame.crafting_speed_scale = scale

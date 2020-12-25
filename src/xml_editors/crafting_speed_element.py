@@ -3,7 +3,7 @@ from xml.etree import ElementTree
 from src.config import Config
 
 
-class CraftingSpeedElement:
+class CraftingSpeedEditor:
     def __init__(self, config: Config):
         self.filename = config.get_input_contexts_path()
 

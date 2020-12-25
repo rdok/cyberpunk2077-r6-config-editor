@@ -2,7 +2,7 @@ import unittest
 from unittest.mock import MagicMock
 
 from src.frames.remap_walk_frame import RemapWalkFrame
-from src.xml_factories.walk_element import WalkElement
+from src.xml_editors.walk_key_editor import WalkKeyEditor
 
 
 class TestRemapWalkFrame(unittest.TestCase):
@@ -11,7 +11,7 @@ class TestRemapWalkFrame(unittest.TestCase):
     remap_walk_frame: RemapWalkFrame
 
     def setUp(self) -> None:
-        self.walk_element = MagicMock(WalkElement)
+        self.walk_element = MagicMock(WalkKeyEditor)
         self.mapping_entry = MagicMock()
         self.remap_walk_frame = RemapWalkFrame(
             walk_element=self.walk_element)

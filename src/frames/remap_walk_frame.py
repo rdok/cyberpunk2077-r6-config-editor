@@ -5,16 +5,16 @@ from src.widgets.button_frame import ButtonFrame
 from src.widgets.entry import Entry
 from src.widgets.frame import Frame
 from src.widgets.label import Label
-from src.xml_factories.walk_element import WalkElement
+from src.xml_editors.walk_key_editor import WalkKeyEditor
 
 
 class RemapWalkFrame:
     row = 0
     mapping_entry: Entry
-    walk_element: WalkElement
+    walk_key_editor: WalkKeyEditor
 
-    def __init__(self, walk_element: WalkElement):
-        self.walk_element = walk_element
+    def __init__(self, walk_element: WalkKeyEditor):
+        self.walk_key_editor = walk_element
 
     def render(self, master: tk):
         label_frame = Frame(master=master)
@@ -40,7 +40,7 @@ class RemapWalkFrame:
         apply_button.pack()
 
     def handle_apply_event(self, event):
-        self.walk_element.write(self.mapping_entry.get())
+        self.walk_key_editor.write(self.mapping_entry.get())
 
     def handle_entry_clicked(self, event):
         self.mapping_entry.delete(0, tk.END)
