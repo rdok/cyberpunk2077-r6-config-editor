@@ -1,6 +1,5 @@
 import unittest
 from unittest.mock import MagicMock, patch, call
-from xml.etree.ElementTree import SubElement, ElementTree
 
 from src.config import Config
 from src.transformers.key_transformer import KeyTransformer
@@ -31,21 +30,25 @@ class TestWalkElement(unittest.TestCase):
     @patch('src.xml_factories.walk_element.ElementTree')
     def test_it_should_save_itself(self, element_tree):
         root = element_tree.parse.return_value
-        x_mapping = root.find.return_value
+        x_mapping = MagicMock()
+        y_mapping = MagicMock()
+        root.find.side_effect = [x_mapping, y_mapping]
 
         self.element.update_x_horizontal = MagicMock()
         self.element.put_x_vertical = MagicMock()
         self.element.put_xik_s = MagicMock()
         self.element.put_walk_key = MagicMock()
         filename = self.config.get_input_user_mappings_path.return_value
-        new_walk_key = MagicMock()
+        walk_key = MagicMock()
 
-        self.element.write(new_walk_key)
+        self.element.write(walk_key)
 
         self.element.update_x_horizontal.assert_called_once_with(x_mapping)
         self.element.put_x_vertical.assert_called_once_with(x_mapping)
         self.element.put_xik_s.assert_called_once_with(x_mapping)
-        self.element.put_walk_key.assert_called_once_with(root, new_walk_key)
+        self.element.put_walk_key.assert_called_once_with(
+            walk_key, x_mapping=x_mapping, y_mapping=y_mapping
+        )
         root.write.assert_called_once_with(filename)
 
     def test_it_should_update_horizontal_side_movement(self):
@@ -104,7 +107,7 @@ class TestWalkElement(unittest.TestCase):
         sub_element.side_effect = [x_walk_btn, y_walk_btn]
 
         self.element.put_walk_key(
-            key=key, x_mappings=x_mappings, y_mappings=y_mappings
+            key=key, x_mapping=x_mappings, y_mapping=y_mappings
         )
 
         self.key_transformer.transform.assert_called_once_with(key)
@@ -134,11 +137,12 @@ class TestWalkElement(unittest.TestCase):
         sub_element.side_effect = [x_walk_btn, y_walk_btn]
 
         self.element.put_walk_key(
-            key=key, x_mappings=x_mappings, y_mappings=y_mappings
+            key=key, x_mapping=x_mappings, y_mapping=y_mappings
         )
 
         self.key_transformer.transform.assert_called_once_with(key)
+        id = 'IK_{0}'.format(self.key_transformer.transform.return_value)
 
         sub_element.assert_not_called()
-        x_walk_btn.set.assert_called_once_with('val', '0')
-        y_walk_btn.set.assert_called_once_with('val', '0')
+        x_walk_btn.set.assert_has_calls([call('id', id), call('val', '0')])
+        y_walk_btn.set.assert_has_calls([call('id', id), call('val', '0')])

@@ -19,12 +19,13 @@ class WalkElement:
     def write(self, walk_key):
         filename = self.config.get_input_user_mappings_path()
         root = ElementTree.parse(filename)
-        horizontal_mapping = root.find('.//mapping[@name="LeftX_Axis"]')
+        x_mapping = root.find('.//mapping[@name="LeftX_Axis"]')
+        y_mapping = root.find('.//mapping[@name="LeftY_Axis"]')
 
-        self.update_x_horizontal(horizontal_mapping)
-        self.put_x_vertical(horizontal_mapping)
-        self.put_xik_s(horizontal_mapping)
-        self.put_walk_key(root, walk_key)
+        self.update_x_horizontal(x_mapping)
+        self.put_x_vertical(x_mapping)
+        self.put_xik_s(x_mapping)
+        self.put_walk_key(walk_key, x_mapping=x_mapping, y_mapping=y_mapping)
 
         root.write(filename)
 
@@ -34,23 +35,25 @@ class WalkElement:
     def put_xik_s(self, root: ElementTree):
         pass
 
-    def put_walk_key(self, key, x_mappings: ElementTree, y_mappings: ElementTree):
+    def put_walk_key(self, key, x_mapping: ElementTree, y_mapping: ElementTree):
         id = 'IK_{0}'.format(self.key_transformer.transform(key))
         mod_id = self.config.walk_id()
         attributes = {'id': id, 'val': '0', 'modID': mod_id}
 
-        x_element = x_mappings.find(f'.//button[@modID="{mod_id}"]')
+        x_element = x_mapping.find(f'.//button[@modID="{mod_id}"]')
         if x_element is None:
-            x_element = SubElement(x_mappings, 'button', attributes)
+            x_element = SubElement(x_mapping, 'button', attributes)
             x_element.tail = '\n'
         else:
+            x_element.set('id', id)
             x_element.set('val', '0')
 
-        y_element = y_mappings.find(f'.//button[@modID="{mod_id}"]')
+        y_element = y_mapping.find(f'.//button[@modID="{mod_id}"]')
         if y_element is None:
-            y_element = SubElement(y_mappings, 'button', attributes)
+            y_element = SubElement(y_mapping, 'button', attributes)
             y_element.tail = '\n'
         else:
+            y_element.set('id', id)
             y_element.set('val', '0')
 
     def update_x_horizontal(self, x_mappings: ElementTree):
