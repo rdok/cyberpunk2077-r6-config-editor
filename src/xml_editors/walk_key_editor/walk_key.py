@@ -1,19 +1,27 @@
 from xml.etree import ElementTree
-from xml.etree.ElementTree import SubElement
+from xml.etree.ElementTree import SubElement, XMLParser
 
 from src.config import Config
 from src.transformers.key_transformer import KeyTransformer
+from src.xml_editors.CustomParser import CustomParser
 from src.xml_editors.walk_key_editor.axis import Axis
 
 
 class WalkKey(Axis):
-    def __init__(self, config: Config, transformer: KeyTransformer):
+    def __init__(
+        self,
+        config: Config,
+        transformer: KeyTransformer,
+        parser: CustomParser
+    ):
+        self.parser = parser
         self.transformer = transformer
         self.config = config
 
     def find(self):
         filename = self.config.get_input_user_mappings_path()
-        root = ElementTree.parse(filename)
+        parser = XMLParser(target=self.parser)
+        root = ElementTree.parse(filename, parser=parser)
         mod_id = self.config.walk_id()
 
         path = '{0}//button[@modID="{1}"]'.format(self.x_axis_xpath, mod_id)

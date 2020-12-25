@@ -3,6 +3,7 @@ from unittest.mock import patch, MagicMock, call
 
 from src.config import Config
 from src.transformers.key_transformer import KeyTransformer
+from src.xml_editors.CustomParser import CustomParser
 from src.xml_editors.walk_key_editor import WalkKey
 
 
@@ -15,21 +16,30 @@ class TestWalkKey(unittest.TestCase):
         self.root = MagicMock()
 
     @patch('src.xml_editors.walk_key_editor.walk_key.ElementTree')
-    def test_locates_itself(self, element_tree):
+    @patch('src.xml_editors.walk_key_editor.walk_key.XMLParser')
+    def test_locates_itself(self, xml_parser, element_tree):
         root = element_tree.parse.return_value
         expected_element = root.find.return_value
         walk_id = self.config.walk_id.return_value
+        custom_parser = MagicMock(spec=CustomParser)
 
-        walk_key = WalkKey(config=self.config, transformer=self.transformer)
+        walk_key = WalkKey(
+            config=self.config,
+            transformer=self.transformer,
+            parser=custom_parser,
+        )
+        parser = xml_parser.return_value
         actual_element = walk_key.find()
 
-        element_tree.parse.assert_called_once_with(self.filename)
+        element_tree.parse.assert_called_once_with(self.filename, parser=parser)
         path = f'.//mapping[@name="LeftX_Axis"]//button[@modID="{walk_id}"]'
         root.find.assert_called_once_with(path)
         self.assertEqual(expected_element, actual_element)
 
     @patch('src.xml_editors.walk_key_editor.walk_key.SubElement')
-    def test_creates_walk_key_element(self, sub_element):
+    @patch('src.xml_editors.walk_key_editor.walk_key.XMLParser')
+    def test_creates_walk_key_element(self, xml_parser, sub_element):
+        custom_parser = MagicMock()
         x_axis = MagicMock()
         x_axis.find.return_value = None
         y_axis = MagicMock()
@@ -41,7 +51,11 @@ class TestWalkKey(unittest.TestCase):
 
         mod_id = self.config.walk_id.return_value
 
-        walk_key = WalkKey(config=self.config, transformer=self.transformer)
+        walk_key = WalkKey(
+            config=self.config,
+            transformer=self.transformer,
+            parser=custom_parser
+        )
         walk_key.put(key=self.key, root=self.root)
 
         self.transformer.transform.assert_called_once_with(self.key)
@@ -56,7 +70,8 @@ class TestWalkKey(unittest.TestCase):
         self.assertEqual(y_walk_btn.tail, '\n')
 
     @patch('src.xml_editors.walk_key_editor.walk_key.SubElement')
-    def test_updates_walk_key_element(self, sub_element):
+    @patch('src.xml_editors.walk_key_editor.walk_key.XMLParser')
+    def test_updates_walk_key_element(self, xml_parser, sub_element):
         x_walk_btn = MagicMock()
         y_walk_btn = MagicMock()
         x_axis = MagicMock()
@@ -65,10 +80,15 @@ class TestWalkKey(unittest.TestCase):
         y_axis.find.return_value = y_walk_btn
         self.root.find.side_effect = [x_axis, y_axis]
         sub_element.side_effect = [x_walk_btn, y_walk_btn]
+        parser = MagicMock()
 
         sub_element.side_effect = [x_walk_btn, y_walk_btn]
 
-        walk_key = WalkKey(config=self.config, transformer=self.transformer)
+        walk_key = WalkKey(
+            config=self.config,
+            transformer=self.transformer,
+            parser=parser
+        )
         walk_key.put(key=self.key, root=self.root)
 
         self.transformer.transform.assert_called_once_with(self.key)

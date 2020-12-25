@@ -55,3 +55,4 @@ if __name__ == "__main__":
         root.withdraw()
         config: Config = ioc.get(Config)
         messagebox.showerror(config.app_name(), err)
+        raise err

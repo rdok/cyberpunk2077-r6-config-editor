@@ -1,6 +1,8 @@
 from xml.etree import ElementTree
+from xml.etree.ElementTree import XMLParser
 
 from src.config import Config
+from src.xml_editors.CustomParser import CustomParser
 from src.xml_editors.walk_key_editor.walk_key import WalkKey
 from src.xml_editors.walk_key_editor.x_axis import XAxis
 from src.xml_editors.walk_key_editor.y_axis import YAxis
@@ -12,8 +14,10 @@ class WalkKeyEditor:
         config: Config,
         x_axis: XAxis,
         y_axis: YAxis,
-        walk_key: WalkKey
+        walk_key: WalkKey,
+        parser: CustomParser
     ):
+        self.parser = parser
         self.y_axis = y_axis
         self.config = config
         self.x_axis = x_axis
@@ -21,7 +25,9 @@ class WalkKeyEditor:
 
     def write(self, key: str):
         filename = self.config.get_input_user_mappings_path()
-        root = ElementTree.parse(filename)
+
+        parser = XMLParser(target=CustomParser())
+        root = ElementTree.parse(filename, parser=parser)
 
         self.walk_key.put(key=key, root=root)
         self.x_axis.put_forward(root)
@@ -35,37 +41,3 @@ class WalkKeyEditor:
         self.y_axis.update_forward(root)
 
         root.write(filename)
-
-    # def update_y_axis_for_vertical(self, y_mapping: ElementTree):
-    #     forward = y_mapping.find('.//button[@overridableUI="forward"]')
-    #     forward.set('val', '1.4')
-    #
-    #     back = y_mapping.find('.//button[@overridableUI="back"]')
-    #     back.set('val', '-1.4')
-    #
-    # def locate_back_id(self, root: ElementTree):
-    #     xpath = './/bindings//mapping[{0}]//button[{1}]' \
-    #         .format('@name="LeftY_Axis"', '@overridableUI="back"')
-    #     return root.find(xpath)
-    #
-    # def put_y_axis_horizontally(
-    #     self, y_mapping: ElementTree, left_id, right_id
-    # ):
-    #     left_btn = y_mapping.find('.//button[@overridableUI="left"]')
-    #
-    #     if left_btn is None:
-    #         attr = {'id': left_id, 'val': '0', 'overridableUI': 'left'}
-    #         left_btn = SubElement(y_mapping, 'button', attr)
-    #         left_btn.tail = '\n'
-    #     # else:
-    #     #     left_btn.set('val', '0')
-    #
-    #     right = y_mapping.find('.//button[@overridableUI="right"]')
-    #     if right is None:
-    #         attr = {'id': right_id, 'val': '0', 'overridableUI': 'right'}
-    #         back_btn = SubElement(y_mapping, 'button', attr)
-    #         back_btn.tail = '\n'
-    #     # else:
-    #     #     back.set('val', '0')
-    #     #     back.set('override', '0')
-    #

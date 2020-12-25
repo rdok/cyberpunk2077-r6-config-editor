@@ -6,6 +6,7 @@ from src.frames.crafting_speed_frame import CraftingSpeedFrame
 from src.frames.remap_walk_frame import RemapWalkFrame
 from src.gui import GUI
 from src.transformers.key_transformer import KeyTransformer
+from src.xml_editors.CustomParser import CustomParser
 from src.xml_editors.IDLocators import IDLocators
 from src.xml_editors.crafting_speed_element import CraftingSpeedEditor
 from src.xml_editors.walk_key_editor import WalkKeyEditor, XAxis, WalkKey, YAxis
@@ -22,22 +23,28 @@ class IOC:
         self.set(Tk, Tk())
         self.set(KeyTransformer, KeyTransformer())
         self.set(IDLocators, IDLocators())
+        self.set(CustomParser, CustomParser())
         self.set(XAxis, XAxis(id_locators=self.get(IDLocators)))
         self.set(YAxis, YAxis(id_locators=self.get(IDLocators)))
 
         self.set(WalkKey, WalkKey(
             config=self.get(Config),
             transformer=self.get(KeyTransformer),
+            parser=self.get(CustomParser),
         ))
 
         self.set(WalkKeyEditor, WalkKeyEditor(
             config=self.get(Config),
             x_axis=self.get(XAxis),
             y_axis=self.get(YAxis),
-            walk_key=self.get(WalkKey)
+            walk_key=self.get(WalkKey),
+            parser=self.get(CustomParser),
         ))
 
-        self.set(CraftingSpeedEditor, CraftingSpeedEditor(self.get(Config)))
+        self.set(CraftingSpeedEditor, CraftingSpeedEditor(
+            config=self.get(Config),
+            parser=self.get(CustomParser)
+        ))
 
         self.set(RemapWalkFrame, RemapWalkFrame(
             walk_element=self.get(WalkKeyEditor),
@@ -56,6 +63,10 @@ class IOC:
 
     def has(self, class_reference):
         return class_reference in self.dependencies
+
+    def new(self, class_reference):
+        dependency = self.dependencies.get(class_reference)
+        return dependency()
 
     def get(self, class_reference):
         dependency = self.dependencies.get(class_reference)

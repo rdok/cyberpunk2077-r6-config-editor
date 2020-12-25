@@ -1,6 +1,7 @@
-# Edge v0.6.2
+# Edge v0.7.0
+- Leave XML comments are they are.
 - Fix diagonal walking. Fixes walking speed to slightly faster.
-- Load initial walk button if already set.
+- Load initial walk button if set.
 - Improve styling to fit closer to Cyberpunk 2077.
 - Graciously handle errors: show the actual error message to user.
  
