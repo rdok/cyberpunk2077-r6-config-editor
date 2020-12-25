@@ -1,5 +1,4 @@
-from xml.etree import ElementTree
-from xml.etree.ElementTree import SubElement
+from xml.etree.ElementTree import ElementTree, SubElement
 
 from src.xml_editors.IDLocators import IDLocators
 
@@ -8,8 +7,17 @@ class XAxis:
     x_axis_xpath = './/mapping[@name="LeftX_Axis"]'
 
     def __init__(self, id_locators: IDLocators):
-        super().__init__()
         self.id_locators = id_locators
+
+    def update_left(self, root):
+        x_axis = root.find(self.x_axis_xpath)
+        left = x_axis.find('.//button[@overridableUI="left"]')
+        left.set('val', '-1.4')
+
+    def update_right(self, root):
+        x_axis = root.find(self.x_axis_xpath)
+        right = x_axis.find('.//button[@overridableUI="right"]')
+        right.set('val', '1.4')
 
     def put_forward(self, root: ElementTree):
         x_axis = root.find(self.x_axis_xpath)

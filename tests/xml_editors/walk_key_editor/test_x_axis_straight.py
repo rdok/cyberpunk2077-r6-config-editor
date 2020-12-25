@@ -2,10 +2,10 @@ import unittest
 from unittest.mock import MagicMock, patch
 
 from src.xml_editors.IDLocators import IDLocators
-from src.xml_editors.walk_key_editor import XAxis
+from src.xml_editors.walk_key_editor.x_axis import XAxis
 
 
-class TestXAxis(unittest.TestCase):
+class TestXAxisStraight(unittest.TestCase):
     def test_updates_x_axis_forward(self):
         root = MagicMock()
         x_axis_root = root.find.return_value
@@ -69,3 +69,31 @@ class TestXAxis(unittest.TestCase):
         id = id_locators.back.return_value
         attributes = {'id': id, 'val': '0', 'overridableUI': 'back'}
         sub_element.assert_called_once_with(x_axis_root, 'button', attributes)
+
+    def test_updates_x_axis_left(self):
+        root = MagicMock()
+        x_axis_root = root.find.return_value
+        id_locators = MagicMock(spec=IDLocators)
+        x_axis = XAxis(id_locators=id_locators)
+
+        x_axis.update_left(root)
+
+        root.find.assert_called_once_with('.//mapping[@name="LeftX_Axis"]')
+        xpath = './/button[@overridableUI="left"]'
+        x_axis_root.find.assert_called_once_with(xpath)
+        x_axis_root.find.return_value.set \
+            .assert_called_once_with('val', '-1.4')
+
+    def test_updates_x_axis_right(self):
+        root = MagicMock()
+        x_axis_root = root.find.return_value
+        id_locators = MagicMock(spec=IDLocators)
+        x_axis = XAxis(id_locators=id_locators)
+
+        x_axis.update_right(root)
+
+        root.find.assert_called_once_with('.//mapping[@name="LeftX_Axis"]')
+        xpath = './/button[@overridableUI="right"]'
+        x_axis_root.find.assert_called_once_with(xpath)
+        x_axis_root.find.return_value.set \
+            .assert_called_once_with('val', '1.4')
