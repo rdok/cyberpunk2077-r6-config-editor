@@ -15,7 +15,7 @@ class TestWalkElement(unittest.TestCase):
         )
 
     @patch('src.xml_factories.walk_element.ElementTree')
-    def test_it_should_locate_itself(self, element_tree):
+    def test_locates_itself(self, element_tree):
         filename = self.config.get_input_user_mappings_path.return_value
         root = element_tree.parse.return_value
         expected_element = root.find.return_value
@@ -28,53 +28,75 @@ class TestWalkElement(unittest.TestCase):
         self.assertEqual(expected_element, actual_element)
 
     @patch('src.xml_factories.walk_element.ElementTree')
-    def test_it_should_save_itself(self, element_tree):
+    def test_saves_itself(self, element_tree):
+        self.element.update_x_horizontal = MagicMock()
+        self.element.put_y_axis_horizontally = MagicMock()
+        self.element.put_walk_key = MagicMock()
+        self.element.locate_left_id = MagicMock()
+        self.element.locate_right_id = MagicMock()
+        self.element.locate_back_id = MagicMock()
+        self.element.locate_forward_id = MagicMock()
         root = element_tree.parse.return_value
         x_mapping = MagicMock()
         y_mapping = MagicMock()
+        self.element.put_x_axis_vertically = MagicMock()
         root.find.side_effect = [x_mapping, y_mapping]
 
-        self.element.update_x_horizontal = MagicMock()
-        self.element.put_x_vertical = MagicMock()
-        self.element.put_xik_s = MagicMock()
-        self.element.put_walk_key = MagicMock()
         filename = self.config.get_input_user_mappings_path.return_value
         walk_key = MagicMock()
 
         self.element.write(walk_key)
 
         self.element.update_x_horizontal.assert_called_once_with(x_mapping)
-        self.element.put_x_vertical.assert_called_once_with(x_mapping)
-        self.element.put_xik_s.assert_called_once_with(x_mapping)
+        self.element.put_x_axis_vertically.assert_called_once_with(
+            x_mapping,
+            self.element.locate_forward_id.return_value,
+            self.element.locate_back_id.return_value,
+        )
+        self.element.put_y_axis_horizontally.assert_called_once_with(
+            x_mapping,
+            self.element.locate_left_id.return_value,
+            self.element.locate_right_id.return_value,
+        )
         self.element.put_walk_key.assert_called_once_with(
             walk_key, x_mapping=x_mapping, y_mapping=y_mapping
         )
         root.write.assert_called_once_with(filename)
 
-    def test_it_should_update_horizontal_side_movement(self):
+    def test_updates_x_axis_elements_horizontally(self):
         horizontal_mapping = MagicMock()
         self.element.update_x_horizontal(horizontal_mapping)
 
-        calls = [call('.//button[@id="IK_A"]'), call('.//button[@id="IK_D"]')]
+        calls = [
+            call('.//button[@overridableUI="left"]'),
+            call('.//button[@overridableUI="right"]')
+        ]
         horizontal_mapping.find.assert_has_calls(calls)
 
         calls = [call('val', '-1.4'), call('val', '1.4'), ]
         horizontal_mapping.find.return_value.set.assert_has_calls(calls)
 
     @patch('src.xml_factories.walk_element.SubElement')
-    def test_it_should_create_horizontal_straight_movement(self, sub_element):
+    def test_creates_x_axis_elements_for_straight(self, sub_element):
         mapping = MagicMock()
         mapping.find.side_effect = [None, None]
         forward_btn = MagicMock()
         back_btn = MagicMock()
         sub_element.side_effect = [forward_btn, back_btn]
 
-        self.element.put_x_vertical(x_mappings=mapping)
+        forward_btn_id = self.element.locate_forward_id.return_value
+        back_btn_id = self.element.locate_back_id.return_value
 
-        attributes = {'id': 'IK_W', 'val': '0', 'overridableUI': 'forward'}
+        self.element.put_x_axis_vertically(
+            x_mappings=mapping,
+            forward_id=forward_btn_id,
+            back_id=back_btn_id,
+        )
+
+        attributes = {'id': forward_btn_id, 'val': '0', 'overridableUI': 'forward'}
         forward_btn_call = call(mapping, 'button', attributes)
 
-        attributes = {'id': 'IK_S', 'val': '0', 'overridableUI': 'back', }
+        attributes = {'id': back_btn_id, 'val': '0', 'overridableUI': 'back', }
         back_btn_call = call(mapping, 'button', attributes)
 
         sub_element.assert_has_calls([forward_btn_call, back_btn_call])
@@ -82,10 +104,54 @@ class TestWalkElement(unittest.TestCase):
         self.assertEqual(back_btn.tail, '\n')
 
     @patch('src.xml_factories.walk_element.SubElement')
-    def test_it_should_update_horizontal_straight_movement(self, sub_element):
+    def test_creates_y_axis_elements_horizontally(self, sub_element):
+        root = MagicMock()
+        left_btn_id = root.find.return_value
+        right_btn_id = root.find.return_value
+        root.find.side_effect = [left_btn_id, right_btn_id]
+
+        mapping = MagicMock()
+        mapping.find.side_effect = [None, None]
+        left_btn = MagicMock()
+        right_btn = MagicMock()
+        sub_element.side_effect = [left_btn, right_btn]
+
+        self.element.put_y_axis_horizontally(y_mapping=mapping, root=root)
+
+        attributes = {'id': left_btn_id, 'val': '0', 'overridableUI': 'left'}
+        left_btn_call = call(mapping, 'button', attributes)
+
+        attributes = {'id': right_btn_id, 'val': '0', 'overridableUI': 'right', }
+        right_btn_call = call(mapping, 'button', attributes)
+
+        sub_element.assert_has_calls([left_btn_call, right_btn_call])
+        self.assertEqual(left_btn.tail, '\n')
+        self.assertEqual(right_btn.tail, '\n')
+
+    @patch('src.xml_factories.walk_element.SubElement')
+    def test_updates_y_axis_elements_horizontally(self, sub_element):
+        y_axis_mapping = MagicMock()
+        left_btn = MagicMock()
+        right_btn = MagicMock()
+        y_axis_mapping.find.side_effect = [left_btn, right_btn]
+        sub_element.side_effect = [left_btn, right_btn]
+
+        self.element.put_y_axis_horizontally(y_mapping=y_axis_mapping)
+
+        attributes = {'id': 'IK_A', 'val': '0', 'overridableUI': 'left'}
+        left_btn_call = call(y_axis_mapping, 'button', attributes)
+
+        attributes = {'id': 'IK_D', 'val': '0', 'overridableUI': 'right', }
+        right_btn_call = call(y_axis_mapping, 'button', attributes)
+
+        left_btn_call.set.assert_called_with('')
+        sub_element.assert_not_called()
+
+    @patch('src.xml_factories.walk_element.SubElement')
+    def test_updates_x_axis_elements_straightly(self, sub_element):
         mapping = MagicMock()
         mapping.find.return_value.side_effect = [True, True]
-        self.element.put_x_vertical(x_mappings=mapping)
+        self.element.put_x_axis_vertically(x_mappings=mapping)
 
         calls = [
             call('.//button[@id="IK_W"]'),
@@ -96,7 +162,20 @@ class TestWalkElement(unittest.TestCase):
         mapping.find.assert_has_calls(calls)
 
     @patch('src.xml_factories.walk_element.SubElement')
-    def test_it_should_create_walk_key_element(self, sub_element):
+    def test_updates_y_axis_elements_for_straight(self, sub_element):
+        mapping = MagicMock()
+        self.element.update_y_axis_for_vertical(y_mapping=mapping)
+
+        calls = [
+            call('.//button[@id="IK_W"]'),
+            call().set('val', '1.4'),
+            call('.//button[@id="IK_S"]'),
+            call().set('val', '-1.4'),
+        ]
+        mapping.find.assert_has_calls(calls)
+
+    @patch('src.xml_factories.walk_element.SubElement')
+    def test_creates_walk_key_element(self, sub_element):
         x_mappings = MagicMock()
         x_mappings.find.return_value = None
         y_mappings = MagicMock()
@@ -125,7 +204,7 @@ class TestWalkElement(unittest.TestCase):
         self.assertEqual(y_walk_btn.tail, '\n')
 
     @patch('src.xml_factories.walk_element.SubElement')
-    def test_it_should_update_walk_key_element(self, sub_element):
+    def test_updates_walk_key_element(self, sub_element):
         x_mappings = MagicMock()
         y_mappings = MagicMock()
         x_walk_btn = MagicMock()
