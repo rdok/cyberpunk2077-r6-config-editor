@@ -17,6 +17,7 @@ class TestWalkKeyEditor(unittest.TestCase):
         x_axis = MagicMock(spec=XAxis)
         y_axis = MagicMock(spec=YAxis)
         walk_key = MagicMock(spec=WalkKey)
+        key = MagicMock()
 
         self.element = WalkKeyEditor(
             config=config,
@@ -25,10 +26,10 @@ class TestWalkKeyEditor(unittest.TestCase):
             walk_key=walk_key,
         )
 
-        self.element.write(walk_key)
+        self.element.write(key)
 
         element_tree.parse.assert_called_once_with(filename)
-        walk_key.put.assert_called_once_with(root, walk_key)
+        walk_key.put.assert_called_once_with(key=key, root=root)
 
         x_axis.put_forward.assert_called_once_with(root)
         x_axis.put_back.assert_called_once_with(root)

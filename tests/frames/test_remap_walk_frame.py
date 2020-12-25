@@ -14,7 +14,9 @@ class TestRemapWalkFrame(unittest.TestCase):
         self.walk_element = MagicMock(WalkKeyEditor)
         self.mapping_entry = MagicMock()
         self.remap_walk_frame = RemapWalkFrame(
-            walk_element=self.walk_element)
+            walk_element=self.walk_element,
+            walk_key=MagicMock()
+        )
         self.remap_walk_frame.mapping_entry = self.mapping_entry
 
     def test_it_handles_apply_event(self):

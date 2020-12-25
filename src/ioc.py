@@ -41,6 +41,7 @@ class IOC:
 
         self.set(RemapWalkFrame, RemapWalkFrame(
             walk_element=self.get(WalkKeyEditor),
+            walk_key=self.get(WalkKey)
         ))
         self.set(CraftingSpeedFrame, CraftingSpeedFrame(
             element=self.get(CraftingSpeedEditor),

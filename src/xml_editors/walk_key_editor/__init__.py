@@ -19,11 +19,11 @@ class WalkKeyEditor:
         self.x_axis = x_axis
         self.walk_key = walk_key
 
-    def write(self, walk_key: str):
+    def write(self, key: str):
         filename = self.config.get_input_user_mappings_path()
         root = ElementTree.parse(filename)
 
-        self.walk_key.put(key=walk_key, root=root)
+        self.walk_key.put(key=key, root=root)
         self.x_axis.put_forward(root)
         self.x_axis.put_back(root)
         self.x_axis.update_left(root)

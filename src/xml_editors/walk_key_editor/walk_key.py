@@ -1,4 +1,5 @@
-from xml.etree.ElementTree import ElementTree, SubElement
+from xml.etree import ElementTree
+from xml.etree.ElementTree import SubElement
 
 from src.config import Config
 from src.transformers.key_transformer import KeyTransformer
@@ -14,7 +15,9 @@ class WalkKey(Axis):
         filename = self.config.get_input_user_mappings_path()
         root = ElementTree.parse(filename)
         mod_id = self.config.walk_id()
-        return root.find(f'.//mapping[@modID="{mod_id}"]')
+
+        path = '{0}//button[@modID="{1}"]'.format(self.x_axis_xpath, mod_id)
+        return root.find(path)
 
     def put(self, key, root: ElementTree):
         x_axis = root.find(self.x_axis_xpath)
