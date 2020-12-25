@@ -14,7 +14,8 @@ class TestIDLocators(unittest.TestCase):
     def test_locates_back_id(self):
         actual = self.id_locators.back(self.root)
 
-        xpath = './/mapping[@name="LeftY_Axis"]//button[@overridableUI="back"]'
+        xpath = './/mapping[@name="LeftY_Axis"]' \
+                '//button[@overridableUI="back"]'
         self.root.find.assert_called_once_with(xpath)
         self.root.find.return_value.get.assert_called_once_with('id')
         self.assertEqual(self.expected, actual)
@@ -22,7 +23,8 @@ class TestIDLocators(unittest.TestCase):
     def test_locates_forward_id(self):
         actual = self.id_locators.forward(self.root)
 
-        xpath = './/mapping[@name="LeftY_Axis"]//button[@overridableUI="forward"]'
+        xpath = './/mapping[@name="LeftY_Axis"]' \
+                '//button[@overridableUI="forward"]'
         self.root.find.assert_called_once_with(xpath)
         self.root.find.return_value.get.assert_called_once_with('id')
         self.assertEqual(self.expected, actual)
@@ -30,7 +32,8 @@ class TestIDLocators(unittest.TestCase):
     def test_locates_left_id(self):
         actual = self.id_locators.left(self.root)
 
-        xpath = './/mapping[@name="LeftX_Axis"]//button[@overridableUI="left"]'
+        xpath = './/mapping[@name="LeftX_Axis"]' \
+                '//button[@overridableUI="left"]'
         self.root.find.assert_called_once_with(xpath)
         self.root.find.return_value.get.assert_called_once_with('id')
         self.assertEqual(self.expected, actual)
@@ -38,7 +41,8 @@ class TestIDLocators(unittest.TestCase):
     def test_locates_right_id(self):
         actual = self.id_locators.right(self.root)
 
-        xpath = './/mapping[@name="LeftX_Axis"]//button[@overridableUI="right"]'
+        xpath = './/mapping[@name="LeftX_Axis"]' \
+                '//button[@overridableUI="right"]'
         self.root.find.assert_called_once_with(xpath)
         self.root.find.return_value.get.assert_called_once_with('id')
         self.assertEqual(self.expected, actual)

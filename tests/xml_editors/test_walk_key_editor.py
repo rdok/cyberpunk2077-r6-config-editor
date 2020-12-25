@@ -47,4 +47,3 @@ class TestWalkKeyEditor(unittest.TestCase):
         y_axis.update_forward.assert_called_once_with(root)
 
         root.write.assert_called_once_with(filename)
-

@@ -9,7 +9,8 @@ from src.transformers.key_transformer import KeyTransformer
 from src.xml_editors.CustomParser import CustomParser
 from src.xml_editors.IDLocators import IDLocators
 from src.xml_editors.crafting_speed_element import CraftingSpeedEditor
-from src.xml_editors.walk_key_editor import WalkKeyEditor, XAxis, WalkKey, YAxis
+from src.xml_editors.walk_key_editor import WalkKeyEditor, XAxis, WalkKey, \
+    YAxis
 
 
 class IOC:

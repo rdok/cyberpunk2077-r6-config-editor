@@ -31,7 +31,9 @@ class TestWalkKey(unittest.TestCase):
         parser = xml_parser.return_value
         actual_element = walk_key.find()
 
-        element_tree.parse.assert_called_once_with(self.filename, parser=parser)
+        element_tree.parse.assert_called_once_with(
+            self.filename, parser=parser
+        )
         path = f'.//mapping[@name="LeftX_Axis"]//button[@modID="{walk_id}"]'
         root.find.assert_called_once_with(path)
         self.assertEqual(expected_element, actual_element)

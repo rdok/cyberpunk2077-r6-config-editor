@@ -30,7 +30,8 @@ class TestYAxis(unittest.TestCase):
         root.find.assert_called_once_with('.//mapping[@name="LeftY_Axis"]')
         xpath = './/button[@overridableUI="back"]'
         y_axis_root.find.assert_called_once_with(xpath)
-        y_axis_root.find.return_value.set.assert_called_once_with('val', '-1.4')
+        y_axis_root.find.return_value.set. \
+            assert_called_once_with('val', '-1.4')
 
     @patch('src.xml_editors.walk_key_editor.y_axis.SubElement')
     def test_creates_y_axis_right(self, sub_element):
@@ -66,7 +67,6 @@ class TestYAxis(unittest.TestCase):
         y_axis_root.find.assert_called_once_with(xpath)
         right.set.assert_called_once_with('val', '0')
 
-
     @patch('src.xml_editors.walk_key_editor.y_axis.SubElement')
     def test_creates_y_axis_left(self, sub_element):
         root = MagicMock()
@@ -100,4 +100,3 @@ class TestYAxis(unittest.TestCase):
         xpath = './/button[@overridableUI="left"]'
         y_axis_root.find.assert_called_once_with(xpath)
         left.set.assert_called_once_with('val', '0')
-
