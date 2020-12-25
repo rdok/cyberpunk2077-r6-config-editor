@@ -39,11 +39,19 @@ class WalkElement:
         mod_id = self.config.walk_id()
         attributes = {'id': id, 'val': '0', 'modID': mod_id}
 
-        x_element = SubElement(x_mappings, 'button', attributes)
-        x_element.tail = '\n'
+        x_element = x_mappings.find(f'.//button[@modID="{mod_id}"]')
+        if x_element is None:
+            x_element = SubElement(x_mappings, 'button', attributes)
+            x_element.tail = '\n'
+        else:
+            x_element.set('val', '0')
 
-        y_element = SubElement(y_mappings, 'button', attributes)
-        y_element.tail = '\n'
+        y_element = y_mappings.find(f'.//button[@modID="{mod_id}"]')
+        if y_element is None:
+            y_element = SubElement(y_mappings, 'button', attributes)
+            y_element.tail = '\n'
+        else:
+            y_element.set('val', '0')
 
     def update_x_horizontal(self, x_mappings: ElementTree):
         left_move = x_mappings.find('.//button[@id="IK_A"]')

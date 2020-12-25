@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import MagicMock, patch, call
-from xml.etree.ElementTree import SubElement
+from xml.etree.ElementTree import SubElement, ElementTree
 
 from src.config import Config
 from src.transformers.key_transformer import KeyTransformer
@@ -95,7 +95,9 @@ class TestWalkElement(unittest.TestCase):
     @patch('src.xml_factories.walk_element.SubElement')
     def test_it_should_create_walk_key_element(self, sub_element):
         x_mappings = MagicMock()
+        x_mappings.find.return_value = None
         y_mappings = MagicMock()
+        y_mappings.find.return_value = None
         x_walk_btn = MagicMock()
         y_walk_btn = MagicMock
         key = MagicMock()
@@ -118,3 +120,25 @@ class TestWalkElement(unittest.TestCase):
 
         self.assertEqual(x_walk_btn.tail, '\n')
         self.assertEqual(y_walk_btn.tail, '\n')
+
+    @patch('src.xml_factories.walk_element.SubElement')
+    def test_it_should_update_walk_key_element(self, sub_element):
+        x_mappings = MagicMock()
+        y_mappings = MagicMock()
+        x_walk_btn = MagicMock()
+        y_walk_btn = MagicMock()
+        x_mappings.find.return_value = x_walk_btn
+        y_mappings.find.return_value = y_walk_btn
+
+        key = MagicMock()
+        sub_element.side_effect = [x_walk_btn, y_walk_btn]
+
+        self.element.put_walk_key(
+            key=key, x_mappings=x_mappings, y_mappings=y_mappings
+        )
+
+        self.key_transformer.transform.assert_called_once_with(key)
+
+        sub_element.assert_not_called()
+        x_walk_btn.set.assert_called_once_with('val', '0')
+        y_walk_btn.set.assert_called_once_with('val', '0')
