@@ -18,7 +18,7 @@ class Config:
         self.input_user_mappings_path = path
 
     def walk_id(self):
-        return 'rdok/cyberpunk2077-r6-config-editor/walk'
+        return 'ad3a8b38-08ce-41bc-bca6-27b4456acb95'
 
     def app_name(self):
         return 'Cyberpunk2077 r6-config-editor'

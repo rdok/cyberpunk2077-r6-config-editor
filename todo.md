@@ -1,0 +1,3 @@
+- Patch XML to not remove first line & comments.
+- Should not remove comments.
+- Option to rebind the cancel action to a keyboard or mouse button.

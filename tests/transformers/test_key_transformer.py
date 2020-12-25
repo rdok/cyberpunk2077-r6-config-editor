@@ -8,7 +8,7 @@ config = Config()
 key_transformer = KeyTransformer()
 
 
-class TestKeyTransformer():
+class TestKeyTransformer:
     @pytest.mark.parametrize("input, output", [
         ('Caps_Lock', 'CapsLock'), ('Alt_', 'Alt'), ('Control_L', 'Ctrl'),
         ('Control_R', 'Ctrl'), ('Shift_L', 'LShift')])

@@ -33,7 +33,7 @@ def configure_app(ioc: IOC):
     config.set_input_user_mappings_path(args.input_user_mappings_path)
     config.set_input_contexts_path(args.input_contexts_path)
     ioc.set(Config, config)
-    ioc.instatiate_dependencies()
+    ioc.instantiate_dependencies()
 
     return ioc
 
@@ -55,3 +55,4 @@ if __name__ == "__main__":
         root.withdraw()
         config: Config = ioc.get(Config)
         messagebox.showerror(config.app_name(), err)
+        raise err

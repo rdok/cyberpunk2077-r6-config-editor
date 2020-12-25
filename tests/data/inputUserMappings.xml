@@ -1,0 +1,19 @@
+<bindings>
+    <!--    -->
+    <mapping name="LeftX_Axis" type="Axis">
+        <button id="IK_Pad_LeftAxisX" />
+        <button id="IK_A" overridableUI="left" val="-1.4" />
+        <button id="IK_D" overridableUI="right" val="1.4" />
+        <button id="IK_W" val="0" overridableUI="forward" />
+        <button id="IK_S" val="0" overridableUI="back" />
+        <button id="IK_Ctrl" val="0" modID="ad3a8b38-08ce-41bc-bca6-27b4456acb95" />
+    </mapping>
+    <mapping name="LeftY_Axis" type="Axis">
+        <button id="IK_Pad_LeftAxisY" />
+        <button id="IK_W" overridableUI="forward" val="1.4" />
+        <button id="IK_S" overridableUI="back" val="-1.4" />
+        <button id="IK_A" val="0" overridableUI="left" />
+        <button id="IK_D" val="0" overridableUI="right" />
+        <button id="IK_Ctrl" val="0" modID="ad3a8b38-08ce-41bc-bca6-27b4456acb95" />
+    </mapping>
+</bindings>
