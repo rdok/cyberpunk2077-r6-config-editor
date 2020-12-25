@@ -23,7 +23,7 @@ class WalkKeyEditor:
         filename = self.config.get_input_user_mappings_path()
         root = ElementTree.parse(filename)
 
-        self.walk_key.put(root, walk_key)
+        self.walk_key.put(key=walk_key, root=root)
         self.x_axis.put_forward(root)
         self.x_axis.put_back(root)
         self.x_axis.update_left(root)

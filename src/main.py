@@ -33,7 +33,7 @@ def configure_app(ioc: IOC):
     config.set_input_user_mappings_path(args.input_user_mappings_path)
     config.set_input_contexts_path(args.input_contexts_path)
     ioc.set(Config, config)
-    ioc.instatiate_dependencies()
+    ioc.instantiate_dependencies()
 
     return ioc
 

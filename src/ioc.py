@@ -18,13 +18,17 @@ class IOC:
         self.set(ArgumentParser, ArgumentParser())
         self.set(Config, Config())
 
-    def instatiate_dependencies(self):
+    def instantiate_dependencies(self):
         self.set(Tk, Tk())
         self.set(KeyTransformer, KeyTransformer())
         self.set(IDLocators, IDLocators())
         self.set(XAxis, XAxis(id_locators=self.get(IDLocators)))
         self.set(YAxis, YAxis(id_locators=self.get(IDLocators)))
-        self.set(WalkKey, WalkKey())
+
+        self.set(WalkKey, WalkKey(
+            config=self.get(Config),
+            transformer=self.get(KeyTransformer),
+        ))
 
         self.set(WalkKeyEditor, WalkKeyEditor(
             config=self.get(Config),

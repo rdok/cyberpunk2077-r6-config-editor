@@ -1,10 +1,10 @@
 from xml.etree.ElementTree import ElementTree, SubElement
 
 from src.xml_editors.IDLocators import IDLocators
+from src.xml_editors.walk_key_editor.axis import Axis
 
 
-class YAxis:
-    y_axis_xpath = './/mapping[@name="LeftY_Axis"]'
+class YAxis(Axis):
 
     def __init__(self, id_locators: IDLocators):
         self.id_locators = id_locators

@@ -14,7 +14,7 @@ ioc.set(ArgumentParser, argument_parser)
 config = MagicMock(spec=Config)
 ioc.set(Config, config)
 
-ioc.instatiate_dependencies()
+ioc.instantiate_dependencies()
 
 gui = MagicMock(spec=GUI)
 ioc.set(GUI, gui)
