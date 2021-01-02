@@ -1,3 +1,4 @@
+import tkinter
 import tkinter as tk
 
 from src.widgets.button import Button
@@ -49,6 +50,7 @@ class WalkFrame:
 
     def handle_apply_event(self, event):
         self.walk_key_editor.write(self.mapping_entry.get())
+        tkinter.messagebox.showinfo(message="Done")
 
     def handle_entry_clicked(self, event):
         self.mapping_entry.delete(0, tk.END)

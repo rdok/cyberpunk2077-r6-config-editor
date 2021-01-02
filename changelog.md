@@ -1,4 +1,8 @@
-# Edge v0.7.0
+# v0.8.0
+- Disassemble speed is now configurable
+- Show success info on successful XML editing.
+
+# v0.7.0
 - Leave XML comments are they are.
 - Fix diagonal walking. Fixes walking speed to slightly faster.
 - Load initial walk button if set.

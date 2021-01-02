@@ -1,3 +1,4 @@
+import tkinter
 import tkinter as tk
 from abc import ABC, abstractmethod
 
@@ -45,6 +46,7 @@ class HoldActionFrame(ABC):
     def handle_apply_event(self, event):
         scale_value = self.scale.get()
         self.hold_action_editor.set_timeout(scale_value)
+        tkinter.messagebox.showinfo(message="Done")
 
     @abstractmethod
     def label_text(self) -> str:
