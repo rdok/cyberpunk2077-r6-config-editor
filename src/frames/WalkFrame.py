@@ -5,16 +5,16 @@ from src.widgets.button_frame import ButtonFrame
 from src.widgets.entry import Entry
 from src.widgets.frame import Frame
 from src.widgets.label import Label
-from src.xml_editors.walk_key_editor import WalkKeyEditor, WalkKey
+from src.xml_editors.walk_key_editor import WalkEditor, WalkKey
 
 
-class RemapWalkFrame:
+class WalkFrame:
     walk_key: WalkKey
     row = 0
     mapping_entry: Entry
-    walk_key_editor: WalkKeyEditor
+    walk_key_editor: WalkEditor
 
-    def __init__(self, walk_element: WalkKeyEditor, walk_key: WalkKey):
+    def __init__(self, walk_element: WalkEditor, walk_key: WalkKey):
         self.walk_key = walk_key
         self.walk_key_editor = walk_element
 
@@ -40,7 +40,7 @@ class RemapWalkFrame:
         self.mapping_entry = mapping_entry
 
         frame = Frame(master=master)
-        frame.grid(row=self.row, column=3)
+        frame.grid(row=self.row, column=2)
         apply_button_frame = ButtonFrame(master=frame)
         apply_button_frame.grid()
         apply_button = Button(master=apply_button_frame, text="APPLY")

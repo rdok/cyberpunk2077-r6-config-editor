@@ -1,7 +1,7 @@
 import os
 import unittest
 
-from src.config import Config
+from src.Config import Config
 
 config = Config()
 

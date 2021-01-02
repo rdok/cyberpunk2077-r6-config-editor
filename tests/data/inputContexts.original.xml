@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <bindings>
     <hold action="craft_item" timeout="1.0"/>
+    <hold action="disassemble_item" timeout="0.4" />
     <hold action="lorem_ipsum" timeout="0.5"/>
 </bindings>

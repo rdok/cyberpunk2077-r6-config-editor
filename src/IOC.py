@@ -1,15 +1,17 @@
 from argparse import ArgumentParser
 from tkinter import Tk
 
-from src.config import Config
-from src.frames.crafting_speed_frame import CraftingSpeedFrame
-from src.frames.remap_walk_frame import RemapWalkFrame
-from src.gui import GUI
-from src.transformers.key_transformer import KeyTransformer
-from src.xml_editors.CustomParser import CustomParser
+from src.Config import Config
+from src.frames.hold_actions.DisassembleFrame import DisassembleFrame
+from src.frames.hold_actions.CraftingFrame import CraftingFrame
+from src.frames.WalkFrame import WalkFrame
+from src.GUI import GUI
+from src.transformers.KeyTransformer import KeyTransformer
+from src.xml_editors.CustomTreeBuilder import CustomTreeBuilder
 from src.xml_editors.IDLocators import IDLocators
-from src.xml_editors.crafting_speed_element import CraftingSpeedEditor
-from src.xml_editors.walk_key_editor import WalkKeyEditor, XAxis, WalkKey, \
+from src.xml_editors.hold_actions.CraftingEditor import CraftingEditor
+from src.xml_editors.hold_actions.DisassembleEditor import DisassembleEditor
+from src.xml_editors.walk_key_editor import WalkEditor, XAxis, WalkKey, \
     YAxis
 
 
@@ -24,42 +26,52 @@ class IOC:
         self.set(Tk, Tk())
         self.set(KeyTransformer, KeyTransformer())
         self.set(IDLocators, IDLocators())
-        self.set(CustomParser, CustomParser())
+        self.set(CustomTreeBuilder, CustomTreeBuilder())
         self.set(XAxis, XAxis(id_locators=self.get(IDLocators)))
         self.set(YAxis, YAxis(id_locators=self.get(IDLocators)))
 
         self.set(WalkKey, WalkKey(
             config=self.get(Config),
             transformer=self.get(KeyTransformer),
-            parser=self.get(CustomParser),
+            parser=self.get(CustomTreeBuilder),
         ))
 
-        self.set(WalkKeyEditor, WalkKeyEditor(
+        self.set(WalkEditor, WalkEditor(
             config=self.get(Config),
             x_axis=self.get(XAxis),
             y_axis=self.get(YAxis),
             walk_key=self.get(WalkKey),
-            parser=self.get(CustomParser),
+            parser=self.get(CustomTreeBuilder),
         ))
 
-        self.set(CraftingSpeedEditor, CraftingSpeedEditor(
+        self.set(CraftingEditor, CraftingEditor(
             config=self.get(Config),
-            parser=self.get(CustomParser)
+            parser=self.get(CustomTreeBuilder)
         ))
 
-        self.set(RemapWalkFrame, RemapWalkFrame(
-            walk_element=self.get(WalkKeyEditor),
+        self.set(DisassembleEditor, DisassembleEditor(
+            config=self.get(Config),
+            parser=self.get(CustomTreeBuilder)
+        ))
+
+        self.set(WalkFrame, WalkFrame(
+            walk_element=self.get(WalkEditor),
             walk_key=self.get(WalkKey)
         ))
-        self.set(CraftingSpeedFrame, CraftingSpeedFrame(
-            element=self.get(CraftingSpeedEditor),
+        self.set(CraftingFrame, CraftingFrame(
+            editor=self.get(CraftingEditor),
+        ))
+
+        self.set(DisassembleFrame, DisassembleFrame(
+            editor=self.get(DisassembleEditor),
         ))
 
         self.set(GUI, GUI(
             master=self.get(Tk),
             config=self.get(Config),
-            remap_walk_frame=self.get(RemapWalkFrame),
-            crafting_speed_frame=self.get(CraftingSpeedFrame)
+            walk_frame=self.get(WalkFrame),
+            crafting_frame=self.get(CraftingFrame),
+            disassemble_frame=self.get(DisassembleFrame)
         ))
 
     def has(self, class_reference):

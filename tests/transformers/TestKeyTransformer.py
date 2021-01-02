@@ -1,7 +1,7 @@
 import pytest
 
-from src.config import Config
-from src.transformers.key_transformer import KeyTransformer
+from src.Config import Config
+from src.transformers.KeyTransformer import KeyTransformer
 
 config = Config()
 
@@ -12,5 +12,5 @@ class TestKeyTransformer:
     @pytest.mark.parametrize("input, output", [
         ('Caps_Lock', 'CapsLock'), ('Alt_', 'Alt'), ('Control_L', 'Ctrl'),
         ('Control_R', 'Ctrl'), ('Shift_L', 'LShift')])
-    def test_it_transforms_keys_to_cyberpunk2077_ones(self, input, output):
+    def test_it_normalizes_keys(self, input, output):
         assert key_transformer.transform(input) == output

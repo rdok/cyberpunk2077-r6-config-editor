@@ -1,21 +1,21 @@
 from xml.etree import ElementTree
 from xml.etree.ElementTree import XMLParser
 
-from src.config import Config
-from src.xml_editors.CustomParser import CustomParser
+from src.Config import Config
+from src.xml_editors.CustomTreeBuilder import CustomTreeBuilder
 from src.xml_editors.walk_key_editor.walk_key import WalkKey
 from src.xml_editors.walk_key_editor.x_axis import XAxis
 from src.xml_editors.walk_key_editor.y_axis import YAxis
 
 
-class WalkKeyEditor:
+class WalkEditor:
     def __init__(
         self,
         config: Config,
         x_axis: XAxis,
         y_axis: YAxis,
         walk_key: WalkKey,
-        parser: CustomParser
+        parser: CustomTreeBuilder
     ):
         self.parser = parser
         self.y_axis = y_axis
@@ -26,7 +26,7 @@ class WalkKeyEditor:
     def write(self, key: str):
         filename = self.config.get_input_user_mappings_path()
 
-        parser = XMLParser(target=CustomParser())
+        parser = XMLParser(target=CustomTreeBuilder())
         root = ElementTree.parse(filename, parser=parser)
 
         self.walk_key.put(key=key, root=root)
