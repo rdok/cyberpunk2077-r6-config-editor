@@ -1,6 +1,6 @@
 import tkinter as tk
 
-from src.styles import Styles
+from src.Styles import Styles
 
 
 class Frame(tk.Frame):

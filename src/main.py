@@ -2,15 +2,16 @@ import tkinter
 from argparse import ArgumentParser
 from tkinter import messagebox
 
-from src.config import Config
-from src.gui import GUI
-from src.ioc import IOC
+from src.Config import Config
+from src.GUI import GUI
+from src.IOC import IOC
 
 
 def main(ioc: IOC):
     gui: GUI = ioc.get(GUI)
-    gui.create_remap_walk_frame()
-    gui.create_crafting_speed_frame()
+    gui.render_walk_frame()
+    gui.render_crafting_frame()
+    gui.render_disassemble_frame()
     gui.mainloop()
 
 

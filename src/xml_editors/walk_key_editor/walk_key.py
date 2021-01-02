@@ -1,9 +1,9 @@
 from xml.etree import ElementTree
 from xml.etree.ElementTree import SubElement, XMLParser
 
-from src.config import Config
-from src.transformers.key_transformer import KeyTransformer
-from src.xml_editors.CustomParser import CustomParser
+from src.Config import Config
+from src.transformers.KeyTransformer import KeyTransformer
+from src.xml_editors.CustomTreeBuilder import CustomTreeBuilder
 from src.xml_editors.walk_key_editor.axis import Axis
 
 
@@ -12,7 +12,7 @@ class WalkKey(Axis):
         self,
         config: Config,
         transformer: KeyTransformer,
-        parser: CustomParser
+        parser: CustomTreeBuilder
     ):
         self.parser = parser
         self.transformer = transformer

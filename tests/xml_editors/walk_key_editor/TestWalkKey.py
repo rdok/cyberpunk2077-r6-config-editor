@@ -1,9 +1,9 @@
 import unittest
 from unittest.mock import patch, MagicMock, call
 
-from src.config import Config
-from src.transformers.key_transformer import KeyTransformer
-from src.xml_editors.CustomParser import CustomParser
+from src.Config import Config
+from src.transformers.KeyTransformer import KeyTransformer
+from src.xml_editors.CustomTreeBuilder import CustomTreeBuilder
 from src.xml_editors.walk_key_editor import WalkKey
 
 
@@ -21,7 +21,7 @@ class TestWalkKey(unittest.TestCase):
         root = element_tree.parse.return_value
         expected_element = root.find.return_value
         walk_id = self.config.walk_id.return_value
-        custom_parser = MagicMock(spec=CustomParser)
+        custom_parser = MagicMock(spec=CustomTreeBuilder)
 
         walk_key = WalkKey(
             config=self.config,

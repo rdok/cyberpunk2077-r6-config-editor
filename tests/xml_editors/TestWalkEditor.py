@@ -1,13 +1,13 @@
 import unittest
 from unittest.mock import MagicMock, patch
 
-from src.config import Config
-from src.xml_editors.CustomParser import CustomParser
-from src.xml_editors.walk_key_editor import WalkKeyEditor, XAxis, YAxis
+from src.Config import Config
+from src.xml_editors.CustomTreeBuilder import CustomTreeBuilder
+from src.xml_editors.walk_key_editor import WalkEditor, XAxis, YAxis
 from src.xml_editors.walk_key_editor.walk_key import WalkKey
 
 
-class TestWalkKeyEditor(unittest.TestCase):
+class TestWalkEditor(unittest.TestCase):
 
     @patch('src.xml_editors.walk_key_editor.ElementTree')
     @patch('src.xml_editors.walk_key_editor.XMLParser')
@@ -20,10 +20,10 @@ class TestWalkKeyEditor(unittest.TestCase):
         x_axis = MagicMock(spec=XAxis)
         y_axis = MagicMock(spec=YAxis)
         walk_key = MagicMock(spec=WalkKey)
-        custom_parser = MagicMock(CustomParser)
+        custom_parser = MagicMock(CustomTreeBuilder)
         key = MagicMock()
 
-        self.element = WalkKeyEditor(
+        self.element = WalkEditor(
             config=config,
             x_axis=x_axis,
             y_axis=y_axis,
