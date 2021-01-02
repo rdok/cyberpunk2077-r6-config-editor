@@ -3,9 +3,9 @@ from tkinter import Tk
 from unittest.mock import MagicMock
 
 from src.Config import Config
-from src.frames.hold_actions.CraftingFrame import CraftingFrame
-from src.frames.WalkFrame import WalkFrame
 from src.GUI import GUI
+from src.frames.WalkFrame import WalkFrame
+from src.frames.hold_actions.CraftingFrame import CraftingFrame
 
 master = Tk()
 remap_walk_frame = MagicMock(spec=WalkFrame)

@@ -14,11 +14,13 @@ class HoldActionFrame(ABC):
     hold_action_editor: HoldActionEditor
     scale: Scale
     initial_scale_value = None
+    tk: tk
 
     def __init__(self, editor: HoldActionEditor):
         self.hold_action_editor = editor
 
     def render(self, master: tk):
+        self.tk = tk
         label_frame = Frame(master=master)
         label_frame.grid(row=self.frame_row(), column=0)
         label = Label(master=label_frame, text=self.label_text())
@@ -46,7 +48,7 @@ class HoldActionFrame(ABC):
     def handle_apply_event(self, event):
         scale_value = self.scale.get()
         self.hold_action_editor.set_timeout(scale_value)
-        tkinter.messagebox.showinfo(message="Done")
+        self.tk.messagebox.showinfo(message="Done")
 
     @abstractmethod
     def label_text(self) -> str:

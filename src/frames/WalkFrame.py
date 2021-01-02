@@ -13,13 +13,15 @@ class WalkFrame:
     walk_key: WalkKey
     row = 0
     mapping_entry: Entry
-    walk_key_editor: WalkEditor
+    walk_editor: WalkEditor
+    tk: tk
 
-    def __init__(self, walk_element: WalkEditor, walk_key: WalkKey):
+    def __init__(self, walk_editor: WalkEditor, walk_key: WalkKey):
         self.walk_key = walk_key
-        self.walk_key_editor = walk_element
+        self.walk_editor = walk_editor
 
     def render(self, master: tk):
+        self.tk = tk
         label_frame = Frame(master=master)
         label_frame.grid(row=self.row, column=0)
         label = Label(master=label_frame, text="WALK (HOLD)")
@@ -49,8 +51,8 @@ class WalkFrame:
         apply_button.pack()
 
     def handle_apply_event(self, event):
-        self.walk_key_editor.write(self.mapping_entry.get())
-        tkinter.messagebox.showinfo(message="Done")
+        self.walk_editor.write(self.mapping_entry.get())
+        self.tk.messagebox.showinfo(message="Done")
 
     def handle_entry_clicked(self, event):
         self.mapping_entry.delete(0, tk.END)

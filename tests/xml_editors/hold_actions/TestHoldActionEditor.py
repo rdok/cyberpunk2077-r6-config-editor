@@ -5,8 +5,8 @@ from src.Config import Config
 from src.xml_editors.CustomTreeBuilder import CustomTreeBuilder
 from src.xml_editors.hold_actions.HoldActionEditor import HoldActionEditor
 
+xpath_mock = MagicMock(spec=str)
 
-xpath_mock =MagicMock(spec=str)
 
 class AnonymousEditor(HoldActionEditor):
     def get_xpath(self) -> str:

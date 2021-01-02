@@ -1,10 +1,10 @@
 from tkinter import Tk
 
 from src.Config import Config
-from src.frames.hold_actions.DisassembleFrame import DisassembleFrame
-from src.frames.hold_actions.CraftingFrame import CraftingFrame
-from src.frames.WalkFrame import WalkFrame
 from src.Styles import Styles
+from src.frames.WalkFrame import WalkFrame
+from src.frames.hold_actions.CraftingFrame import CraftingFrame
+from src.frames.hold_actions.DisassembleFrame import DisassembleFrame
 from src.widgets.frame import Frame
 
 

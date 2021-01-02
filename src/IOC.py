@@ -2,10 +2,10 @@ from argparse import ArgumentParser
 from tkinter import Tk
 
 from src.Config import Config
-from src.frames.hold_actions.DisassembleFrame import DisassembleFrame
-from src.frames.hold_actions.CraftingFrame import CraftingFrame
-from src.frames.WalkFrame import WalkFrame
 from src.GUI import GUI
+from src.frames.WalkFrame import WalkFrame
+from src.frames.hold_actions.CraftingFrame import CraftingFrame
+from src.frames.hold_actions.DisassembleFrame import DisassembleFrame
 from src.transformers.KeyTransformer import KeyTransformer
 from src.xml_editors.CustomTreeBuilder import CustomTreeBuilder
 from src.xml_editors.IDLocators import IDLocators
@@ -55,7 +55,7 @@ class IOC:
         ))
 
         self.set(WalkFrame, WalkFrame(
-            walk_element=self.get(WalkEditor),
+            walk_editor=self.get(WalkEditor),
             walk_key=self.get(WalkKey)
         ))
         self.set(CraftingFrame, CraftingFrame(

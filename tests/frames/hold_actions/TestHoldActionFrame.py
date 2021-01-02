@@ -37,11 +37,14 @@ class TestHoldActionFrame(unittest.TestCase):
     frame = AnonymousHoldActionFrame(editor=editor)
     scale = MagicMock(spec=Scale)
     frame.scale = scale
+    frame.tk = MagicMock()
 
     def test_it_handles_apply_event(self):
         self.frame.handle_apply_event(None)
         timeout = self.scale.get.return_value
         self.editor.set_timeout.assert_called_once_with(timeout)
+        self.frame.tk.messagebox.showinfo \
+            .assert_called_once_with(message="Done")
 
     @patch('src.frames.hold_actions.HoldActionFrame.ButtonFrame')
     @patch('src.frames.hold_actions.HoldActionFrame.Scale')
