@@ -3,6 +3,7 @@ from tkinter import Tk
 
 from src.Config import Config
 from src.GUI import GUI
+from src.frames.DoubleTapDodgeFrame import DoubleTapDodgeFrame
 from src.frames.WalkFrame import WalkFrame
 from src.frames.hold_actions.CraftingFrame import CraftingFrame
 from src.frames.hold_actions.DisassembleFrame import DisassembleFrame
@@ -66,10 +67,13 @@ class IOC:
             editor=self.get(DisassembleEditor),
         ))
 
+        self.set(DoubleTapDodgeFrame, DoubleTapDodgeFrame())
+
         frames = {
             WalkFrame: self.get(WalkFrame),
             CraftingFrame: self.get(CraftingFrame),
-            DisassembleFrame: self.get(DisassembleFrame)
+            DisassembleFrame: self.get(DisassembleFrame),
+            DoubleTapDodgeFrame: self.get(DoubleTapDodgeFrame)
         }
 
         self.set(GUI, GUI(

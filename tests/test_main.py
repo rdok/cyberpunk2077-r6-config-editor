@@ -48,7 +48,7 @@ def test_it_loads_xml_files_path():
 
 
 class TestMain(unittest.TestCase):
-    gui: MagicMock
+    gui: GUI
 
     def setUp(self) -> None:
         self.gui = MagicMock(spec=GUI)
@@ -68,5 +68,5 @@ class TestMain(unittest.TestCase):
     def test_it_renders_disassemble_frame(self):
         self.gui.render_disassemble_frame.assert_called_once()
 
-    def test_it_renders_double_tap_frame(self):
-        self.gui.render_double_tap_frame.assert_called_once()
+    def test_it_renders_double_tap_dodge_frame(self):
+        self.gui.render_double_tap_dodge_frame.assert_called_once()
