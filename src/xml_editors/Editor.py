@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from xml.etree import ElementTree
-from xml.etree.ElementTree import XMLParser
+from xml.etree.ElementTree import XMLParser, Element
 
 from src.Config import Config
 from src.xml_editors.CustomTreeBuilder import CustomTreeBuilder
@@ -11,11 +11,14 @@ class Editor(ABC):
         self.parser = parser
         self.filename = config.get_input_contexts_path()
 
-    def get(self):
+    def find(self, xpath) -> Element:
         parser = XMLParser(target=CustomTreeBuilder())
         self.root = ElementTree.parse(self.filename, parser=parser)
-        return self.root.find(self.get_xpath())
+        return self.root.find(xpath)
+
+    def get(self):
+        return self.find(xpath=self.get_xpath())
 
     @abstractmethod
-    def get_xpath(self) -> str:
+    def get_xpath(self):
         pass

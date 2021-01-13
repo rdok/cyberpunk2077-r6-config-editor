@@ -9,6 +9,7 @@ from src.frames.hold_actions.CraftingFrame import CraftingFrame
 from src.frames.hold_actions.DisassembleFrame import DisassembleFrame
 from src.transformers.KeyTransformer import KeyTransformer
 from src.xml_editors.CustomTreeBuilder import CustomTreeBuilder
+from src.xml_editors.DoubleTapDodgeEditor import DoubleTapDodgeEditor
 from src.xml_editors.IDLocators import IDLocators
 from src.xml_editors.hold_actions.CraftingEditor import CraftingEditor
 from src.xml_editors.hold_actions.DisassembleEditor import DisassembleEditor
@@ -50,6 +51,11 @@ class IOC:
             parser=self.get(CustomTreeBuilder)
         ))
 
+        self.set(DoubleTapDodgeEditor, DoubleTapDodgeEditor(
+            config=self.get(Config),
+            parser=self.get(CustomTreeBuilder)
+        ))
+
         self.set(DisassembleEditor, DisassembleEditor(
             config=self.get(Config),
             parser=self.get(CustomTreeBuilder)
@@ -67,7 +73,9 @@ class IOC:
             editor=self.get(DisassembleEditor),
         ))
 
-        self.set(DoubleTapDodgeFrame, DoubleTapDodgeFrame())
+        self.set(DoubleTapDodgeFrame, DoubleTapDodgeFrame(
+            toggle_editor=self.get(DoubleTapDodgeEditor),
+        ))
 
         frames = {
             WalkFrame: self.get(WalkFrame),

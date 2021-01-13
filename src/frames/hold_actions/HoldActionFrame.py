@@ -2,11 +2,11 @@ import tkinter
 import tkinter as tk
 from abc import ABC, abstractmethod
 
-from src.widgets.button import Button
-from src.widgets.button_frame import ButtonFrame
-from src.widgets.frame import Frame
-from src.widgets.label import Label
-from src.widgets.scale import Scale
+from src.widgets.Button import Button
+from src.widgets.ButtonFrame import ButtonFrame
+from src.widgets.Frame import Frame
+from src.widgets.Label import Label
+from src.widgets.Scale import Scale
 from src.xml_editors.hold_actions.HoldActionEditor import HoldActionEditor
 
 

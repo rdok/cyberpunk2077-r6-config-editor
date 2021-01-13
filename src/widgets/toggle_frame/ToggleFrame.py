@@ -1,14 +1,18 @@
 import tkinter as tk
 from abc import ABC, abstractmethod
 
-from src.widgets.button import Button
-from src.widgets.button_frame import ButtonFrame
-from src.widgets.frame import Frame
-from src.widgets.label import Label
+from src.widgets.Button import Button
+from src.widgets.ButtonFrame import ButtonFrame
+from src.widgets.Frame import Frame
+from src.widgets.Label import Label
+from src.widgets.toggle_frame.ToggleEditor import ToggleEditor
 
 
 class ToggleFrame(ABC):
     tk: tk
+
+    def __init__(self, toggle_editor: ToggleEditor):
+        self.toggle_editor = toggle_editor
 
     def render(self, master: tk):
         self.tk = tk
@@ -22,7 +26,9 @@ class ToggleFrame(ABC):
 
         apply_button_frame = ButtonFrame(master=master)
         apply_button_frame.grid(row=self.frame_row(), column=2)
-        apply_button = Button(master=apply_button_frame, text="APPLY")
+
+        apply_button_text = 'DISABLE' if self.toggle_editor.is_enabled() else 'ENABLE'
+        apply_button = Button(master=apply_button_frame, text=apply_button_text)
         apply_button.bind('<Button-1>', self.handle_apply_event)
         apply_button.pack()
 

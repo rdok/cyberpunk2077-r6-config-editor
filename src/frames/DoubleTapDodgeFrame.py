@@ -1,6 +1,4 @@
-from abc import ABC
-
-from src.frames.ToggleFrame import ToggleFrame
+from src.widgets.toggle_frame.ToggleFrame import ToggleFrame
 
 
 class DoubleTapDodgeFrame(ToggleFrame):

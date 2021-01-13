@@ -6,7 +6,7 @@ from src.frames.DoubleTapDodgeFrame import DoubleTapDodgeFrame
 from src.frames.WalkFrame import WalkFrame
 from src.frames.hold_actions.CraftingFrame import CraftingFrame
 from src.frames.hold_actions.DisassembleFrame import DisassembleFrame
-from src.widgets.frame import Frame
+from src.widgets.Frame import Frame
 
 
 class GUI(Frame):

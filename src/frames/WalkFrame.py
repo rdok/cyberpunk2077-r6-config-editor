@@ -1,11 +1,11 @@
 import tkinter
 import tkinter as tk
 
-from src.widgets.button import Button
-from src.widgets.button_frame import ButtonFrame
-from src.widgets.entry import Entry
-from src.widgets.frame import Frame
-from src.widgets.label import Label
+from src.widgets.Button import Button
+from src.widgets.ButtonFrame import ButtonFrame
+from src.widgets.Entry import Entry
+from src.widgets.Frame import Frame
+from src.widgets.Label import Label
 from src.xml_editors.walk_key_editor import WalkEditor, WalkKey
 
 
