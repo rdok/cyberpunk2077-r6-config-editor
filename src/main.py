@@ -12,7 +12,7 @@ def main(ioc: IOC):
     gui.render_walk_frame()
     gui.render_crafting_frame()
     gui.render_disassemble_frame()
-    gui.render_double_tap_frame()
+    gui.render_double_tap_dodge_frame()
     gui.mainloop()
 
 

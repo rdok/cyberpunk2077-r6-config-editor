@@ -66,12 +66,16 @@ class IOC:
             editor=self.get(DisassembleEditor),
         ))
 
+        frames = {
+            WalkFrame: self.get(WalkFrame),
+            CraftingFrame: self.get(CraftingFrame),
+            DisassembleFrame: self.get(DisassembleFrame)
+        }
+
         self.set(GUI, GUI(
             master=self.get(Tk),
             config=self.get(Config),
-            walk_frame=self.get(WalkFrame),
-            crafting_frame=self.get(CraftingFrame),
-            disassemble_frame=self.get(DisassembleFrame)
+            frames=frames
         ))
 
     def has(self, class_reference):
