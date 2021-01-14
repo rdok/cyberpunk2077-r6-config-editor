@@ -2,7 +2,6 @@ import unittest
 from unittest.mock import MagicMock, patch
 
 from src.Config import Config
-from src.xml_editors.CustomTreeBuilder import CustomTreeBuilder
 from src.xml_editors.hold_actions.DisassembleEditor import DisassembleEditor
 from src.xml_editors.hold_actions.HoldActionEditor import HoldActionEditor
 

@@ -15,7 +15,7 @@ class Editor(ABC):
 
     def parse_xml_file(self):
         parser = XMLParser(target=CustomTreeBuilder())
-        filename =  self.__filename
+        filename = self.__filename
         self.__root = ElementTree.parse(source=filename, parser=parser)
 
     def find(self, xpath) -> Element:
@@ -23,7 +23,7 @@ class Editor(ABC):
         return self.__root.find(xpath)
 
     def write(self):
-        self.__root\
+        self.__root \
             .write(self.__filename, xml_declaration=True, encoding='utf8')
 
     def get(self):
