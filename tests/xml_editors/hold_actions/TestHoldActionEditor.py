@@ -19,7 +19,7 @@ class TestHoldActionEditor(unittest.TestCase):
     def setUp(self, element_tree) -> None:
         self.config = MagicMock(spec=Config)
         self.parser = MagicMock(spec=CustomTreeBuilder)
-        self.editor = AnonymousEditor(config=self.config, parser=self.parser)
+        self.editor = AnonymousEditor(config=self.config)
 
     @patch.object(src.xml_editors.Editor.Editor, 'get')
     def test_it_should_fetch_the_current_timeout_value(self, get):
