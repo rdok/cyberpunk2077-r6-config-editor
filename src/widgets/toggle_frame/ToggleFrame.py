@@ -21,20 +21,48 @@ class ToggleFrame(ABC):
         label = Label(master=label_frame, text=self.label_text())
         label.pack()
 
-        frame = Frame(master=master)
-        frame.grid(row=self.frame_row(), column=1)
+        enabled = self.toggle_editor.is_enabled()
 
-        apply_button_frame = ButtonFrame(master=master)
-        apply_button_frame.grid(row=self.frame_row(), column=2)
+        state_label_frame = Frame(master=master)
+        state_label_frame.grid(row=self.frame_row(), column=1)
+        text = self.get_state_txt(enabled)
+        self.state_label = Label(master=state_label_frame, text=text)
+        self.state_label.pack()
+
+        toggle_button_frame = ButtonFrame(master=master)
+        toggle_button_frame.grid(row=self.frame_row(), column=2)
+
+        text = self.get_btn_txt(enabled)
+        self.button = Button(master=toggle_button_frame, text=text)
+        self.button.bind('<Button-1>', self.handle_button_pressed)
+        self.button.bind('<Enter>', self.reset_button_text)
+        self.button.pack()
+
+    def reset_button_text(self, event):
+        enabled = self.toggle_editor.is_enabled()
+        text = self.get_btn_txt(enabled)
+        self.button.config(text=text)
+        self.button.pack()
+
+    def handle_button_pressed(self, event):
+        enabled = self.toggle_editor.is_enabled()
+
+        if enabled:
+            self.dispatch_disable_event()
+        else:
+            self.dispatch_enable_event()
 
         enabled = self.toggle_editor.is_enabled()
-        apply_button_text = 'DISABLE' if enabled else 'ENABLE'
-        apply_button = Button(master=apply_button_frame, text=apply_button_text)
-        apply_button.bind('<Button-1>', self.handle_apply_event)
-        apply_button.pack()
+        self.state_label.config(text=self.get_state_txt(enabled))
+        self.button.config(text='DONE')
+        self.state_label.pack()
+        self.button.pack()
 
-    def handle_apply_event(self, event):
-        pass
+    def get_state_txt(self, enabled):
+        return 'ENABLED' if enabled is True else 'DISABLED'
+
+    def get_btn_txt(self, enabled):
+        return 'DISABLE' if enabled is True else 'ENABLE'
 
     @abstractmethod
     def label_text(self) -> str:
@@ -42,4 +70,12 @@ class ToggleFrame(ABC):
 
     @abstractmethod
     def frame_row(self) -> int:
+        pass
+
+    @abstractmethod
+    def dispatch_disable_event(self):
+        pass
+
+    @abstractmethod
+    def dispatch_enable_event(self):
         pass

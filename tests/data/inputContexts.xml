@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf8'?>
 <bindings>
-    <hold action="craft_item" timeout="0.14"/>
-    <hold action="lorem_ipsum" timeout="0.5"/>
-    <hold action="disassemble_item" timeout="1.0"/>
-    <multitap action="DodgeForward" count="2" uptime="0.2" downtime="0.2" cancels="Right;Back;Left"/>
-    <multitap action="DodgeRight" count="2" uptime="0.2" downtime="0.2" cancels="Forward;Back;Left"/>
-    <multitap action="DodgeBack" count="2" uptime="0.2" downtime="0.2" cancels="Right;Forward;Left"/>
-    <multitap action="DodgeLeft" count="2" uptime="0.2" downtime="0.2" cancels="Right;Back;Forward"/>
+    <hold action="craft_item" timeout="0.48" />
+    <hold action="lorem_ipsum" timeout="0.5" />
+    <hold action="disassemble_item" timeout="0.23" />
+    <multitap action="DodgeForward" count="99" uptime="0.2" downtime="0.2" cancels="Right;Back;Left" />
+    <multitap action="DodgeRight" count="99" uptime="0.2" downtime="0.2" cancels="Forward;Back;Left" />
+    <multitap action="DodgeBack" count="99" uptime="0.2" downtime="0.2" cancels="Right;Forward;Left" />
+    <multitap action="DodgeLeft" count="99" uptime="0.2" downtime="0.2" cancels="Right;Back;Forward" />
 </bindings>

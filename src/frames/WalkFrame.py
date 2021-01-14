@@ -1,4 +1,3 @@
-import tkinter
 import tkinter as tk
 
 from src.widgets.Button import Button
@@ -15,6 +14,7 @@ class WalkFrame:
     mapping_entry: Entry
     walk_editor: WalkEditor
     tk: tk
+    apply_btn_text = 'APPLY'
 
     def __init__(self, walk_editor: WalkEditor, walk_key: WalkKey):
         self.walk_key = walk_key
@@ -46,13 +46,21 @@ class WalkFrame:
         frame.grid(row=self.row, column=2)
         apply_button_frame = ButtonFrame(master=frame)
         apply_button_frame.grid()
-        apply_button = Button(master=apply_button_frame, text="APPLY")
-        apply_button.bind('<Button-1>', self.handle_apply_event)
-        apply_button.pack()
+        self.apply_button = Button(
+            master=apply_button_frame, text=self.apply_btn_text
+        )
+        self.apply_button.bind('<Button-1>', self.handle_apply_event)
+        self.apply_button.bind('<Enter>', self.reset_button_text)
+        self.apply_button.pack()
+
+    def reset_button_text(self, event):
+        self.apply_button.config(text=self.apply_btn_text)
+        self.apply_button.pack()
 
     def handle_apply_event(self, event):
         self.walk_editor.write(self.mapping_entry.get())
-        self.tk.messagebox.showinfo(message="Done")
+        self.apply_button.config(text='Done')
+        self.apply_button.pack()
 
     def handle_entry_clicked(self, event):
         self.mapping_entry.delete(0, tk.END)

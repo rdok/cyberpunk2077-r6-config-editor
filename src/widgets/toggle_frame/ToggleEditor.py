@@ -1,10 +1,16 @@
 from abc import ABC, abstractmethod
 
-from src.xml_editors.ContextsEditor import ContextsEditor
 
-
-class ToggleEditor(ContextsEditor, ABC):
+class ToggleEditor(ABC):
 
     @abstractmethod
     def is_enabled(self) -> bool:
+        pass
+
+    @abstractmethod
+    def disable(self):
+        pass
+
+    @abstractmethod
+    def enable(self):
         pass

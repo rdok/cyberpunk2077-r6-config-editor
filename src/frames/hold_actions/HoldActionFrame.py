@@ -1,4 +1,3 @@
-import tkinter
 import tkinter as tk
 from abc import ABC, abstractmethod
 
@@ -15,6 +14,7 @@ class HoldActionFrame(ABC):
     scale: Scale
     initial_scale_value = None
     tk: tk
+    apply_btn_text = 'APPLY'
 
     def __init__(self, editor: HoldActionEditor):
         self.hold_action_editor = editor
@@ -41,14 +41,22 @@ class HoldActionFrame(ABC):
 
         apply_button_frame = ButtonFrame(master=master)
         apply_button_frame.grid(row=self.frame_row(), column=2)
-        apply_button = Button(master=apply_button_frame, text="APPLY")
-        apply_button.bind('<Button-1>', self.handle_apply_event)
-        apply_button.pack()
+        self.apply_button = Button(
+            master=apply_button_frame, text=self.apply_btn_text
+        )
+        self.apply_button.bind('<Button-1>', self.handle_apply_event)
+        self.apply_button.bind('<Enter>', self.reset_button_text)
+        self.apply_button.pack()
+
+    def reset_button_text(self, event):
+        self.apply_button.config(text=self.apply_btn_text)
+        self.apply_button.pack()
 
     def handle_apply_event(self, event):
         scale_value = self.scale.get()
         self.hold_action_editor.set_timeout(scale_value)
-        self.tk.messagebox.showinfo(message="Done")
+        self.apply_button.config(text='Done')
+        self.apply_button.pack()
 
     @abstractmethod
     def label_text(self) -> str:
