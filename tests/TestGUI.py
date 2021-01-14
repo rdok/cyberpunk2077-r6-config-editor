@@ -4,32 +4,43 @@ from unittest.mock import MagicMock
 
 from src.Config import Config
 from src.GUI import GUI
+from src.frames.DoubleTapDodgeFrame import DoubleTapDodgeFrame
 from src.frames.WalkFrame import WalkFrame
 from src.frames.hold_actions.CraftingFrame import CraftingFrame
-
-master = Tk()
-remap_walk_frame = MagicMock(spec=WalkFrame)
-crafting_speed_frame = MagicMock(spec=CraftingFrame)
-disassemble_speed_frame = MagicMock(spec=CraftingFrame)
-
-gui = GUI(
-    master=master,
-    config=Config(),
-    walk_frame=remap_walk_frame,
-    crafting_frame=crafting_speed_frame,
-    disassemble_frame=disassemble_speed_frame,
-)
+from src.frames.hold_actions.DisassembleFrame import DisassembleFrame
 
 
 class TestGUI(unittest.TestCase):
-    def test_it_renders_remap_walk_frame(self):
-        gui.render_walk_frame()
-        remap_walk_frame.render.assert_called_once_with(master=master)
+    def setUp(self) -> None:
+        self.disassemble_frame = MagicMock(spec=DisassembleFrame)
+        self.walk_frame = MagicMock(spec=WalkFrame)
+        self.crafting_frame = MagicMock(spec=CraftingFrame)
+        self.double_tap_dodge_frame = MagicMock(spec=DoubleTapDodgeFrame)
 
-    def test_it_renders_crafting_speed_frame(self):
-        gui.render_crafting_frame()
-        crafting_speed_frame.render.assert_called_once_with(master=master)
+        self.master = Tk()
+        frames = {
+            WalkFrame: self.walk_frame,
+            CraftingFrame: self.crafting_frame,
+            DisassembleFrame: self.disassemble_frame,
+            DoubleTapDodgeFrame: self.double_tap_dodge_frame
+        }
 
-    def test_it_renders_disassemble_speed_frame(self):
-        gui.render_disassemble_frame()
-        disassemble_speed_frame.render.assert_called_once_with(master=master)
+        self.gui = GUI(master=self.master, config=Config(), frames=frames)
+
+    def test_it_renders_walk_frame(self):
+        self.gui.render_walk_frame()
+        self.walk_frame.render.assert_called_once_with(master=self.master)
+
+    def test_it_renders_crafting_frame(self):
+        self.gui.render_crafting_frame()
+        self.crafting_frame.render.assert_called_once_with(master=self.master)
+
+    def test_it_renders_disassemble_frame(self):
+        self.gui.render_disassemble_frame()
+        self.disassemble_frame.render \
+            .assert_called_once_with(master=self.master)
+
+    def test_it_renders_double_tap_frame(self):
+        self.gui.render_double_tap_dodge_frame()
+        self.double_tap_dodge_frame.render \
+            .assert_called_once_with(master=self.master)

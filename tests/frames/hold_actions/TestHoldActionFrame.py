@@ -35,6 +35,7 @@ class TestHoldActionFrame(unittest.TestCase):
     master = MagicMock(spec=Tk)
     editor = MagicMock(spec=AnonymousHoldActionEditor)
     frame = AnonymousHoldActionFrame(editor=editor)
+    frame.apply_button = MagicMock()
     scale = MagicMock(spec=Scale)
     frame.scale = scale
     frame.tk = MagicMock()
@@ -43,8 +44,8 @@ class TestHoldActionFrame(unittest.TestCase):
         self.frame.handle_apply_event(None)
         timeout = self.scale.get.return_value
         self.editor.set_timeout.assert_called_once_with(timeout)
-        self.frame.tk.messagebox.showinfo \
-            .assert_called_once_with(message="Done")
+        self.frame.apply_button.config.assert_called_once_with(text='Done')
+        self.frame.apply_button.pack.assert_called_once()
 
     @patch('src.frames.hold_actions.HoldActionFrame.ButtonFrame')
     @patch('src.frames.hold_actions.HoldActionFrame.Scale')

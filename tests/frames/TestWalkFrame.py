@@ -19,14 +19,16 @@ class TestWalkFrame(unittest.TestCase):
         )
         self.walk_frame.mapping_entry = self.mapping_entry
         self.walk_frame.tk = MagicMock()
+        self.walk_frame.apply_button = MagicMock()
 
     def test_it_handles_apply_event(self):
         self.walk_frame.handle_apply_event(None)
 
         self.element.write \
             .assert_called_once_with(self.mapping_entry.get.return_value)
-        self.walk_frame.tk.messagebox.showinfo \
-            .assert_called_once_with(message="Done")
+        self.walk_frame.apply_button.config \
+            .assert_called_once_with(text='Done')
+        self.walk_frame.apply_button.pack.assert_called_once()
 
     def test_it_handles_entry_clicked_event(self):
         self.walk_frame.handle_entry_clicked(None)

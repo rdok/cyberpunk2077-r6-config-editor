@@ -1,3 +1,7 @@
+# v0.9.0
+- Double tap dodge can be toggled.
+- Replace annoying alerts with changeable buttons.
+
 # v0.8.0
 - Disassemble speed is now configurable
 - Show success info on successful XML editing.

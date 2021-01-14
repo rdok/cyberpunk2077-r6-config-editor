@@ -1,31 +1,27 @@
+import unittest
 from argparse import ArgumentParser
-from unittest.mock import MagicMock, call
+from unittest.mock import MagicMock, call, patch
 
 from src import main
 from src.Config import Config
 from src.GUI import GUI
 from src.IOC import IOC
 
-ioc = IOC()
 
-argument_parser = MagicMock(spec=ArgumentParser)
-ioc.set(ArgumentParser, argument_parser)
+@patch('src.xml_editors.Editor.ElementTree')
+def test_it_loads_xml_files_path(element_tree):
+    ioc = IOC()
 
-config = MagicMock(spec=Config)
-ioc.set(Config, config)
+    argument_parser = MagicMock(spec=ArgumentParser)
+    ioc.set(ArgumentParser, argument_parser)
 
-ioc.instantiate_dependencies()
+    config = MagicMock(spec=Config)
+    ioc.set(Config, config)
 
-gui = MagicMock(spec=GUI)
-ioc.set(GUI, gui)
+    ioc.instantiate_dependencies()
 
-
-def test_it_renders_the_gui():
-    main.main(ioc)
-    gui.mainloop.assert_called_once()
-
-
-def test_it_loads_xml_files_path():
+    gui = MagicMock(spec=GUI)
+    ioc.set(GUI, gui)
     main.configure_app(ioc)
     input_user_mappings_args_call = call(
         "-i",
@@ -51,22 +47,26 @@ def test_it_loads_xml_files_path():
         .assert_called_once_with(args.input_contexts_path)
 
 
-def test_it_renders_remap_walk_frame():
-    gui = MagicMock(spec=GUI)
-    ioc.set(GUI, gui)
-    main.main(ioc)
-    gui.render_walk_frame.assert_called_once()
+class TestMain(unittest.TestCase):
+    gui: GUI
 
+    def setUp(self) -> None:
+        self.gui = MagicMock(spec=GUI)
+        ioc = IOC()
+        ioc.set(GUI, self.gui)
+        main.main(ioc)
 
-def test_it_renders_crafting_frame():
-    gui = MagicMock(spec=GUI)
-    ioc.set(GUI, gui)
-    main.main(ioc)
-    gui.render_crafting_frame.assert_called_once()
+    def test_it_renders_the_gui(self):
+        self.gui.mainloop.assert_called_once()
 
+    def test_it_renders_remap_walk_frame(self):
+        self.gui.render_walk_frame.assert_called_once()
 
-def test_it_renders_disassemble_frame():
-    gui = MagicMock(spec=GUI)
-    ioc.set(GUI, gui)
-    main.main(ioc)
-    gui.render_disassemble_frame.assert_called_once()
+    def test_it_renders_crafting_frame(self):
+        self.gui.render_crafting_frame.assert_called_once()
+
+    def test_it_renders_disassemble_frame(self):
+        self.gui.render_disassemble_frame.assert_called_once()
+
+    def test_it_renders_double_tap_dodge_frame(self):
+        self.gui.render_double_tap_dodge_frame.assert_called_once()

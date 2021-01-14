@@ -49,6 +49,3 @@ class WalkKey(Axis):
         else:
             y_axis_walk.set('id', id)
             y_axis_walk.set('val', '0')
-
-    def save(self, key, root):
-        pass
