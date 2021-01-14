@@ -17,7 +17,9 @@ class Editor(ABC):
         return self.__root.find(xpath)
 
     def write(self):
-        self.__root.write(self.__filename, xml_declaration=True, encoding='utf8')
+        self.__root.write(
+            self.__filename, xml_declaration=True, encoding='utf8'
+        )
 
     def get(self):
         return self.find(xpath=self.get_xpath())

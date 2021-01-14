@@ -34,7 +34,9 @@ class TestDoubleTapDodgeEditor(unittest.TestCase):
     @patch.object(src.xml_editors.Editor.Editor, 'find')
     @patch.object(
         src.xml_editors.DoubleTapDodgeEditor.DoubleTapDodgeEditor, 'get_xpath')
-    def test_it_finds_out_if_double_tap_dodge_is_enabled(self, get_xpath, find):
+    def test_it_finds_out_if_double_tap_dodge_is_enabled(
+        self, get_xpath, find
+    ):
         find.return_value.get.return_value = '2'
         self.assertEqual(True, self.editor.is_enabled())
 
@@ -45,17 +47,21 @@ class TestDoubleTapDodgeEditor(unittest.TestCase):
     @patch.object(src.xml_editors.Editor.Editor, 'find')
     @patch.object(
         src.xml_editors.DoubleTapDodgeEditor.DoubleTapDodgeEditor, 'get_xpath')
-    def test_it_finds_out_if_double_tap_dodge_is_disabled(self,
-        get_xpath, find):
+    def test_it_finds_out_if_double_tap_dodge_is_disabled(
+        self, get_xpath, find
+    ):
         find.return_value.get.return_value = '55'
         self.assertEqual(False, self.editor.is_enabled())
 
-    @patch.object(src.xml_editors.DoubleTapDodgeEditor.DoubleTapDodgeEditor,
-        'disable_dodge')
+    @patch.object(
+        src.xml_editors.DoubleTapDodgeEditor.DoubleTapDodgeEditor,
+        'disable_dodge'
+    )
     @patch('src.xml_editors.Editor.ElementTree')
     @patch.object(src.xml_editors.Editor.Editor, 'write')
-    def test_it_may_disable_double_tap_doge(self,
-        write, element_tree, disable_dodge):
+    def test_it_may_disable_double_tap_doge(
+        self, write, element_tree, disable_dodge
+    ):
         editor = DoubleTapDodgeEditor(config=self.config, parser=self.builder)
         editor.xpaths = {'alpha': 'alpha-path', 'beta': 'beta-path'}
 
@@ -65,12 +71,15 @@ class TestDoubleTapDodgeEditor(unittest.TestCase):
         disable_dodge.assert_has_calls(calls)
         write.assert_called_once()
 
-    @patch.object(src.xml_editors.DoubleTapDodgeEditor.DoubleTapDodgeEditor,
-        'enable_dodge')
+    @patch.object(
+        src.xml_editors.DoubleTapDodgeEditor.DoubleTapDodgeEditor,
+        'enable_dodge'
+    )
     @patch('src.xml_editors.Editor.ElementTree')
     @patch.object(src.xml_editors.Editor.Editor, 'write')
-    def test_it_may_enable_double_tap_doge(self,
-        write, element_tree, enable_dodge):
+    def test_it_may_enable_double_tap_doge(
+        self, write, element_tree, enable_dodge
+    ):
         editor = DoubleTapDodgeEditor(config=self.config, parser=self.builder)
         editor.xpaths = {'alpha': 'alpha-path', 'beta': 'beta-path'}
         editor.enable()

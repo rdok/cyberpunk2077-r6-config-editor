@@ -27,7 +27,9 @@ class TestEditor(unittest.TestCase):
         actual_element = editor.find(xpath_mock)
 
         parser = xml_parser.return_value
-        element_tree.parse.assert_called_once_with(filename_mock, parser=parser)
+        element_tree.parse.assert_called_once_with(
+            filename_mock, parser=parser
+        )
         root.find.assert_called_once_with(xpath_mock)
         self.assertEqual(expected_element, actual_element)
 
