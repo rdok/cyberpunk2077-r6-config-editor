@@ -1,27 +1,27 @@
 import unittest
 from argparse import ArgumentParser
-from unittest.mock import MagicMock, call
+from unittest.mock import MagicMock, call, patch
 
 from src import main
 from src.Config import Config
 from src.GUI import GUI
 from src.IOC import IOC
 
-ioc = IOC()
 
-argument_parser = MagicMock(spec=ArgumentParser)
-ioc.set(ArgumentParser, argument_parser)
+@patch('src.xml_editors.Editor.ElementTree')
+def test_it_loads_xml_files_path(element_tree):
+    ioc = IOC()
 
-config = MagicMock(spec=Config)
-ioc.set(Config, config)
+    argument_parser = MagicMock(spec=ArgumentParser)
+    ioc.set(ArgumentParser, argument_parser)
 
-ioc.instantiate_dependencies()
+    config = MagicMock(spec=Config)
+    ioc.set(Config, config)
 
-gui = MagicMock(spec=GUI)
-ioc.set(GUI, gui)
+    ioc.instantiate_dependencies()
 
-
-def test_it_loads_xml_files_path():
+    gui = MagicMock(spec=GUI)
+    ioc.set(GUI, gui)
     main.configure_app(ioc)
     input_user_mappings_args_call = call(
         "-i",

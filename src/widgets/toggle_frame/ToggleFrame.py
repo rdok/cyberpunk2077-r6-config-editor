@@ -27,7 +27,8 @@ class ToggleFrame(ABC):
         apply_button_frame = ButtonFrame(master=master)
         apply_button_frame.grid(row=self.frame_row(), column=2)
 
-        apply_button_text = 'DISABLE' if self.toggle_editor.is_enabled() else 'ENABLE'
+        enabled = self.toggle_editor.is_enabled()
+        apply_button_text = 'DISABLE' if enabled else 'ENABLE'
         apply_button = Button(master=apply_button_frame, text=apply_button_text)
         apply_button.bind('<Button-1>', self.handle_apply_event)
         apply_button.pack()

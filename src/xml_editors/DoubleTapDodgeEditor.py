@@ -1,7 +1,7 @@
-from src.xml_editors.Editor import Editor
+from src.xml_editors.ContextsEditor import ContextsEditor
 
 
-class DoubleTapDodgeEditor(Editor):
+class DoubleTapDodgeEditor(ContextsEditor):
     def get_xpath(self):
         return {
             'forward': './/multitap[@action="DodgeForward"]',
@@ -13,4 +13,9 @@ class DoubleTapDodgeEditor(Editor):
     def is_enabled(self) -> bool:
         xpath = self.get_xpath().get('forward')
         element = self.find(xpath)
-        return element.get('count') == 2
+        return element.get('count') == '2'
+
+    def disable(self):
+        xpath = self.get_xpath().get('forward')
+        element = self.find(xpath)
+        element.set('count', 99)

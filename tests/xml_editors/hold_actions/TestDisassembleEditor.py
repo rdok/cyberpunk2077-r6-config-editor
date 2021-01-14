@@ -1,5 +1,5 @@
 import unittest
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, patch
 
 from src.Config import Config
 from src.xml_editors.CustomTreeBuilder import CustomTreeBuilder
@@ -8,7 +8,8 @@ from src.xml_editors.hold_actions.HoldActionEditor import HoldActionEditor
 
 
 class TestDisassembleEditor(unittest.TestCase):
-    def setUp(self) -> None:
+    @patch('src.xml_editors.Editor.ElementTree')
+    def setUp(self, element_tree) -> None:
         config = MagicMock(spec=Config)
         builder = MagicMock(spec=CustomTreeBuilder)
         self.editor = DisassembleEditor(config=config, parser=builder)

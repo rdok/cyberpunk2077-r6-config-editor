@@ -5,17 +5,20 @@ import src
 from src.Config import Config
 from src.xml_editors.CustomTreeBuilder import CustomTreeBuilder
 from src.xml_editors.DoubleTapDodgeEditor import DoubleTapDodgeEditor
-from src.xml_editors.Editor import Editor
+from src.xml_editors.ContextsEditor import ContextsEditor
 
 
-class TestCraftingEditor(unittest.TestCase):
-    def setUp(self) -> None:
+class TestDoubleTapDodgeEditor(unittest.TestCase):
+    editor: DoubleTapDodgeEditor
+
+    @patch('src.xml_editors.Editor.ElementTree')
+    def setUp(self, element_tree) -> None:
         config = MagicMock(spec=Config)
         builder = MagicMock(spec=CustomTreeBuilder)
         self.editor = DoubleTapDodgeEditor(config=config, parser=builder)
 
     def test_it_is_instantiated_as_an_editor(self):
-        self.assertIsInstance(self.editor, Editor)
+        self.assertIsInstance(self.editor, ContextsEditor)
 
     def test_it_maintains_xpath_to_elements(self):
         xpaths = {
@@ -31,7 +34,7 @@ class TestCraftingEditor(unittest.TestCase):
     @patch.object(
         src.xml_editors.DoubleTapDodgeEditor.DoubleTapDodgeEditor, 'get_xpath')
     def test_it_finds_out_if_double_tap_dodge_is_enabled(self, get_xpath, find):
-        find.return_value.get.return_value = 2
+        find.return_value.get.return_value = '2'
         self.assertEqual(True, self.editor.is_enabled())
 
         get_xpath.return_value.get.assert_called_once_with('forward')
@@ -42,5 +45,11 @@ class TestCraftingEditor(unittest.TestCase):
     @patch.object(
         src.xml_editors.DoubleTapDodgeEditor.DoubleTapDodgeEditor, 'get_xpath')
     def test_it_finds_out_if_double_tap_dodge_is_disabled(self, get_xpath, find):
-        find.return_value.get.return_value = 55
+        find.return_value.get.return_value = '55'
         self.assertEqual(False, self.editor.is_enabled())
+
+    # def test_it_may_disable_double_tap_doge(self):
+    #     self.editor.disable()
+
+    # def test_it_may_enable_double_tap_doge(self):
+    #     raise Exception('not implemented')

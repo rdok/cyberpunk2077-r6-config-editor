@@ -1,9 +1,9 @@
 from abc import ABC
 
-from src.xml_editors.Editor import Editor
+from src.xml_editors.ContextsEditor import ContextsEditor
 
 
-class HoldActionEditor(Editor, ABC):
+class HoldActionEditor(ContextsEditor, ABC):
 
     def get_timeout(self):
         element = self.get()
@@ -12,4 +12,4 @@ class HoldActionEditor(Editor, ABC):
     def set_timeout(self, new_timeout):
         element = self.get()
         element.set('timeout', str(new_timeout))
-        self.root.write(self.filename, xml_declaration=True, encoding='utf8')
+        self.write()
