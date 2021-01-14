@@ -46,20 +46,13 @@ class IOC:
             parser=self.get(CustomTreeBuilder),
         ))
 
-        self.set(CraftingEditor, CraftingEditor(
-            config=self.get(Config),
-            parser=self.get(CustomTreeBuilder)
-        ))
+        self.set(CraftingEditor, CraftingEditor(config=self.get(Config)))
 
         self.set(DoubleTapDodgeEditor, DoubleTapDodgeEditor(
-            config=self.get(Config),
-            parser=self.get(CustomTreeBuilder)
+            config=self.get(Config)
         ))
 
-        self.set(DisassembleEditor, DisassembleEditor(
-            config=self.get(Config),
-            parser=self.get(CustomTreeBuilder)
-        ))
+        self.set(DisassembleEditor, DisassembleEditor(config=self.get(Config)))
 
         self.set(WalkFrame, WalkFrame(
             walk_editor=self.get(WalkEditor),

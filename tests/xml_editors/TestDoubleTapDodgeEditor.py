@@ -21,9 +21,7 @@ class TestDoubleTapDodgeEditor(unittest.TestCase):
     def setUp(self, element_tree) -> None:
         self.config = MagicMock(spec=Config)
         self.builder = MagicMock(spec=CustomTreeBuilder)
-        self.editor = DoubleTapDodgeEditor(
-            config=self.config, parser=self.builder
-        )
+        self.editor = DoubleTapDodgeEditor(config=self.config)
 
     def test_it_is_instantiated_as_an_editor(self):
         self.assertIsInstance(self.editor, ContextsEditor)
@@ -62,14 +60,13 @@ class TestDoubleTapDodgeEditor(unittest.TestCase):
     def test_it_may_disable_double_tap_doge(
         self, write, element_tree, disable_dodge
     ):
-        editor = DoubleTapDodgeEditor(config=self.config, parser=self.builder)
+        editor = DoubleTapDodgeEditor(config=self.config)
         editor.xpaths = {'alpha': 'alpha-path', 'beta': 'beta-path'}
 
         editor.disable()
 
         calls = [call('alpha-path'), call('beta-path')]
         disable_dodge.assert_has_calls(calls)
-        write.assert_called_once()
 
     @patch.object(
         src.xml_editors.DoubleTapDodgeEditor.DoubleTapDodgeEditor,
@@ -80,9 +77,8 @@ class TestDoubleTapDodgeEditor(unittest.TestCase):
     def test_it_may_enable_double_tap_doge(
         self, write, element_tree, enable_dodge
     ):
-        editor = DoubleTapDodgeEditor(config=self.config, parser=self.builder)
+        editor = DoubleTapDodgeEditor(config=self.config)
         editor.xpaths = {'alpha': 'alpha-path', 'beta': 'beta-path'}
         editor.enable()
         calls = [call('alpha-path'), call('beta-path')]
         enable_dodge.assert_has_calls(calls)
-        write.assert_called_once()

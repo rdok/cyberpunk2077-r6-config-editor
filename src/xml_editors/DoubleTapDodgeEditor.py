@@ -21,7 +21,6 @@ class DoubleTapDodgeEditor(ContextsEditor, ToggleEditor):
     def disable(self):
         for xpath in self.get_xpath().values():
             self.disable_dodge(xpath)
-        self.write()
 
     def disable_dodge(self, xpath):
         self.set_count('99', xpath)
@@ -32,8 +31,8 @@ class DoubleTapDodgeEditor(ContextsEditor, ToggleEditor):
     def set_count(self, count, xpath):
         element = self.find(xpath)
         element.set('count', count)
+        self.write()
 
     def enable(self):
         for xpath in self.get_xpath().values():
             self.enable_dodge(xpath)
-        self.write()
