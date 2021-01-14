@@ -9,6 +9,7 @@ from src.xml_editors.walk_key_editor import WalkEditor, WalkKey
 
 
 class WalkFrame:
+    apply_button: Button
     walk_key: WalkKey
     row = 0
     mapping_entry: Entry
