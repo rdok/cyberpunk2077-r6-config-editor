@@ -1,3 +1,6 @@
+# v0.9.1
+- Patch edits overlapping edits.
+
 # v0.9.0
 - Double tap dodge can be toggled.
 - Replace annoying alerts with changeable buttons.
