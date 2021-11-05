@@ -48,7 +48,7 @@ jobs:
         run: |
           pyinstaller --onefile src\main.py --name ${env:NAME} --windowed --icon=logo.ico
           md -Force dist; mv changelog.md dist; mv installation.md dist
-          Compress-Archive -Force -LiteralPath .\dist\ -DestinationPath ${env:NAME_ZIPPED}
+          Compress-Archive -Force -Path .\dist\* -DestinationPath ${env:NAME_ZIPPED}
       - name: Upload build artifact
         uses: actions/upload-artifact@v2
         with:
