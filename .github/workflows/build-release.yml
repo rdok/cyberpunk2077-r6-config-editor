@@ -43,14 +43,14 @@ jobs:
           python setup.py install
       - name: Build app
         run: |
-          pyinstaller --onefile src\main.py --name ${NAME} --windowed --icon=logo.ico
+          pyinstaller --onefile src\main.py --name ${env:NAME} --windowed --icon=logo.ico
           mkdir dist; mv changelog.md dist; mv installation.md dist
-          Compress-Archive -Force -LiteralPath .\dist\ -DestinationPath ${NAME_ZIPPED}
+          Compress-Archive -Force -LiteralPath .\dist\ -DestinationPath ${env:NAME_ZIPPED}
       - name: Upload build artifact
         uses: actions/upload-artifact@v2
         with:
-          name: ${NAME}-${{ github.sha }}
-          path: ${NAME_ZIPPED}
+          name: ${env:NAME}-${{ github.sha }}
+          path: ${env:NAME_ZIPPED}
   release:
     timeout-minutes: 30
     needs: [ build ]
