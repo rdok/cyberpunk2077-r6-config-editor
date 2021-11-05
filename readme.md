@@ -20,13 +20,8 @@ make test-watch
 ```
 
 ### Release
-> Each PR creates an executable artifact. Use this artifact to test your release.
-
-Once merged to main branch:
-
-```
-git tag -a v1.0.0 # Add headline & content on prompt
-git push origin v1.0.0
-```
-
-The CI/CD pipeline will pick up the tag change and create a new release.
+> Each PR creates an executable artifact. Use this artifact to pre-test your release.  
+ 
+- Create a [new release](https://github.com/rdok/cyberpunk2077-r6-config-editor/releases/new).
+- Create a new tag
+- Upon release publish & tag creation, the CI/CD GitHub action builds the executable and uploads it to the release.
