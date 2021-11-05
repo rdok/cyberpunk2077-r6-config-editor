@@ -13,5 +13,10 @@ make shell
 make test-watch
 ```
 
+###### Windows Local Build
+```
+.\scripts\build.ps1
+```
+
 #### Windows Build
 See `scripts` for commands to build an executable. Note you'll need to have installed the correct Python version.
