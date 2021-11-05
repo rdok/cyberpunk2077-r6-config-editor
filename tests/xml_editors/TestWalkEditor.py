@@ -8,9 +8,8 @@ from src.xml_editors.walk_key_editor.walk_key import WalkKey
 
 
 class TestWalkEditor(unittest.TestCase):
-
-    @patch('src.xml_editors.walk_key_editor.ElementTree')
-    @patch('src.xml_editors.walk_key_editor.XMLParser')
+    @patch("src.xml_editors.walk_key_editor.ElementTree")
+    @patch("src.xml_editors.walk_key_editor.XMLParser")
     def test_delegates_editing_to_its_services(self, xml_parser, element_tree):
         parser = xml_parser.return_value
         config = MagicMock(spec=Config)
@@ -28,7 +27,7 @@ class TestWalkEditor(unittest.TestCase):
             x_axis=x_axis,
             y_axis=y_axis,
             walk_key=walk_key,
-            parser=custom_parser
+            parser=custom_parser,
         )
 
         self.element.write(key)

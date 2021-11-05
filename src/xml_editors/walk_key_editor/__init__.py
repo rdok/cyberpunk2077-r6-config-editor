@@ -15,7 +15,7 @@ class WalkEditor:
         x_axis: XAxis,
         y_axis: YAxis,
         walk_key: WalkKey,
-        parser: CustomTreeBuilder
+        parser: CustomTreeBuilder,
     ):
         self.parser = parser
         self.y_axis = y_axis

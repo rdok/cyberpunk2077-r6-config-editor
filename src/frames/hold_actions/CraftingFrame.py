@@ -7,7 +7,7 @@ class CraftingFrame(HoldActionFrame):
         super().__init__(editor)
 
     def label_text(self) -> str:
-        return 'CRAFTING SPEED'
+        return "CRAFTING SPEED"
 
     def from_(self) -> float:
         return 0.01

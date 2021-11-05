@@ -7,7 +7,7 @@ from src.xml_editors.hold_actions.HoldActionEditor import HoldActionEditor
 
 
 class TestCraftingEditor(unittest.TestCase):
-    @patch('src.xml_editors.Editor.ElementTree')
+    @patch("src.xml_editors.Editor.ElementTree")
     def setUp(self, element_tree) -> None:
         config = MagicMock(spec=Config)
         self.editor = CraftingEditor(config=config)

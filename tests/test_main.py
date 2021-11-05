@@ -8,7 +8,7 @@ from src.GUI import GUI
 from src.IOC import IOC
 
 
-@patch('src.xml_editors.Editor.ElementTree')
+@patch("src.xml_editors.Editor.ElementTree")
 def test_it_loads_xml_files_path(element_tree):
     ioc = IOC()
 
@@ -27,24 +27,24 @@ def test_it_loads_xml_files_path(element_tree):
         "-i",
         "--input_user_mappings_path",
         dest="input_user_mappings_path",
-        default='r6/config/inputUserMappings.xml'
+        default="r6/config/inputUserMappings.xml",
     )
     input_contexts_args_call = call(
         "-ic",
         "--input_contexts_path",
         dest="input_contexts_path",
-        default='r6/config/inputContexts.xml'
+        default="r6/config/inputContexts.xml",
     )
-    argument_parser.add_argument.assert_has_calls([
-        input_user_mappings_args_call, input_contexts_args_call
-    ])
+    argument_parser.add_argument.assert_has_calls(
+        [input_user_mappings_args_call, input_contexts_args_call]
+    )
 
     args = argument_parser.parse_args.return_value
-    config.set_input_user_mappings_path \
-        .assert_called_once_with(args.input_user_mappings_path)
+    config.set_input_user_mappings_path.assert_called_once_with(
+        args.input_user_mappings_path
+    )
 
-    config.set_input_contexts_path \
-        .assert_called_once_with(args.input_contexts_path)
+    config.set_input_contexts_path.assert_called_once_with(args.input_contexts_path)
 
 
 class TestMain(unittest.TestCase):

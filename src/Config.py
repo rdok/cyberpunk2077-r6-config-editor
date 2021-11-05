@@ -18,10 +18,10 @@ class Config:
         self.input_user_mappings_path = path
 
     def walk_id(self):
-        return 'ad3a8b38-08ce-41bc-bca6-27b4456acb95'
+        return "ad3a8b38-08ce-41bc-bca6-27b4456acb95"
 
     def app_name(self):
-        return 'Cyberpunk2077 r6-config-editor'
+        return "Cyberpunk2077 r6-config-editor"
 
     def set_input_contexts_path(self, value):
         path = os.path.abspath(value)

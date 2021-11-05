@@ -1,27 +1,27 @@
 class Styles:
     @staticmethod
     def secondary_color():
-        return '#332a57'
+        return "#332a57"
 
     @staticmethod
     def primary_color():
-        return '#47ffff'
+        return "#47ffff"
 
     @staticmethod
     def btn_bg_color():
-        return '#001d26'
+        return "#001d26"
 
     @staticmethod
     def foreground_color():
-        return '#42a5f5'
+        return "#42a5f5"
 
     @staticmethod
     def font_color():
-        return '#ea614a'
+        return "#ea614a"
 
     @staticmethod
     def trough_color():
-        return '#c0278a'
+        return "#c0278a"
 
     @staticmethod
     def border_width():

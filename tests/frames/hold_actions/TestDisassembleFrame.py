@@ -16,7 +16,7 @@ class TestDisassembleFrame(unittest.TestCase):
         self.assertIsInstance(self.frame, HoldActionFrame)
 
     def test_it_maintains_the_label_text(self):
-        self.assertEqual('DISASSEMBLE SPEED', self.frame.label_text())
+        self.assertEqual("DISASSEMBLE SPEED", self.frame.label_text())
 
     def test_it_maintains_the_minimum_timeout_value(self):
         self.assertEqual(0.01, self.frame.from_())

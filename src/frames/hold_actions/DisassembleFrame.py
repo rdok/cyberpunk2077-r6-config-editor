@@ -7,7 +7,7 @@ class DisassembleFrame(HoldActionFrame):
         super().__init__(editor)
 
     def label_text(self) -> str:
-        return 'DISASSEMBLE SPEED'
+        return "DISASSEMBLE SPEED"
 
     def from_(self) -> float:
         return 0.01

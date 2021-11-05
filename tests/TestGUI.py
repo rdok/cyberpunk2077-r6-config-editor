@@ -21,7 +21,7 @@ class TestGUI(unittest.TestCase):
             WalkFrame: self.walk_frame,
             CraftingFrame: self.crafting_frame,
             DisassembleFrame: self.disassemble_frame,
-            DoubleTapDodgeFrame: self.double_tap_dodge_frame
+            DoubleTapDodgeFrame: self.double_tap_dodge_frame,
         }
 
         self.master = MagicMock()
@@ -32,14 +32,14 @@ class TestGUI(unittest.TestCase):
 
     def test_it_configures_styles(self):
         self.gui.setup(MagicMock(spec=Config))
-        self.gui.winfo_toplevel().configure \
-            .assert_called_once_with(background=Styles.secondary_color())
+        self.gui.winfo_toplevel().configure.assert_called_once_with(
+            background=Styles.secondary_color()
+        )
 
     def test_it_configures_title(self):
         config = MagicMock(spec=Config)
         self.gui.setup(config)
-        self.gui.winfo_toplevel().title \
-            .assert_called_once_with(config.app_name())
+        self.gui.winfo_toplevel().title.assert_called_once_with(config.app_name())
 
     def test_it_configures_grid(self):
         self.gui.setup(MagicMock(spec=Config))
@@ -59,10 +59,8 @@ class TestGUI(unittest.TestCase):
 
     def test_it_renders_disassemble_frame(self):
         self.gui.render_disassemble_frame()
-        self.disassemble_frame.render \
-            .assert_called_once_with(master=self.master)
+        self.disassemble_frame.render.assert_called_once_with(master=self.master)
 
     def test_it_renders_double_tap_frame(self):
         self.gui.render_double_tap_dodge_frame()
-        self.double_tap_dodge_frame.render \
-            .assert_called_once_with(master=self.master)
+        self.double_tap_dodge_frame.render.assert_called_once_with(master=self.master)
