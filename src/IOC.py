@@ -13,8 +13,7 @@ from src.xml_editors.DoubleTapDodgeEditor import DoubleTapDodgeEditor
 from src.xml_editors.IDLocators import IDLocators
 from src.xml_editors.hold_actions.CraftingEditor import CraftingEditor
 from src.xml_editors.hold_actions.DisassembleEditor import DisassembleEditor
-from src.xml_editors.walk_key_editor import WalkEditor, XAxis, WalkKey, \
-    YAxis
+from src.xml_editors.walk_key_editor import WalkEditor, XAxis, WalkKey, YAxis
 
 
 class IOC:
@@ -32,49 +31,62 @@ class IOC:
         self.set(XAxis, XAxis(id_locators=self.get(IDLocators)))
         self.set(YAxis, YAxis(id_locators=self.get(IDLocators)))
 
-        self.set(WalkKey, WalkKey(
-            config=self.get(Config),
-            transformer=self.get(KeyTransformer),
-            parser=self.get(CustomTreeBuilder),
-        ))
+        self.set(
+            WalkKey,
+            WalkKey(
+                config=self.get(Config),
+                transformer=self.get(KeyTransformer),
+                parser=self.get(CustomTreeBuilder),
+            ),
+        )
 
-        self.set(WalkEditor, WalkEditor(
-            config=self.get(Config),
-            x_axis=self.get(XAxis),
-            y_axis=self.get(YAxis),
-            walk_key=self.get(WalkKey),
-            parser=self.get(CustomTreeBuilder),
-        ))
+        self.set(
+            WalkEditor,
+            WalkEditor(
+                config=self.get(Config),
+                x_axis=self.get(XAxis),
+                y_axis=self.get(YAxis),
+                walk_key=self.get(WalkKey),
+                parser=self.get(CustomTreeBuilder),
+            ),
+        )
 
         self.set(CraftingEditor, CraftingEditor(config=self.get(Config)))
 
-        self.set(DoubleTapDodgeEditor, DoubleTapDodgeEditor(
-            config=self.get(Config)
-        ))
+        self.set(DoubleTapDodgeEditor, DoubleTapDodgeEditor(config=self.get(Config)))
 
         self.set(DisassembleEditor, DisassembleEditor(config=self.get(Config)))
 
-        self.set(WalkFrame, WalkFrame(
-            walk_editor=self.get(WalkEditor),
-            walk_key=self.get(WalkKey)
-        ))
-        self.set(CraftingFrame, CraftingFrame(
-            editor=self.get(CraftingEditor),
-        ))
+        self.set(
+            WalkFrame,
+            WalkFrame(walk_editor=self.get(WalkEditor), walk_key=self.get(WalkKey)),
+        )
+        self.set(
+            CraftingFrame,
+            CraftingFrame(
+                editor=self.get(CraftingEditor),
+            ),
+        )
 
-        self.set(DisassembleFrame, DisassembleFrame(
-            editor=self.get(DisassembleEditor),
-        ))
+        self.set(
+            DisassembleFrame,
+            DisassembleFrame(
+                editor=self.get(DisassembleEditor),
+            ),
+        )
 
-        self.set(DoubleTapDodgeFrame, DoubleTapDodgeFrame(
-            toggle_editor=self.get(DoubleTapDodgeEditor),
-        ))
+        self.set(
+            DoubleTapDodgeFrame,
+            DoubleTapDodgeFrame(
+                toggle_editor=self.get(DoubleTapDodgeEditor),
+            ),
+        )
 
         frames = {
             WalkFrame: self.get(WalkFrame),
             CraftingFrame: self.get(CraftingFrame),
             DisassembleFrame: self.get(DisassembleFrame),
-            DoubleTapDodgeFrame: self.get(DoubleTapDodgeFrame)
+            DoubleTapDodgeFrame: self.get(DoubleTapDodgeFrame),
         }
 
         gui = GUI(master=self.get(Tk), frames=frames)
@@ -92,7 +104,7 @@ class IOC:
         dependency = self.dependencies.get(class_reference)
 
         if dependency is None:
-            raise Exception(f'Dependency {class_reference} not found')
+            raise Exception(f"Dependency {class_reference} not found")
 
         return dependency
 

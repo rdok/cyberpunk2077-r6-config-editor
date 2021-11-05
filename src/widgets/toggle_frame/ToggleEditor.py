@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 
 
 class ToggleEditor(ABC):
-
     @abstractmethod
     def is_enabled(self) -> bool:
         pass

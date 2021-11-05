@@ -22,13 +22,13 @@ def configure_app(ioc: IOC):
         "-i",
         "--input_user_mappings_path",
         dest="input_user_mappings_path",
-        default='r6/config/inputUserMappings.xml'
+        default="r6/config/inputUserMappings.xml",
     )
     argument_parser.add_argument(
         "-ic",
         "--input_contexts_path",
         dest="input_contexts_path",
-        default='r6/config/inputContexts.xml'
+        default="r6/config/inputContexts.xml",
     )
     args = argument_parser.parse_args()
     config = ioc.get(Config)
@@ -49,8 +49,8 @@ if __name__ == "__main__":
         root = tkinter.Tk()
         root.withdraw()
         config: Config = ioc.get(Config)
-        message = '\n\nApp should be run from the installation directory.'
-        error = '{0} {1}'.format(err, message)
+        message = "\n\nApp should be run from the installation directory."
+        error = "{0} {1}".format(err, message)
         messagebox.showerror(config.app_name(), error)
     except Exception as err:
         root = tkinter.Tk()

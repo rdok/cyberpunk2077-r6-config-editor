@@ -34,8 +34,8 @@ class ToggleFrame(ABC):
 
         text = self.get_btn_txt(enabled)
         self.button = Button(master=toggle_button_frame, text=text)
-        self.button.bind('<Button-1>', self.handle_button_pressed)
-        self.button.bind('<Enter>', self.reset_button_text)
+        self.button.bind("<Button-1>", self.handle_button_pressed)
+        self.button.bind("<Enter>", self.reset_button_text)
         self.button.pack()
 
     def reset_button_text(self, event):
@@ -54,15 +54,15 @@ class ToggleFrame(ABC):
 
         enabled = self.toggle_editor.is_enabled()
         self.state_label.config(text=self.get_state_txt(enabled))
-        self.button.config(text='DONE')
+        self.button.config(text="DONE")
         self.state_label.pack()
         self.button.pack()
 
     def get_state_txt(self, enabled):
-        return 'ENABLED' if enabled is True else 'DISABLED'
+        return "ENABLED" if enabled is True else "DISABLED"
 
     def get_btn_txt(self, enabled):
-        return 'DISABLE' if enabled is True else 'ENABLE'
+        return "DISABLE" if enabled is True else "ENABLE"
 
     @abstractmethod
     def label_text(self) -> str:

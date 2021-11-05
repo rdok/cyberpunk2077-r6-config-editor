@@ -15,7 +15,7 @@ class WalkFrame:
     mapping_entry: Entry
     walk_editor: WalkEditor
     tk: tk
-    apply_btn_text = 'APPLY'
+    apply_btn_text = "APPLY"
 
     def __init__(self, walk_editor: WalkEditor, walk_key: WalkKey):
         self.walk_key = walk_key
@@ -33,13 +33,13 @@ class WalkFrame:
         mapping_entry = Entry(master=entry_frame)
         current_key = self.walk_key.find()
         if current_key is None:
-            mapping_entry.insert(0, 'CLICK TO SET KEY')
+            mapping_entry.insert(0, "CLICK TO SET KEY")
         else:
-            key = current_key.get('id').replace('IK_', '')
+            key = current_key.get("id").replace("IK_", "")
             mapping_entry.insert(0, key)
 
-        mapping_entry.bind('<KeyRelease>', self.handle_entry_changed)
-        mapping_entry.bind('<Button-1>', self.handle_entry_clicked)
+        mapping_entry.bind("<KeyRelease>", self.handle_entry_changed)
+        mapping_entry.bind("<Button-1>", self.handle_entry_clicked)
         mapping_entry.pack()
         self.mapping_entry = mapping_entry
 
@@ -47,11 +47,9 @@ class WalkFrame:
         frame.grid(row=self.row, column=2)
         apply_button_frame = ButtonFrame(master=frame)
         apply_button_frame.grid()
-        self.apply_button = Button(
-            master=apply_button_frame, text=self.apply_btn_text
-        )
-        self.apply_button.bind('<Button-1>', self.handle_apply_event)
-        self.apply_button.bind('<Enter>', self.reset_button_text)
+        self.apply_button = Button(master=apply_button_frame, text=self.apply_btn_text)
+        self.apply_button.bind("<Button-1>", self.handle_apply_event)
+        self.apply_button.bind("<Enter>", self.reset_button_text)
         self.apply_button.pack()
 
     def reset_button_text(self, event):
@@ -60,7 +58,7 @@ class WalkFrame:
 
     def handle_apply_event(self, event):
         self.walk_editor.write(self.mapping_entry.get())
-        self.apply_button.config(text='Done')
+        self.apply_button.config(text="Done")
         self.apply_button.pack()
 
     def handle_entry_clicked(self, event):

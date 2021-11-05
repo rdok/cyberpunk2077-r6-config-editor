@@ -15,8 +15,8 @@ class AnonymousEditor(Editor):
 
 
 class TestEditor(unittest.TestCase):
-    @patch('src.xml_editors.Editor.ElementTree')
-    @patch('src.xml_editors.Editor.XMLParser')
+    @patch("src.xml_editors.Editor.ElementTree")
+    @patch("src.xml_editors.Editor.XMLParser")
     def test_it_should_find_itself(self, xml_parser, element_tree):
         editor = AnonymousEditor(filename_mock)
 
@@ -30,11 +30,12 @@ class TestEditor(unittest.TestCase):
         root.find.assert_called_once_with(xpath_mock)
         self.assertEqual(expected_element, actual_element)
 
-    @patch('src.xml_editors.Editor.ElementTree')
-    @patch('src.xml_editors.Editor.XMLParser')
+    @patch("src.xml_editors.Editor.ElementTree")
+    @patch("src.xml_editors.Editor.XMLParser")
     def test_it_should_write_to_file(self, xml_parser, element_tree):
         editor = AnonymousEditor(filename_mock)
         editor.write()
         root = element_tree.parse.return_value
         root.write.assert_called_once_with(
-            filename_mock, xml_declaration=True, encoding='utf8')
+            filename_mock, xml_declaration=True, encoding="utf8"
+        )

@@ -14,7 +14,7 @@ class TestDoubleTapDodgeFrame(unittest.TestCase):
         self.frame = DoubleTapDodgeFrame(toggle_editor=self.editor)
 
     def test_it_maintains_the_label_text(self):
-        self.assertEqual('DOUBLE TAP DODGE', self.frame.label_text())
+        self.assertEqual("DOUBLE TAP DODGE", self.frame.label_text())
 
     def test_it_maintains_the_frame_position(self):
         self.assertEqual(4, self.frame.frame_row())

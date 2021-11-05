@@ -16,7 +16,7 @@ class TestCraftingFrame(unittest.TestCase):
         self.assertIsInstance(self.crafting_frame, HoldActionFrame)
 
     def test_it_maintains_the_label_text(self):
-        self.assertEqual('CRAFTING SPEED', self.crafting_frame.label_text())
+        self.assertEqual("CRAFTING SPEED", self.crafting_frame.label_text())
 
     def test_it_maintains_the_minimum_timeout_value(self):
         self.assertEqual(0.01, self.crafting_frame.from_())

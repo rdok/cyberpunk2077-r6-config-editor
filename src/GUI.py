@@ -29,8 +29,9 @@ class GUI(Frame):
         disassemble_frame.render(master=self.master)
 
     def render_double_tap_dodge_frame(self):
-        double_tap_dodge_frame: DoubleTapDodgeFrame = self.frames \
-            .get(DoubleTapDodgeFrame)
+        double_tap_dodge_frame: DoubleTapDodgeFrame = self.frames.get(
+            DoubleTapDodgeFrame
+        )
         double_tap_dodge_frame.render(master=self.master)
 
     def setup(self, config: Config):

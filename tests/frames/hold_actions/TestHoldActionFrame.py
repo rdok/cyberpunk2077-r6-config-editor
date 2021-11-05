@@ -44,12 +44,12 @@ class TestHoldActionFrame(unittest.TestCase):
         self.frame.handle_apply_event(None)
         timeout = self.scale.get.return_value
         self.editor.set_timeout.assert_called_once_with(timeout)
-        self.frame.apply_button.config.assert_called_once_with(text='Done')
+        self.frame.apply_button.config.assert_called_once_with(text="Done")
         self.frame.apply_button.pack.assert_called_once()
 
-    @patch('src.frames.hold_actions.HoldActionFrame.ButtonFrame')
-    @patch('src.frames.hold_actions.HoldActionFrame.Scale')
-    @patch('src.frames.hold_actions.HoldActionFrame.Frame')
+    @patch("src.frames.hold_actions.HoldActionFrame.ButtonFrame")
+    @patch("src.frames.hold_actions.HoldActionFrame.Scale")
+    @patch("src.frames.hold_actions.HoldActionFrame.Frame")
     def test_it_sets_initial_timeout(self, frame, scale, btn):
         master = MagicMock(spec=Tk)
         initial_scale_value = self.editor.get_timeout.return_value
