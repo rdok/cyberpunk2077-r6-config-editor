@@ -44,8 +44,7 @@ jobs:
       - name: Build app
         run: |
           pyinstaller --onefile src\main.py --name ${NAME} --windowed --icon=logo.ico
-          mv changelog.md dist
-          mv installation.md dist
+          mkdir dist; mv changelog.md dist; mv installation.md dist
           Compress-Archive -Force -LiteralPath .\dist\ -DestinationPath ${NAME_ZIPPED}
       - name: Upload build artifact
         uses: actions/upload-artifact@v2
