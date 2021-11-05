@@ -1,6 +1,7 @@
 name: Build Release
 env:
   NAME: cyberpunk2077-r6-config-editor
+  NAME_ZIPPED: cyberpunk2077-r6-config-editor.zip
 on:
   pull_request:
     branches: [ main ]
