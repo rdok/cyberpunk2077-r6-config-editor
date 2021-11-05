@@ -1,8 +1,12 @@
-name: CD
+name: Build Release
+env:
+  NAME: cyberpunk2077-r6-config-editor
+  NAME_ZIPPED: cyberpunk2077-r6-config-editor.zip
 on:
+  pull_request:
+    branches: [ main ]
   push:
-    branches: [main]
-    tags: ['v[0-9]+.[0-9]+.[0-9]+']
+    tags: [ 'v[0-9]+.[0-9]+.[0-9]+' ]
 jobs:
   test:
     timeout-minutes: 30
@@ -10,8 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-        with:
-          python-version: 3.10
+        with: { python-version: '3.10' }
       - run: .\scripts\test.ps1
   lint:
     timeout-minutes: 30
@@ -19,55 +22,52 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-        with:
-          python-version: 3.10
+        with: { python-version: '3.10' }
       - run: .\scripts\lint.ps1
   build:
     timeout-minutes: 30
-    needs: [test, lint]
+    needs: [ test, lint ]
     runs-on: windows-2019
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
-        with:
-          python-version: 3.10
+        with: { python-version: '3.10' }
       - name: Build pyinstaller
         run: |
-         python -m pip install --upgrade pip
-         git clone --depth 1 --branch v4.6 https://github.com/pyinstaller/pyinstaller
-         cd .\pyinstaller\bootloader\
-         python ./waf all
-         cd ..
-         python setup.py install
+          python -m pip install --upgrade pip
+          git clone --depth 1 --branch v4.6 https://github.com/pyinstaller/pyinstaller
+          cd .\pyinstaller\bootloader\
+          python ./waf all
+          cd ..
+          python setup.py install
       - name: Build app
         run: |
-          pyinstaller --onefile src\main.py --name ${{ github.event.repository.name }} --windowed --icon=logo.ico
+          pyinstaller --onefile src\main.py --name ${NAME} --windowed --icon=logo.ico
           mv changelog.md dist
           mv installation.md dist
-          tar -c -f ${{ github.event.repository.name }} -C dist *
-      - name: Upload  build artifact
+          Compress-Archive -Force -LiteralPath .\dist\ -DestinationPath ${NAME_ZIPPED}
+      - name: Upload build artifact
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ github.event.repository.name }}-${{ github.sha }}
-          path: ${{ github.event.repository.name }}
+          name: ${NAME}-${{ github.sha }}
+          path: ${NAME_ZIPPED}
   release:
     timeout-minutes: 30
-    needs: [build]
+    needs: [ build ]
     runs-on: ubuntu-20.04
+    if: startsWith(github.ref, 'refs/tags/')
     steps:
       - uses: actions/download-artifact@v2
         with:
-          name: ${{ github.event.repository.name }}-${{ github.sha }}
-      - name: Prepare outputs
+          name: ${{ steps.env.outputs.name }}-${{ github.sha }}
+      - name: Prepare environment variables
         id: env
         run: |
-          name=${{ github.event.repository.name }}
-          version=$(echo $GITHUB_REF | awk -F / '{print $3}')
-          versioned_name="${name}.${version}.zip"
-          mv ${{ github.event.repository.name }} $versioned_name
-          echo ::set-output name=ASSET::$versioned_name
+          VERSION=$(echo $GITHUB_REF | awk -F / '{print $3}')
+          NAME_ZIPPED_VERSIONED="${NAME}_${VERSION}.zip"
+          mv ${NAME_ZIPPED} ${NAME_ZIPPED_VERSIONED}
+          echo ::set-output name=name-zipped-versioned::"${NAME_ZIPPED_VERSIONED}"
       - name: Create release for stable versions
-        if: ${{ ! contains(github.ref, 'main') }}
         id: create_release
         uses: actions/create-release@v1
         env:
@@ -77,12 +77,11 @@ jobs:
           release_name: Release ${{ github.ref }}
       - name: Upload assets for stable release
         id: upload-release-asset
-        if: ${{ ! contains(github.ref, 'main') }}
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ steps.env.outputs.ASSET }}
-          asset_name: ${{ steps.env.outputs.ASSET }}
+          asset_path: ${{ steps.env.outputs.name-zipped-versioned }}
+          asset_name: ${{ steps.env.outputs.name-zipped-versioned }}
           asset_content_type: application/zip
