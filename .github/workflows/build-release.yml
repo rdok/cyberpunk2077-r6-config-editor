@@ -49,8 +49,8 @@ jobs:
       - name: Upload build artifact
         uses: actions/upload-artifact@v2
         with:
-          name: ${NAME}-${{ github.sha }}
-          path: ${NAME_ZIPPED}
+          name: ${{ env.NAME }}-${{ github.sha }}
+          path: ${{ env.NAME_ZIPPED }}
   release:
     timeout-minutes: 30
     needs: [ build ]
