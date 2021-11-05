@@ -1,0 +1,85 @@
+name: Build Release
+env:
+  NAME: cyberpunk2077-r6-config-editor
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    tags: [ 'v[0-9]+.[0-9]+.[0-9]+' ]
+jobs:
+  test:
+    timeout-minutes: 30
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with: { python-version: '3.10' }
+      - run: .\scripts\test.ps1
+  lint:
+    timeout-minutes: 30
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with: { python-version: '3.10' }
+      - run: .\scripts\lint.ps1
+  build:
+    timeout-minutes: 30
+    needs: [ test, lint ]
+    runs-on: windows-2019
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with: { python-version: '3.10' }
+      - name: Build pyinstaller
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.prod.lock
+          git clone --depth 1 --branch v4.6 https://github.com/pyinstaller/pyinstaller
+          cd .\pyinstaller\bootloader\
+          python ./waf all
+          cd ..
+          python setup.py install
+      - name: Build app
+        run: |
+          pyinstaller --onefile src\main.py --name ${env:NAME} --windowed --icon=logo.ico
+          md -Force dist; mv changelog.md dist; mv installation.md dist
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ env.NAME }}-${{ github.sha }}
+          path: dist
+  release:
+    timeout-minutes: 30
+    needs: [ build ]
+    runs-on: ubuntu-20.04
+    if: startsWith(github.ref, 'refs/tags/')
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: ${{ env.NAME }}-${{ github.sha }}
+      - name: Prepare zipped version filename
+        id: env
+        run: |
+          VERSION=$(echo $GITHUB_REF | awk -F / '{print $3}')
+          NAME_ZIPPED_VERSIONED="${NAME}_${VERSION}.zip"
+          mv dist ${NAME_ZIPPED_VERSIONED}
+          echo ::set-output name=name-zipped-versioned::"${NAME_ZIPPED_VERSIONED}"
+      - name: Create release for stable version
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+      - name: Upload assets for stable release
+        id: upload-release-asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ steps.env.outputs.name-zipped-versioned }}
+          asset_name: ${{ steps.env.outputs.name-zipped-versioned }}
+          asset_content_type: application/zip

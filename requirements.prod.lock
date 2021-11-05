@@ -1,1 +1,1 @@
-pyinstaller==4.1
+wheel==0.37.0

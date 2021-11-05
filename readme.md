@@ -13,5 +13,20 @@ make shell
 make test-watch
 ```
 
-#### Windows Build
-See `scripts` for commands to build an executable. Note you'll need to have installed the correct Python version.
+##### Windows OS
+###### Local Build
+```
+.\scripts\build.ps1
+```
+
+### Release
+> Each PR creates an executable artifact. Use this artifact to test your release.
+
+Once merged to main branch:
+
+```
+git tag -a v1.0.0 # Add headline & content on prompt
+git push origin v1.0.0
+```
+
+The CI/CD pipeline will pick up the tag change and create a new release.
