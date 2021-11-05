@@ -1,4 +1,12 @@
-check: test lint
+check: test lint format
+
+format: pip
+	black --check src
+	black --check tests
+
+format-fix: pip
+	black src
+	black tests
 
 test: pip
 	pytest
