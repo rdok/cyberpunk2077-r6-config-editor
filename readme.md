@@ -6,7 +6,12 @@
 Modifies Cyberpunk 2077 to map buttons to increase usability.
 
 ### Development
+> Dependency: [Docker](https://www.docker.com/)
 
-**Windows** See `scripts` for developer commands. E.g. `.\scripts\test-watch.
-ps1`  
-**Unix** See `Makefile` for developer commands. E.g. `make test-watch`
+```
+make shell
+make test-watch
+```
+
+#### Windows Build
+See `scripts` for commands to build an executable. Note you'll need to have installed the correct Python version.

@@ -77,11 +77,9 @@ class IOC:
             DoubleTapDodgeFrame: self.get(DoubleTapDodgeFrame)
         }
 
-        self.set(GUI, GUI(
-            master=self.get(Tk),
-            config=self.get(Config),
-            frames=frames
-        ))
+        gui = GUI(master=self.get(Tk), frames=frames)
+        gui.setup(config=self.get(Config))
+        self.set(GUI, gui)
 
     def has(self, class_reference):
         return class_reference in self.dependencies
